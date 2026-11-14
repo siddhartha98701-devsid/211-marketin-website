@@ -29,6 +29,6 @@
   },
   "devDependencies": {
     "@types/node": "20.17.19",
-    "puppeteer-core": "^23.11.1"
+    "puppeteer-core": "^25.17.0"
   }
 }
