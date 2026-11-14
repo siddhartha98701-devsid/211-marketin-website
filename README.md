@@ -40,6 +40,7 @@
 │   ├── test-security.mjs          # Security & API abuse test suite
 │   ├── verify-browser.mjs         # Puppeteer-based browser & screenshot verification
 │   ├── verify-headers.mjs         # HTTP security headers verification
+│   ├── verify-motion.mjs          # Automated motion, header elevation & reduced-motion verification
 │   └── verify-schemas.mjs         # Schema.org JSON-LD validator & FAQ drift detector
 ├── src/
 │   ├── components/                # Accessible Astro components (Header, Footer, FAQ, Map, etc.)
@@ -62,7 +63,9 @@
 │   │   └── api/
 │   │       └── free-nmc-check.ts  # Serverless form endpoint (Zod, rate limiter, Resend)
 │   ├── schemas/                   # Zod form validation & JSON-LD schema generators
-│   └── styles/global.css          # Design tokens & WCAG accessibility styles
+│   ├── scripts/
+│   │   └── motion.ts              # Lightweight (<1.2 KB) progressive enhancement & observer engine
+│   └── styles/global.css          # Design tokens, motion variables & WCAG accessibility styles
 ├── astro.config.mjs               # Cloudflare Pages static/SSR adapter configuration
 ├── package.json                   # Pinned dependency versions
 ├── tailwind.config.mjs            # Warm Ivory, Ink Navy, Soft Stone, Quiet Taupe tokens
@@ -121,7 +124,23 @@ The build pipeline automatically:
 
 ---
 
-## 5. Security & Verification Test Suite
+# 5. Subtle Motion & Interaction Architecture
+
+The site incorporates calm, minimalistic, and clinical-grade motion designed for a medical communication firm:
+- **Motion Tokens** (`src/styles/global.css`): Centralized CSS variables:
+  - `--ease-calm`: `cubic-bezier(0.22, 0.61, 0.36, 1)`
+  - `--dur-fast`: `200ms`, `--dur-base`: `400ms`, `--dur-slow`: `700ms`
+  - `--reveal-distance`: `12px`
+- **Progressive Enhancement**: Content is fully visible if JavaScript is disabled. Hidden initial states are scoped exclusively under `html.js`.
+- **Zero Layout Shifts**: Animate strictly `opacity` and `transform` (`CLS: 0.000`).
+- **Scroll Reveal**: Sections rise 12px over 700ms using a lightweight (<1.2 KB) native `IntersectionObserver` in `src/scripts/motion.ts`. Sibling cards stagger by 80ms (capped at 5). Hero LCP elements remain unblocked.
+- **Header Elevation**: Adds Soft Stone hairline border and soft ambient shadow past 24px scroll without height mutation.
+- **Reading Progress Bar**: 2px Quiet Taupe bar at the top of `/nmc-guidelines-2026/` driven by passive `requestAnimationFrame` scale transforms.
+- **Accessibility**: Instant nullification of all transitions and transforms under `@media (prefers-reduced-motion: reduce)`. Preserves WCAG 2.2 AA focus indicators.
+
+---
+
+## 6. Security & Verification Test Suite
 
 Run the full automated test suite locally:
 
@@ -138,13 +157,16 @@ node scripts/verify-headers.mjs
 # 4. API Security & Abuse Tests (Rate limit, honeypot, XSS, payload limits)
 node scripts/test-security.mjs
 
-# 5. Full Browser Verification (Desktop 1440px & Mobile 390px, form submit)
+# 5. Automated Motion & Reduced-Motion Verification
+node scripts/verify-motion.mjs
+
+# 6. Full Browser Verification (Desktop 1440px & Mobile 390px, form submit)
 node scripts/verify-browser.mjs
 ```
 
 ---
 
-## 6. Deployment Guides
+## 7. Deployment Guides
 
 ### Option A: Cloudflare Pages (Recommended)
 1. Push repository to GitHub or GitLab.
@@ -171,7 +193,7 @@ node scripts/verify-browser.mjs
 
 ---
 
-## 7. How to Update Copy & Configuration
+## 8. How to Update Copy & Configuration
 
 All business information is maintained in a single file: `src/config/site.ts`.
 
