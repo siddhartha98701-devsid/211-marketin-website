@@ -18,7 +18,7 @@ const faqs = getActiveFaqs(SITE_CONFIG.flags.showPricingFaq);
 <section class="py-16 sm:py-24 border-t border-stone-soft" aria-labelledby="faq-section-heading">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
     
-    <div class="text-center mb-12">
+    <div class="text-center mb-12" data-reveal>
       <h2 id="faq-section-heading" class="text-3xl sm:text-4xl font-serif font-semibold text-navy">
         {heading}
       </h2>
@@ -29,12 +29,12 @@ const faqs = getActiveFaqs(SITE_CONFIG.flags.showPricingFaq);
       )}
     </div>
 
-    <div class="divide-y divide-stone-soft border-y border-stone-soft">
+    <div class="divide-y divide-stone-soft border-y border-stone-soft" data-reveal-stagger>
       {faqs.map((faq, index) => (
         <details class="group py-6 transition-colors" id={`faq-${index + 1}`}>
-          <summary class="flex justify-between items-center cursor-pointer list-none text-left font-serif text-xl sm:text-2xl font-medium text-navy group-hover:text-navy-light focus:outline-none focus-visible:ring-2 focus-visible:ring-navy rounded">
+          <summary class="flex justify-between items-center cursor-pointer list-none text-left font-serif text-xl sm:text-2xl font-medium text-navy group-hover:text-navy-light focus:outline-none focus-visible:ring-2 focus-visible:ring-navy rounded transition-colors duration-200">
             <span class="pr-6">{faq.question}</span>
-            <span class="ml-4 flex-shrink-0 text-taupe-quiet group-open:rotate-180 transition-transform duration-200">
+            <span class="ml-4 flex-shrink-0 text-taupe-quiet group-open:rotate-90 transition-transform duration-200">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/>
               </svg>

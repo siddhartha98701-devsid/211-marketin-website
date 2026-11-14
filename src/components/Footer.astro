@@ -7,7 +7,7 @@ import { SITE_CONFIG } from "../config/site";
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- Top Row: Brand Statement & Closing Line -->
-    <div class="pb-12 border-b border-navy-light flex flex-col md:flex-row md:items-end justify-between gap-6">
+    <div class="pb-12 border-b border-navy-light flex flex-col md:flex-row md:items-end justify-between gap-6" data-reveal>
       <div class="space-y-3 max-w-xl">
         <div class="flex items-center space-x-2">
           <span class="font-serif text-3xl font-semibold tracking-tight text-canvas-warm">2</span>
@@ -33,7 +33,7 @@ import { SITE_CONFIG } from "../config/site";
     </div>
 
     <!-- Middle Row: 3 Columns (Address/Contact, Navigation, Legal/Regulatory) -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 py-12 border-b border-navy-light text-sm">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 py-12 border-b border-navy-light text-sm" data-reveal-stagger>
       
       <!-- Col 1: Identity & Exact Verified Contact -->
       <div class="space-y-4">
@@ -48,19 +48,19 @@ import { SITE_CONFIG } from "../config/site";
         <div class="space-y-1.5 pt-1 text-canvas-warm/85">
           <p>
             <span class="text-taupe-light">Phone:</span>{" "}
-            <a href={SITE_CONFIG.contact.phoneHref} class="hover:text-canvas-warm underline-offset-4 hover:underline">
+            <a href={SITE_CONFIG.contact.phoneHref} class="hover:text-canvas-warm hover-draw-underline">
               {SITE_CONFIG.contact.telephone}
             </a>
           </p>
           <p>
             <span class="text-taupe-light">WhatsApp:</span>{" "}
-            <a href={SITE_CONFIG.contact.whatsappHref} target="_blank" rel="noopener noreferrer" class="hover:text-canvas-warm underline-offset-4 hover:underline">
+            <a href={SITE_CONFIG.contact.whatsappHref} target="_blank" rel="noopener noreferrer" class="hover:text-canvas-warm hover-draw-underline">
               {SITE_CONFIG.contact.whatsapp}
             </a>
           </p>
           <p>
             <span class="text-taupe-light">Instagram:</span>{" "}
-            <a href={SITE_CONFIG.contact.instagramHref} target="_blank" rel="noopener noreferrer" class="hover:text-canvas-warm underline-offset-4 hover:underline">
+            <a href={SITE_CONFIG.contact.instagramHref} target="_blank" rel="noopener noreferrer" class="hover:text-canvas-warm hover-draw-underline">
               {SITE_CONFIG.contact.instagram}
             </a>
           </p>
@@ -77,25 +77,25 @@ import { SITE_CONFIG } from "../config/site";
         </h3>
         <ul class="space-y-2.5 text-canvas-warm/85">
           <li>
-            <a href="/" class="hover:text-canvas-warm hover:underline underline-offset-4">Home</a>
+            <a href="/" class="hover:text-canvas-warm hover-draw-underline">Home</a>
           </li>
           <li>
-            <a href="/healthcare-marketing/" class="hover:text-canvas-warm hover:underline underline-offset-4">Healthcare Marketing</a>
+            <a href="/healthcare-marketing/" class="hover:text-canvas-warm hover-draw-underline">Healthcare Marketing</a>
           </li>
           <li>
-            <a href="/services/" class="hover:text-canvas-warm hover:underline underline-offset-4">Marketing Services</a>
+            <a href="/services/" class="hover:text-canvas-warm hover-draw-underline">Marketing Services</a>
           </li>
           <li>
-            <a href="/nmc-guidelines-2026/" class="hover:text-canvas-warm hover:underline underline-offset-4">NMC Guidelines 2026 Explained</a>
+            <a href="/nmc-guidelines-2026/" class="hover:text-canvas-warm hover-draw-underline">NMC Guidelines 2026 Explained</a>
           </li>
           <li>
-            <a href="/free-nmc-check/" class="hover:text-canvas-warm hover:underline underline-offset-4">Free NMC-Aware Check</a>
+            <a href="/free-nmc-check/" class="hover:text-canvas-warm hover-draw-underline">Free NMC-Aware Check</a>
           </li>
           <li>
-            <a href="/about/" class="hover:text-canvas-warm hover:underline underline-offset-4">About Dr Mrugesh &amp; 211</a>
+            <a href="/about/" class="hover:text-canvas-warm hover-draw-underline">About Dr Mrugesh &amp; 211</a>
           </li>
           <li>
-            <a href="/contact/" class="hover:text-canvas-warm hover:underline underline-offset-4">Contact Science City Office</a>
+            <a href="/contact/" class="hover:text-canvas-warm hover-draw-underline">Contact Science City Office</a>
           </li>
         </ul>
       </div>
@@ -114,7 +114,7 @@ import { SITE_CONFIG } from "../config/site";
         <div class="pt-2">
           <a
             href="/privacy/"
-            class="text-xs text-taupe-light hover:text-canvas-warm underline underline-offset-4"
+            class="text-xs text-taupe-light hover:text-canvas-warm hover-draw-underline"
           >
             Privacy Policy &amp; Data Notice (DPDP Act 2023)
           </a>
@@ -124,16 +124,16 @@ import { SITE_CONFIG } from "../config/site";
     </div>
 
     <!-- Bottom Row: Attribution -->
-    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-taupe-light gap-4">
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-taupe-light gap-4" data-reveal>
       <p>
         &copy; {new Date().getFullYear()} {SITE_CONFIG.legalName}. All rights reserved. Registered in Ahmedabad, Gujarat.
       </p>
       <div class="flex items-center space-x-4">
-        <a href="/privacy/" class="hover:text-canvas-warm">Privacy Policy</a>
+        <a href="/privacy/" class="hover:text-canvas-warm hover-draw-underline">Privacy Policy</a>
         <span>·</span>
-        <a href="/.well-known/security.txt" class="hover:text-canvas-warm">Security</a>
+        <a href="/.well-known/security.txt" class="hover:text-canvas-warm hover-draw-underline">Security</a>
         <span>·</span>
-        <a href="/sitemap-index.xml" class="hover:text-canvas-warm">Sitemap</a>
+        <a href="/sitemap-index.xml" class="hover:text-canvas-warm hover-draw-underline">Sitemap</a>
       </div>
     </div>
 

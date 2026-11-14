@@ -12,7 +12,7 @@ const navLinks = [
 ];
 ---
 
-<header class="bg-navy text-canvas-warm sticky top-0 z-40 border-b border-navy-light shadow-sm">
+<header class="site-header bg-navy text-canvas-warm sticky top-0 z-40 border-b border-navy-light shadow-sm">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-20">
       
@@ -42,7 +42,7 @@ const navLinks = [
               class={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                 isActive
                   ? "text-canvas-warm bg-navy-light font-semibold border-b-2 border-taupe-quiet"
-                  : "text-canvas-warm/85 hover:text-canvas-warm hover:bg-navy-light/60"
+                  : "text-canvas-warm/85 hover:text-canvas-warm hover:bg-navy-light/60 hover-draw-underline"
               }`}
               aria-current={isActive ? "page" : undefined}
             >
@@ -56,7 +56,7 @@ const navLinks = [
       <div class="hidden lg:flex items-center space-x-4">
         <a
           href={SITE_CONFIG.contact.phoneHref}
-          class="text-xs text-canvas-warm/80 hover:text-canvas-warm flex items-center space-x-1 py-1 px-2"
+          class="text-xs text-canvas-warm/80 hover:text-canvas-warm flex items-center space-x-1 py-1 px-2 hover-draw-underline"
           aria-label="Call 211 Marketing"
         >
           <svg class="w-3.5 h-3.5 text-taupe-light" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -66,7 +66,7 @@ const navLinks = [
         </a>
         <a
           href="/free-nmc-check/"
-          class="bg-canvas-warm text-navy font-semibold px-4 py-2 text-sm rounded transition-all hover:bg-white hover:shadow-md focus:ring-2 focus:ring-offset-2 focus:ring-canvas-warm"
+          class="btn-hover-primary bg-canvas-warm text-navy font-semibold px-4 py-2 text-sm rounded focus:ring-2 focus:ring-offset-2 focus:ring-canvas-warm"
         >
           Free NMC Check
         </a>

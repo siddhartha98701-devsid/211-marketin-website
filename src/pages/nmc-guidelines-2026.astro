@@ -20,6 +20,9 @@ const breadcrumbSchema = getBreadcrumbSchema(SITE_CONFIG.placeholders.siteUrl, [
   canonicalPath="/nmc-guidelines-2026/"
   schemas={[articleSchema, breadcrumbSchema]}
 >
+  <!-- Reading Progress Bar (Driven passively by scroll) -->
+  <div id="reading-progress" class="reading-progress-bar" aria-hidden="true"></div>
+
   <!-- Hero / Header Section -->
   <article class="bg-canvas" aria-labelledby="nmc-h1">
     
@@ -42,20 +45,20 @@ const breadcrumbSchema = getBreadcrumbSchema(SITE_CONFIG.placeholders.siteUrl, [
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
       
       <!-- Answer Box (First Paragraph) -->
-      <div class="bg-white border-l-4 border-navy p-8 sm:p-10 rounded-r-lg shadow-sm border border-stone-soft/70 mb-16">
+      <div class="bg-white border-l-4 border-navy p-8 sm:p-10 rounded-r-lg shadow-sm border border-stone-soft/70 mb-16" data-reveal>
         <p class="text-xl sm:text-2xl font-serif text-navy leading-relaxed font-normal">
           {NMC_GUIDE_DATA.answerBox}
         </p>
       </div>
 
       <!-- Question & Answer-First Sections -->
-      <div class="divide-y divide-stone-soft">
+      <div class="divide-y divide-stone-soft" data-reveal-stagger>
         {NMC_GUIDE_DATA.questions.map((item, idx) => (
           <section class="py-10 sm:py-12 first:pt-0 space-y-3" aria-labelledby={`q-${idx + 1}`}>
             <h2 id={`q-${idx + 1}`} class="text-2xl sm:text-3xl font-serif font-semibold text-navy">
               {item.question}
             </h2>
-            <div class="mt-2 text-lg sm:text-xl font-sans text-navy/90 leading-relaxed bg-canvas-muted/60 p-5 rounded-md border border-stone-soft/50">
+            <div class="mt-2 text-lg sm:text-xl font-sans text-navy/90 leading-relaxed bg-canvas-muted/60 p-5 rounded-md border border-stone-soft/50 transition-colors">
               <p>{item.answer}</p>
             </div>
           </section>
@@ -63,12 +66,12 @@ const breadcrumbSchema = getBreadcrumbSchema(SITE_CONFIG.placeholders.siteUrl, [
       </div>
 
       <!-- Official Notice Link -->
-      <div class="mt-16 pt-12 border-t-2 border-stone-soft text-center sm:text-left">
+      <div class="mt-16 pt-12 border-t-2 border-stone-soft text-center sm:text-left" data-reveal>
         <a
           href={NMC_GUIDE_DATA.officialNoticeUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center space-x-2 text-navy font-semibold text-lg hover:text-navy-light underline underline-offset-4"
+          class="link-hover-calm inline-flex items-center space-x-2 text-navy font-semibold text-lg hover:text-navy-light underline underline-offset-4"
         >
           <span>{NMC_GUIDE_DATA.officialNoticeLabel} &rarr;</span>
         </a>

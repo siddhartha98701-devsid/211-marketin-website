@@ -35,9 +35,9 @@ const breadcrumbSchema = getBreadcrumbSchema(SITE_CONFIG.placeholders.siteUrl, [
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 id="services-list-heading" class="sr-only">List of Services</h2>
       
-      <div class="divide-y divide-stone-soft">
+      <div class="divide-y divide-stone-soft" data-reveal-stagger>
         {SERVICES_DATA.map((service) => (
-          <article id={service.id} class="py-12 sm:py-16 first:pt-0 last:pb-8 space-y-4">
+          <article id={service.id} class="py-12 sm:py-16 first:pt-0 last:pb-8 space-y-4 transition-colors">
             <h2 class="text-3xl sm:text-4xl font-serif font-semibold text-navy">
               {service.title}
             </h2>
@@ -49,7 +49,7 @@ const breadcrumbSchema = getBreadcrumbSchema(SITE_CONFIG.placeholders.siteUrl, [
       </div>
 
       <!-- Closing line -->
-      <div class="mt-16 pt-10 border-t-2 border-stone-soft text-center sm:text-left">
+      <div class="mt-16 pt-10 border-t-2 border-stone-soft text-center sm:text-left" data-reveal>
         <p class="text-2xl sm:text-3xl font-serif italic text-navy">
           {SERVICES_CLOSING_LINE}
         </p>
