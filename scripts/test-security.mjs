@@ -208,6 +208,49 @@ async function runTests() {
     failed++;
   }
 
+  // 9. Insecure Origin / Lookalike Substring bypass rejection
+  await testCase(
+    "9. Lookalike Origin (localhost.attacker.com) rejected with HTTP 403",
+    {
+      headers: {
+        "Origin": "http://localhost.attacker.com",
+        "x-forwarded-for": "192.168.1.108"
+      },
+      body: {
+        name: "Dr Attacker",
+        organisation: "Evil Clinic",
+        entityType: "Clinic",
+        city: "Ahmedabad",
+        instagram: "@evil",
+        whatsapp: "9876543210",
+        consent: true,
+        website_url_hp: "",
+        form_rendered_at: (Date.now() - 5000).toString()
+      }
+    },
+    (status) => status === 403
+  );
+
+  // 10. Missing form_rendered_at timestamp in interactive JSON request
+  await testCase(
+    "10. Omitted form_rendered_at on JSON request rejected with HTTP 400",
+    {
+      headers: { "x-forwarded-for": "192.168.1.109" },
+      body: {
+        name: "Dr Fast Bot",
+        organisation: "Bot Clinic",
+        entityType: "Clinic",
+        city: "Ahmedabad",
+        instagram: "@botclinic",
+        whatsapp: "9876543210",
+        consent: true,
+        website_url_hp: ""
+        // form_rendered_at omitted
+      }
+    },
+    (status) => status === 400
+  );
+
   console.log("\n=================================================");
   console.log(`Security Test Summary: ${passed} Passed, ${failed} Failed`);
   console.log("=================================================\n");

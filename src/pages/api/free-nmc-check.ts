@@ -9,10 +9,66 @@ export const prerender = false;
 const MAX_BODY_SIZE_BYTES = 10 * 1024; // 10 KB limit
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
-  const forwarded = request.headers.get("cf-connecting-ip") || request.headers.get("x-forwarded-for");
-  const ip = (forwarded ? forwarded.split(",")[0].trim() : null) || clientAddress || "127.0.0.1";
+  // 1. CSRF & Origin Verification (Exact Host Matching — reject before consuming quota)
+  const origin = request.headers.get("origin");
+  const referer = request.headers.get("referer");
+  const siteUrl = SITE_CONFIG.placeholders.siteUrl;
+  const requestHost = request.headers.get("x-forwarded-host") || request.headers.get("host");
 
-  // 1. Rate Limiting (5 requests per hour per IP)
+  function isHostPermitted(targetUrlStr: string): boolean {
+    try {
+      const targetHost = new URL(targetUrlStr).host;
+      const configuredHost = new URL(siteUrl).host;
+      if (targetHost === configuredHost) return true;
+      if (requestHost && targetHost === requestHost) return true;
+      // Exact local development hostnames only (no substring matching)
+      if (
+        targetHost === "localhost" ||
+        targetHost.startsWith("localhost:") ||
+        targetHost === "127.0.0.1" ||
+        targetHost.startsWith("127.0.0.1:")
+      ) {
+        return true;
+      }
+      return false;
+    } catch {
+      return false;
+    }
+  }
+
+  if (origin && !isHostPermitted(origin)) {
+    return new Response(
+      JSON.stringify({ success: false, error: "Invalid submission origin." }),
+      { status: 403, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
+  if (!origin && referer && !isHostPermitted(referer)) {
+    return new Response(
+      JSON.stringify({ success: false, error: "Invalid submission referer." }),
+      { status: 403, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
+  // 2. Content-Type and Payload Size Validation (Reject oversized payloads before rate limit)
+  const contentType = request.headers.get("content-type") || "";
+  const contentLength = parseInt(request.headers.get("content-length") || "0", 10);
+
+  if (contentLength > MAX_BODY_SIZE_BYTES) {
+    return new Response(
+      JSON.stringify({ success: false, error: "Payload exceeds maximum allowed size (10KB)." }),
+      { status: 413, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
+  // 3. Client IP Resolution (Prioritize trusted edge headers: cf-connecting-ip > x-real-ip > x-forwarded-for > clientAddress)
+  const cfIp = request.headers.get("cf-connecting-ip");
+  const realIp = request.headers.get("x-real-ip");
+  const forwarded = request.headers.get("x-forwarded-for");
+  const firstForwarded = forwarded ? forwarded.split(",")[0].trim() : null;
+  const ip = cfIp?.trim() || realIp?.trim() || firstForwarded || (clientAddress && clientAddress !== "unknown" ? clientAddress.trim() : null) || "127.0.0.1";
+
+  // 4. Rate Limiting (5 requests per hour per IP)
   const rateLimit = checkRateLimit(ip, 5, 60 * 60 * 1000);
   if (!rateLimit.allowed) {
     return new Response(
@@ -27,49 +83,6 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
           "Retry-After": rateLimit.resetSeconds.toString()
         }
       }
-    );
-  }
-
-  // 2. CSRF & Origin Verification
-  const origin = request.headers.get("origin");
-  const referer = request.headers.get("referer");
-  const siteUrl = SITE_CONFIG.placeholders.siteUrl;
-
-  try {
-    const allowedHost = new URL(siteUrl).host;
-    if (origin) {
-      const originHost = new URL(origin).host;
-      if (originHost !== allowedHost && !originHost.includes("localhost") && !originHost.includes("127.0.0.1")) {
-        return new Response(
-          JSON.stringify({ success: false, error: "Invalid submission origin." }),
-          { status: 403, headers: { "Content-Type": "application/json" } }
-        );
-      }
-    } else if (referer) {
-      const refererHost = new URL(referer).host;
-      if (refererHost !== allowedHost && !refererHost.includes("localhost") && !refererHost.includes("127.0.0.1")) {
-        return new Response(
-          JSON.stringify({ success: false, error: "Invalid submission referer." }),
-          { status: 403, headers: { "Content-Type": "application/json" } }
-        );
-      }
-    }
-  } catch (e) {
-    // Malformed origin/referer URL
-    return new Response(
-      JSON.stringify({ success: false, error: "Security check failed." }),
-      { status: 403, headers: { "Content-Type": "application/json" } }
-    );
-  }
-
-  // 3. Content-Type and Payload Size Validation
-  const contentType = request.headers.get("content-type") || "";
-  const contentLength = parseInt(request.headers.get("content-length") || "0", 10);
-
-  if (contentLength > MAX_BODY_SIZE_BYTES) {
-    return new Response(
-      JSON.stringify({ success: false, error: "Payload exceeds maximum allowed size (10KB)." }),
-      { status: 413, headers: { "Content-Type": "application/json" } }
     );
   }
 
@@ -116,7 +129,19 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     });
   }
 
-  // 6. Zod Server-Side Schema Validation
+  // 6. Anti-automation check: Require form_rendered_at for JSON API requests
+  if (isJsonRequest && (!rawData.form_rendered_at || typeof rawData.form_rendered_at !== "string")) {
+    console.warn(`[Security Alert] Interactive JSON submission missing form_rendered_at from IP: ${redactPII(ip)}`);
+    return new Response(
+      JSON.stringify({
+        success: false,
+        error: "Verification check failed. Please refresh the page and try again."
+      }),
+      { status: 400, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
+  // 7. Zod Server-Side Schema Validation
   const validationResult = freeCheckFormSchema.safeParse(rawData);
 
   if (!validationResult.success) {
@@ -141,7 +166,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
   const validData = validationResult.data;
 
-  // 7. Cloudflare Turnstile Verification
+  // 8. Cloudflare Turnstile Verification (Fail-Closed on error)
   const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
   const turnstileToken = validData["cf-turnstile-response"];
 
@@ -173,12 +198,18 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
         );
       }
     } catch (turnstileErr) {
-      console.error("[Security] Error calling Turnstile API:", turnstileErr);
-      // Fallback: Proceed cautiously if upstream turnstile verification service experiences outage
+      console.error("[Security Error] Turnstile verification service error:", turnstileErr);
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: "Verification service temporarily unavailable. Please try again shortly or message us directly on WhatsApp."
+        }),
+        { status: 503, headers: { "Content-Type": "application/json" } }
+      );
     }
   }
 
-  // 8. Sanitise & Prevent Header Injection
+  // 9. Sanitise & Prevent Header Injection
   const safeName = sanitizeHeader(validData.name);
   const safeOrg = sanitizeHeader(validData.organisation);
   const safeRole = sanitizeHeader(validData.entityType);
