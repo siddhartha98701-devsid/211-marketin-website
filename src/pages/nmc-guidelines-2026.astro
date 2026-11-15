@@ -45,10 +45,25 @@ const breadcrumbSchema = getBreadcrumbSchema(SITE_CONFIG.placeholders.siteUrl, [
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
       
       <!-- Answer Box (First Paragraph) -->
-      <div class="bg-white border-l-4 border-navy p-8 sm:p-10 rounded-r-lg shadow-sm border border-stone-soft/70 mb-16" data-reveal>
+      <div class="bg-white border-l-4 border-navy p-8 sm:p-10 rounded-r-lg shadow-sm border border-stone-soft/70 mb-12" data-reveal>
         <p class="text-xl sm:text-2xl font-serif text-navy leading-relaxed font-normal">
           {NMC_GUIDE_DATA.answerBox}
         </p>
+      </div>
+
+      <!-- Editorial Guide Image -->
+      <div class="mb-14 overflow-hidden rounded-xl border border-stone-soft bg-white shadow-2xs group" data-reveal>
+        <div class="overflow-hidden aspect-16/9 bg-canvas-muted">
+          <img
+            src="/assets/service-audit.webp"
+            alt="Structured NMC compliance guidelines review documents and stethoscope on doctor desk"
+            width="960"
+            height="540"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+          />
+        </div>
       </div>
 
       <!-- Question & Answer-First Sections -->

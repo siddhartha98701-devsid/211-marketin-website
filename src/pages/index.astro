@@ -14,14 +14,20 @@ const faqSchema = getFAQPageSchema(activeFaqs);
 
 const threeCards = [
   {
+    image: "/assets/sector-specialists.webp",
+    alt: "Physician consultation desk with medical stethoscope and clinical notes",
     title: "We speak fluent medicine.",
     line: "Our founder is a doctor, so we know the difference between a procedure and a promise."
   },
   {
+    image: "/assets/service-social-media.webp",
+    alt: "Tablet displaying calm clinical educational infographic on walnut desk",
     title: "And fluent Instagram.",
     line: "Reels, carousels and Google profiles that people actually stop for, and save."
   },
   {
+    image: "/assets/service-audit.webp",
+    alt: "Structured NMC compliance review checklist with fountain pen and stethoscope",
     title: "Rules first, reach second.",
     line: "Every post is checked for credentials, claims, patient privacy and AI use before it goes live."
   }
@@ -102,6 +108,22 @@ const howWeWorkSteps = [
         </a>
       </div>
 
+      <!-- Hero Editorial Image -->
+      <div class="pt-10 max-w-4xl mx-auto" data-reveal>
+        <div class="overflow-hidden rounded-xl border border-stone-soft/30 shadow-2xl bg-navy-light/40 group">
+          <img
+            src="/assets/hero-clinical-editorial.webp"
+            alt="Dignified modern healthcare consultation suite with teak desk, medical stethoscope, and natural ambient light in Ahmedabad"
+            width="1280"
+            height="720"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            class="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+          />
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -127,8 +149,19 @@ const howWeWorkSteps = [
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-reveal-stagger>
         {threeCards.map((card) => (
-          <div class="card-hover-calm bg-white border border-stone-soft rounded-lg p-8 shadow-sm flex flex-col justify-between">
-            <div class="space-y-4">
+          <div class="card-hover-calm bg-white border border-stone-soft rounded-lg overflow-hidden shadow-sm flex flex-col justify-between group">
+            <div class="overflow-hidden aspect-16/10 bg-canvas-muted border-b border-stone-soft/60">
+              <img
+                src={card.image}
+                alt={card.alt}
+                width="800"
+                height="500"
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              />
+            </div>
+            <div class="p-6 sm:p-8 space-y-4 flex-1 flex flex-col justify-start">
               <h3 class="text-2xl font-serif font-semibold text-navy">
                 {card.title}
               </h3>

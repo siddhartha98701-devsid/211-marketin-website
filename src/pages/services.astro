@@ -11,6 +11,33 @@ const servicesSchema = getServicesSchema(SITE_CONFIG.placeholders.siteUrl, SERVI
 const breadcrumbSchema = getBreadcrumbSchema(SITE_CONFIG.placeholders.siteUrl, [
   { name: "Services", path: "/services/" }
 ]);
+
+const serviceImages: Record<string, { src: string; alt: string }> = {
+  "healthcare-social-media": {
+    src: "/assets/service-social-media.webp",
+    alt: "Medical educational social media carousel displayed on a physician tablet"
+  },
+  "google-business-profile-local-seo": {
+    src: "/assets/service-local-seo.webp",
+    alt: "Modern clinic entrance with accurate signage and ambient lighting in Ahmedabad"
+  },
+  "healthcare-websites": {
+    src: "/assets/service-websites.webp",
+    alt: "Fast, responsive healthcare website interface on a modern doctor workspace"
+  },
+  "brand-content": {
+    src: "/assets/service-brand-content.webp",
+    alt: "Restrained medical brand identity, typography, and stationery collateral"
+  },
+  "nmc-aware-communication-audit": {
+    src: "/assets/service-audit.webp",
+    alt: "Structured NMC compliance audit checklist on physician consultation desk"
+  },
+  "institutional-media": {
+    src: "/assets/service-institutional-media.webp",
+    alt: "Modern multi-speciality hospital campus building with glass and limestone architecture"
+  }
+};
 ---
 
 <Layout
@@ -36,16 +63,37 @@ const breadcrumbSchema = getBreadcrumbSchema(SITE_CONFIG.placeholders.siteUrl, [
       <h2 id="services-list-heading" class="sr-only">List of Services</h2>
       
       <div class="divide-y divide-stone-soft" data-reveal-stagger>
-        {SERVICES_DATA.map((service) => (
-          <article id={service.id} class="py-12 sm:py-16 first:pt-0 last:pb-8 space-y-4 transition-colors">
-            <h2 class="text-3xl sm:text-4xl font-serif font-semibold text-navy">
-              {service.title}
-            </h2>
-            <p class="text-lg sm:text-xl text-navy/85 font-sans leading-relaxed pt-1">
-              {service.copy}
-            </p>
-          </article>
-        ))}
+        {SERVICES_DATA.map((service, index) => {
+          const img = serviceImages[service.id];
+          const isEven = index % 2 === 1;
+          return (
+            <article id={service.id} class="py-12 sm:py-16 first:pt-0 last:pb-8 group transition-colors">
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                <div class={`space-y-4 md:col-span-7 ${isEven ? 'md:order-2' : ''}`}>
+                  <h2 class="text-3xl sm:text-4xl font-serif font-semibold text-navy">
+                    {service.title}
+                  </h2>
+                  <p class="text-lg sm:text-xl text-navy/85 font-sans leading-relaxed pt-1">
+                    {service.copy}
+                  </p>
+                </div>
+                {img && (
+                  <div class={`md:col-span-5 overflow-hidden rounded-xl border border-stone-soft bg-canvas-muted shadow-2xs aspect-16/10 ${isEven ? 'md:order-1' : ''}`}>
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      width="960"
+                      height="540"
+                      loading="lazy"
+                      decoding="async"
+                      class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    />
+                  </div>
+                )}
+              </div>
+            </article>
+          );
+        })}
       </div>
 
       <!-- Closing line -->
