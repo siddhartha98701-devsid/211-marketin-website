@@ -71,22 +71,41 @@ const howWeWorkSteps = [
   canonicalPath="/"
   schemas={[faqSchema]}
 >
-  <!-- Hero Section -->
-  <section class="bg-navy text-canvas-warm pt-16 pb-20 sm:pt-24 sm:pb-28 border-b border-navy-light" aria-labelledby="home-h1">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+  <!-- Hero Section with Editorial Background Image -->
+  <section class="relative bg-navy text-canvas-warm pt-20 pb-24 sm:pt-32 sm:pb-36 border-b border-navy-light overflow-hidden" aria-labelledby="home-h1">
+    
+    <!-- Editorial Clinical Background Image -->
+    <div class="absolute inset-0 z-0 select-none pointer-events-none">
+      <img
+        src="/assets/hero-clinical-editorial.webp"
+        alt=""
+        role="presentation"
+        width="1376"
+        height="768"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="w-full h-full object-cover object-center"
+      />
+      <!-- Calm Ink Navy Gradient Overlay for AA+ contrast & legibility -->
+      <div class="absolute inset-0 bg-navy/80 mix-blend-multiply" aria-hidden="true"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-navy/90 via-navy/80 to-navy/95" aria-hidden="true"></div>
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
       
       <!-- Eyebrow -->
-      <div class="inline-flex items-center space-x-2 bg-navy-light/60 border border-stone-soft/30 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-widest text-taupe-light uppercase">
+      <div class="inline-flex items-center space-x-2 bg-navy/85 backdrop-blur-xs border border-stone-soft/40 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-widest text-taupe-light uppercase shadow-sm">
         <span>DOCTOR-FOUNDED · NMC-AWARE · AHMEDABAD</span>
       </div>
 
       <!-- H1 -->
-      <h1 id="home-h1" class="text-4xl sm:text-5xl lg:text-6xl font-serif font-semibold tracking-tight text-canvas-warm leading-[1.15] max-w-4xl mx-auto">
+      <h1 id="home-h1" class="text-4xl sm:text-5xl lg:text-6xl font-serif font-semibold tracking-tight text-canvas-warm leading-[1.15] max-w-4xl mx-auto drop-shadow-xs">
         Healthcare marketing, held to a clinical standard.
       </h1>
 
       <!-- Subtitle -->
-      <p class="text-lg sm:text-xl text-canvas-warm/85 font-sans max-w-3xl mx-auto leading-relaxed">
+      <p class="text-lg sm:text-xl text-canvas-warm/90 font-sans max-w-3xl mx-auto leading-relaxed drop-shadow-2xs">
         We help hospitals, clinics and diagnostic centres in Ahmedabad become clearer, more credible and easier to find, without putting a registration at risk.
       </p>
 
@@ -102,26 +121,10 @@ const howWeWorkSteps = [
           href={SITE_CONFIG.contact.whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
-          class="btn-hover-secondary w-full sm:w-auto inline-flex items-center justify-center border border-stone-soft/50 text-canvas-warm font-medium px-7 py-3.5 rounded text-base hover:bg-navy-light"
+          class="btn-hover-secondary w-full sm:w-auto inline-flex items-center justify-center border border-stone-soft/60 bg-navy/60 backdrop-blur-xs text-canvas-warm font-medium px-7 py-3.5 rounded text-base hover:bg-navy-light"
         >
           <span>WhatsApp us</span>
         </a>
-      </div>
-
-      <!-- Hero Editorial Image -->
-      <div class="pt-10 max-w-4xl mx-auto" data-reveal>
-        <div class="overflow-hidden rounded-xl border border-stone-soft/30 shadow-2xl bg-navy-light/40 group">
-          <img
-            src="/assets/hero-clinical-editorial.webp"
-            alt="Dignified modern healthcare consultation suite with teak desk, medical stethoscope, and natural ambient light in Ahmedabad"
-            width="1280"
-            height="720"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-            class="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-          />
-        </div>
       </div>
 
     </div>
