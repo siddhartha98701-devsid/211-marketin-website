@@ -1,12 +1,35 @@
 ---
+/**
+ * 211 Marketing logo: the rising "2 / 11" mark + "211 MARKETING" wordmark,
+ * traced from the official logo and served as ivory SVGs for the dark site.
+ */
 export interface Props {
   size?: "sm" | "md";
 }
 const { size = "md" } = Astro.props;
-const badge = size === "sm" ? "w-8 h-8 text-[14px]" : "w-9 h-9 text-[15px]";
+const markH = size === "sm" ? 24 : 32;   // mark viewBox 536 × 430
+const wordH = size === "sm" ? 9 : 11;    // wordmark viewBox 887 × 69
+const markW = Math.round((536 / 430) * markH);
+const wordW = Math.round((887 / 69) * wordH);
 ---
 
 <span class="inline-flex items-center gap-2.5">
-  <span class={`${badge} rounded-full bg-ivory text-ink inline-flex items-center justify-center font-serif tracking-tight`}>211</span>
-  <span class="text-[11px] font-bold tracking-[0.26em] text-ivory">MARKETING</span>
+  <img
+    src="/assets/211-logo-mark-ivory.svg"
+    alt=""
+    width={markW}
+    height={markH}
+    class="block flex-none"
+    style={`height:${markH}px;width:auto`}
+    decoding="async"
+  />
+  <img
+    src="/assets/211-wordmark-ivory.svg"
+    alt="211 Marketing"
+    width={wordW}
+    height={wordH}
+    class="block flex-none"
+    style={`height:${wordH}px;width:auto`}
+    decoding="async"
+  />
 </span>
