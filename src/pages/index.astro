@@ -84,7 +84,7 @@ const steps = [
       <p class="max-w-[1080px] font-serif text-[clamp(28px,3.4vw,46px)] leading-[1.22] tracking-[-0.015em] text-slate" data-reveal>
         211 Marketing is a <span class="text-ivory">doctor-founded healthcare marketing agency in Ahmedabad.</span> We plan and run <span class="text-ivory">social media, Google Business Profile, local SEO and websites</span> for hospitals, clinics, diagnostic centres and specialists, and every piece passes an <em class="accent">8-point review</em> built around the NMC guidelines dated 6 October 2026.
       </p>
-      <div class="mt-[clamp(56px,7vw,96px)] grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
+      <div class="swipe-row swipe-sm mt-[clamp(56px,7vw,96px)] grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
         {facts.map((f) => (
           <div class="glass flex flex-col gap-4 rounded-[20px] p-6">
             <span class="lbl">{f.label}</span>
@@ -100,7 +100,7 @@ const steps = [
   <section class="pb-[clamp(80px,11vw,150px)]" aria-labelledby="reasons-heading">
     <div class="wrap">
       <h2 id="reasons-heading" class="sr-only">Why 211 Marketing</h2>
-      <div class="grid gap-3 md:grid-cols-3" data-reveal-stagger>
+      <div class="swipe-row swipe-lg grid gap-3 md:grid-cols-3" data-reveal-stagger>
         <article class="card glass flex min-h-[380px] flex-col justify-between rounded-3xl p-8">
           <div class="card-glow -right-28 -top-28" aria-hidden="true"></div>
           <svg width="96" height="96" viewBox="0 0 96 96" aria-hidden="true" class="relative"><g fill="none" stroke="rgba(246,242,234,.7)"><circle cx="48" cy="48" r="44"></circle><ellipse cx="48" cy="48" rx="44" ry="16"></ellipse></g><path d="M14 48h16l6-12 8 24 6-12h32" fill="none" stroke="#F1CF95" stroke-width="1.6" stroke-linejoin="round"></path></svg>
@@ -175,7 +175,7 @@ const steps = [
       <div class="relative mb-9 h-px overflow-hidden bg-white/20" aria-hidden="true">
         <span class="anim-travel absolute -top-px left-0 h-[3px] w-[12%]" style="background: linear-gradient(90deg, transparent, #F1CF95, transparent); box-shadow: 0 0 18px #E9B872;"></span>
       </div>
-      <ol class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
+      <ol class="swipe-row grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
         {steps.map((s, i) => (
           <li class="glass flex flex-col gap-3.5 rounded-[22px] p-7">
             <span class="flex items-center justify-between">
