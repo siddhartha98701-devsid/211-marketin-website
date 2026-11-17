@@ -28,13 +28,14 @@ const total = String(SERVICES_DATA.length).padStart(2, "0");
 <Layout title={title} description={description} canonicalPath="/services/" schemas={[servicesSchema, breadcrumbSchema]}>
   <PageHero id="services-h1" eyebrow="What we do · Six services">
     Healthcare marketing <em class="accent-grad">services.</em>
-    <nav slot="after" class="anim-rise delay-3 flex max-w-[860px] flex-wrap justify-center gap-1.5 pt-2" aria-label="Jump to a service">
+    <nav slot="after" class="swipe-row swipe-chips anim-rise delay-3 flex max-w-[860px] flex-wrap justify-center gap-1.5 pt-2" aria-label="Jump to a service">
       {SERVICES_DATA.map((s) => <a href={`#${s.id}`} class="chip no-underline">{s.title}</a>)}
     </nav>
   </PageHero>
 
   <section class="pb-[clamp(80px,11vw,150px)]" aria-label="Service list">
     <div class="wrap flex flex-col gap-4">
+      <div class="swipe-row swipe-lg flex flex-col gap-4">
       {SERVICES_DATA.map((service, index) => {
         const m = serviceMeta[service.id];
         const n = String(index + 1).padStart(2, "0");
@@ -66,6 +67,7 @@ const total = String(SERVICES_DATA.length).padStart(2, "0");
           </article>
         );
       })}
+      </div>
 
       <p class="pt-10 text-center font-serif text-[clamp(24px,2.6vw,34px)] italic text-fog" data-reveal>{SERVICES_CLOSING_LINE}</p>
     </div>
