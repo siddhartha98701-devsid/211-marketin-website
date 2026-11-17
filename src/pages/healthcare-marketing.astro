@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
 import FAQAccordion from "../components/FAQAccordion.astro";
 import FreeCheckBand from "../components/FreeCheckBand.astro";
 import { SITE_CONFIG } from "../config/site";
@@ -16,26 +17,10 @@ const breadcrumbSchema = getBreadcrumbSchema(SITE_CONFIG.placeholders.siteUrl, [
 ]);
 
 const whoWeWorkWith = [
-  {
-    title: "Hospitals and multi-speciality centres",
-    image: "/assets/sector-hospitals.webp",
-    alt: "Architectural exterior of a modern multi-speciality hospital in Ahmedabad"
-  },
-  {
-    title: "Clinics and day-care centres",
-    image: "/assets/sector-clinics.webp",
-    alt: "Serene boutique clinic reception and consultation space"
-  },
-  {
-    title: "Diagnostics and labs",
-    image: "/assets/sector-diagnostics.webp",
-    alt: "Modern high-precision diagnostic imaging and laboratory suite"
-  },
-  {
-    title: "Individual specialists",
-    image: "/assets/sector-specialists.webp",
-    alt: "Physician consultation desk with stethoscope and journal"
-  }
+  { title: "Hospitals and multi-speciality centres", image: "/assets/sector-hospitals.webp", alt: "Architectural exterior of a modern multi-speciality hospital in Ahmedabad" },
+  { title: "Clinics and day-care centres", image: "/assets/sector-clinics.webp", alt: "Serene boutique clinic reception and consultation space" },
+  { title: "Diagnostics and labs", image: "/assets/sector-diagnostics.webp", alt: "Modern high-precision diagnostic imaging and laboratory suite" },
+  { title: "Individual specialists", image: "/assets/sector-specialists.webp", alt: "Physician consultation desk with stethoscope and journal" }
 ];
 
 const whatChangesForYou = [
@@ -46,125 +31,68 @@ const whatChangesForYou = [
 ];
 ---
 
-<Layout
-  title={title}
-  description={description}
-  canonicalPath="/healthcare-marketing/"
-  schemas={[faqSchema, breadcrumbSchema]}
->
-  <!-- Hero Section -->
-  <section class="bg-navy text-canvas-warm pt-16 pb-20 sm:pt-24 sm:pb-28 border-b border-navy-light" aria-labelledby="healthcare-h1">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-      
-      <h1 id="healthcare-h1" class="text-4xl sm:text-5xl lg:text-6xl font-serif font-semibold tracking-tight text-canvas-warm leading-[1.15] max-w-4xl mx-auto">
-        Hospital and clinic marketing in Ahmedabad, done properly.
-      </h1>
-
-      <p class="text-lg sm:text-xl text-canvas-warm/85 font-sans max-w-3xl mx-auto leading-relaxed">
-        Patients choose healthcare on trust. We build that trust with clear information, calm design and content that respects the NMC guidelines.
-      </p>
-
-      <div class="pt-6 flex justify-center">
-        <a
-          href="/free-nmc-check/"
-          class="btn-hover-primary bg-canvas-warm text-navy font-semibold px-8 py-4 text-base rounded shadow-md hover:bg-white focus:ring-2 focus:ring-canvas-warm"
-        >
-          Start with a free check
-        </a>
-      </div>
-
+<Layout title={title} description={description} canonicalPath="/healthcare-marketing/" schemas={[faqSchema, breadcrumbSchema]}>
+  <PageHero
+    id="healthcare-h1"
+    eyebrow="Hospitals · Clinics · Diagnostics · Specialists"
+    lead="Patients choose healthcare on trust. We build that trust with clear information, calm design and content that respects the NMC guidelines."
+  >
+    Hospital and clinic marketing in Ahmedabad, <em class="accent-grad">done properly.</em>
+    <div slot="after" class="anim-rise delay-3 pt-2">
+      <a href="/free-nmc-check/" class="btn-primary">Start with a free check <span class="arrow" aria-hidden="true">→</span></a>
     </div>
-  </section>
+  </PageHero>
 
-  <!-- Who We Work With (Four Tiles) -->
-  <section class="py-16 sm:py-24 bg-canvas border-b border-stone-soft" aria-labelledby="who-we-work-with-heading">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-14" data-reveal>
-        <h2 id="who-we-work-with-heading" class="text-3xl sm:text-4xl font-serif font-semibold text-navy">
-          Who we work with
-        </h2>
+  <!-- Who we work with -->
+  <section class="section rule-top" aria-labelledby="who-heading">
+    <div class="wrap">
+      <div class="mb-12 flex flex-wrap items-end justify-between gap-6" data-reveal>
+        <div>
+          <p class="lbl mb-4">Who we work with</p>
+          <h2 id="who-heading" class="h-section">Four kinds of care. <em class="accent">One standard.</em></h2>
+        </div>
       </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" data-reveal-stagger>
-        {whoWeWorkWith.map((item) => (
-          <div class="card-hover-calm bg-white border border-stone-soft rounded-lg overflow-hidden shadow-2xs flex flex-col group">
-            <div class="overflow-hidden aspect-4/3 bg-canvas-muted border-b border-stone-soft/60">
-              <img
-                src={item.image}
-                alt={item.alt}
-                width="800"
-                height="600"
-                loading="lazy"
-                decoding="async"
-                class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-              />
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
+        {whoWeWorkWith.map((item, i) => (
+          <article class="card glass flex flex-col rounded-3xl">
+            <div class="relative aspect-[4/5] overflow-hidden rounded-t-3xl">
+              <img src={item.image} alt={item.alt} width="800" height="1000" loading="lazy" decoding="async" class="card-img h-full w-full object-cover" style="filter: saturate(.7) brightness(.75);" />
+              <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(10,17,22,.1) 30%, rgba(10,17,22,.92) 100%);" aria-hidden="true"></div>
+              <span class="absolute left-5 top-5 num text-[40px] text-ivory/80" style="letter-spacing:-0.03em">0{i + 1}</span>
             </div>
-            <div class="p-6 flex items-center justify-center text-center flex-1 min-h-[90px]">
-              <h3 class="text-xl font-serif font-semibold text-navy leading-snug">
-                {item.title}
-              </h3>
-            </div>
-          </div>
+            <h3 class="p-6 font-serif text-[24px] leading-tight">{item.title}</h3>
+          </article>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- What Changes For You -->
-  <section class="py-16 sm:py-24 bg-canvas-muted border-b border-stone-soft" aria-labelledby="what-changes-heading">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12" data-reveal>
-        <h2 id="what-changes-heading" class="text-3xl sm:text-4xl font-serif font-semibold text-navy">
-          What changes for you
-        </h2>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch" data-reveal>
-        <div class="lg:col-span-7 card-hover-calm bg-white border border-stone-soft rounded-xl p-8 sm:p-10 shadow-sm flex flex-col justify-between space-y-6">
-          <ul class="space-y-5">
+  <!-- What changes for you -->
+  <section class="pb-[clamp(80px,11vw,150px)]" aria-labelledby="changes-heading">
+    <div class="wrap">
+      <div class="glass grid items-stretch gap-0 overflow-hidden rounded-[32px] lg:grid-cols-12" data-reveal>
+        <div class="flex flex-col gap-8 p-[clamp(28px,5vw,64px)] lg:col-span-7">
+          <p class="lbl">What changes for you</p>
+          <h2 id="changes-heading" class="h-section">Clearer. Calmer. <em class="accent">Safer.</em></h2>
+          <ul class="flex flex-col">
             {whatChangesForYou.map((item) => (
-              <li class="flex items-start space-x-4">
-                <span class="w-6 h-6 rounded-full bg-navy text-canvas-warm flex items-center justify-center flex-shrink-0 mt-0.5 text-xs">
-                  ✓
-                </span>
-                <span class="text-lg sm:text-xl font-serif text-navy leading-snug">
-                  {item}
-                </span>
+              <li class="flex items-start gap-4 border-t border-white/10 py-5 text-[17px] leading-snug text-sand">
+                <span class="mt-0.5 inline-flex h-6 w-6 flex-none items-center justify-center rounded-full border border-mint/50 text-xs text-mint" aria-hidden="true">✓</span>
+                <span class="first-letter:uppercase">{item}</span>
               </li>
             ))}
           </ul>
-
-          <div class="pt-6 border-t border-stone-soft text-center sm:text-left">
-            <a
-              href="/free-nmc-check/"
-              class="link-hover-calm inline-flex items-center text-base font-semibold text-navy hover:text-navy-light underline underline-offset-4"
-            >
-              Start with a free check &rarr;
-            </a>
-          </div>
+          <a href="/free-nmc-check/" class="btn-primary self-start">Start with a free check <span class="arrow" aria-hidden="true">→</span></a>
         </div>
-
-        <div class="lg:col-span-5 overflow-hidden rounded-xl border border-stone-soft bg-white shadow-sm flex items-center group">
-          <img
-            src="/assets/service-websites.webp"
-            alt="Clear, responsive digital healthcare presence complying with clinical standards"
-            width="960"
-            height="540"
-            loading="lazy"
-            decoding="async"
-            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-          />
+        <div class="relative min-h-[320px] lg:col-span-5">
+          <img src="/assets/service-websites.webp" alt="Clear, responsive digital healthcare presence complying with clinical standards" width="960" height="540" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" style="filter: saturate(.7) brightness(.7);" />
+          <div class="absolute inset-0" style="background: linear-gradient(90deg, rgba(14,23,30,.95), rgba(14,23,30,.2) 50%, transparent);" aria-hidden="true"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Free Check Band -->
   <FreeCheckBand />
 
-  <!-- FAQ Section (Shared data, matching schema) -->
-  <FAQAccordion
-    heading="Frequently asked questions"
-    lead="Short, direct answers in the format AI assistants quote."
-  />
+  <FAQAccordion heading="Frequently asked questions" lead="Short, direct answers in the format AI assistants quote." />
 </Layout>

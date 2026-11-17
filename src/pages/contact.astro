@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
 import GoogleMap from "../components/GoogleMap.astro";
 import { SITE_CONFIG } from "../config/site";
 import { getBreadcrumbSchema } from "../schemas/jsonld";
@@ -10,129 +11,63 @@ const description = "Visit or call 211 Marketing at B-1405, The Capital, Science
 const breadcrumbSchema = getBreadcrumbSchema(SITE_CONFIG.placeholders.siteUrl, [
   { name: "Contact", path: "/contact/" }
 ]);
+
+const rows = [
+  { k: "Call / WhatsApp", v: SITE_CONFIG.contact.whatsapp, href: SITE_CONFIG.contact.whatsappHref, ext: true },
+  { k: "Instagram", v: SITE_CONFIG.contact.instagram, href: SITE_CONFIG.contact.instagramHref, ext: true },
+  { k: "Email", v: SITE_CONFIG.placeholders.businessEmail, href: `mailto:${SITE_CONFIG.placeholders.businessEmail}`, ext: false },
+  { k: "Hours", v: SITE_CONFIG.placeholders.hours, href: "", ext: false }
+];
 ---
 
-<Layout
-  title={title}
-  description={description}
-  canonicalPath="/contact/"
-  schemas={[breadcrumbSchema]}
->
-  <!-- Hero Section -->
-  <section class="bg-navy text-canvas-warm pt-16 pb-20 sm:pt-24 sm:pb-28 border-b border-navy-light" aria-labelledby="contact-h1">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-      
-      <h1 id="contact-h1" class="text-4xl sm:text-5xl lg:text-6xl font-serif font-semibold tracking-tight text-canvas-warm leading-[1.15] max-w-3xl mx-auto">
-        Let's talk healthcare.
-      </h1>
-
-      <p class="text-xl sm:text-2xl font-serif italic text-canvas-warm/90 max-w-2xl mx-auto">
-        Tea is on us. So is your first check.
-      </p>
-
+<Layout title={title} description={description} canonicalPath="/contact/" schemas={[breadcrumbSchema]}>
+  <PageHero id="contact-h1" eyebrow="Science City Road · Sola · Ahmedabad" lead="Tea is on us. So is your first check.">
+    Let's talk <em class="accent-grad">healthcare.</em>
+    <div slot="after" class="anim-rise delay-3 flex flex-wrap justify-center gap-3 pt-2">
+      <a href={SITE_CONFIG.contact.phoneHref} class="btn-primary">Call {SITE_CONFIG.contact.whatsapp}</a>
+      <a href={SITE_CONFIG.contact.whatsappHref} target="_blank" rel="noopener noreferrer" class="btn-ghost">WhatsApp us</a>
     </div>
-  </section>
+  </PageHero>
 
-  <!-- Contact Details & Map Grid -->
-  <section class="py-16 sm:py-24 bg-canvas">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        
-        <!-- Left Column: Verified Directory Contact Info -->
-        <div class="lg:col-span-5 space-y-8">
-          <div class="card-hover-calm bg-white p-8 rounded-xl border border-stone-soft shadow-sm space-y-6" data-reveal>
-            
-            <div class="space-y-2 border-b border-stone-soft pb-6">
-              <h2 class="text-2xl font-serif font-semibold text-navy">
-                {SITE_CONFIG.name}
-              </h2>
-              <p class="text-base text-navy/90 font-sans leading-relaxed pt-1">
-                {SITE_CONFIG.address.streetAddress},<br />
-                {SITE_CONFIG.address.addressLocality}, {SITE_CONFIG.address.addressRegion} {SITE_CONFIG.address.postalCode}
-              </p>
-            </div>
-
-            <div class="space-y-4 text-base font-sans text-navy">
-              <div>
-                <span class="text-xs font-semibold text-taupe-quiet uppercase tracking-wider block mb-1">
-                  Call / WhatsApp
-                </span>
-                <a
-                  href={SITE_CONFIG.contact.whatsappHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="link-hover-calm text-lg font-medium text-navy hover:text-navy-light underline underline-offset-4 flex items-center space-x-2"
-                >
-                  <span>{SITE_CONFIG.contact.telephone}</span>
-                  <span class="text-xs bg-[#25D366]/20 text-[#128C7E] px-2 py-0.5 rounded font-sans font-normal">WhatsApp</span>
-                </a>
-              </div>
-
-              <div>
-                <span class="text-xs font-semibold text-taupe-quiet uppercase tracking-wider block mb-1">
-                  Instagram
-                </span>
-                <a
-                  href={SITE_CONFIG.contact.instagramHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="link-hover-calm text-base font-medium text-navy hover:text-navy-light underline underline-offset-4"
-                >
-                  {SITE_CONFIG.contact.instagram}
-                </a>
-              </div>
-
-              <div>
-                <span class="text-xs font-semibold text-taupe-quiet uppercase tracking-wider block mb-1">
-                  Email
-                </span>
-                <a
-                  href={`mailto:${SITE_CONFIG.placeholders.businessEmail}`}
-                  class="link-hover-calm text-base font-medium text-navy hover:text-navy-light underline underline-offset-4"
-                >
-                  {SITE_CONFIG.placeholders.businessEmail}
-                </a>
-              </div>
-
-              <div>
-                <span class="text-xs font-semibold text-taupe-quiet uppercase tracking-wider block mb-1">
-                  Hours
-                </span>
-                <p class="text-base text-navy/85">
-                  {SITE_CONFIG.placeholders.hours}
-                </p>
-              </div>
-            </div>
-
+  <section class="pb-[clamp(80px,11vw,150px)]">
+    <div class="wrap grid items-start gap-6 lg:grid-cols-12">
+      <div class="flex flex-col gap-4 lg:col-span-5">
+        <div class="glass rounded-3xl p-8" data-reveal>
+          <div class="flex flex-col gap-2 border-b border-white/10 pb-6">
+            <span class="lbl">Visit</span>
+            <h2 class="font-serif text-[30px]">{SITE_CONFIG.name}</h2>
+            <address class="text-base not-italic leading-relaxed text-mist">
+              {SITE_CONFIG.address.streetAddress},<br />
+              {SITE_CONFIG.address.addressLocality}, {SITE_CONFIG.address.addressRegion} {SITE_CONFIG.address.postalCode}
+            </address>
           </div>
-
-          <!-- Office Architecture Visual -->
-          <div class="card-hover-calm bg-white rounded-xl border border-stone-soft overflow-hidden shadow-2xs group" data-reveal>
-            <div class="overflow-hidden aspect-16/9 bg-canvas-muted">
-              <img
-                src="/assets/contact-ahmedabad-office.webp"
-                alt="Architectural exterior of The Capital on Science City Road, Sola, Ahmedabad"
-                width="960"
-                height="540"
-                loading="lazy"
-                decoding="async"
-                class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-              />
-            </div>
-            <div class="p-4 bg-canvas-muted/50 border-t border-stone-soft/60 text-xs font-sans text-navy/70 text-center">
-              <span>The Capital · Science City Road, Sola, Ahmedabad</span>
-            </div>
-          </div>
+          <dl class="flex flex-col">
+            {rows.map((r) => (
+              <div class="flex flex-col gap-1.5 border-b border-white/10 py-4 last:border-0">
+                <dt class="meta">{r.k}</dt>
+                <dd>
+                  {r.href ? (
+                    <a href={r.href} {...(r.ext ? { target: "_blank", rel: "noopener noreferrer" } : {})} class="link-u text-lg text-ivory">{r.v}</a>
+                  ) : (
+                    <span class="text-lg text-ivory">{r.v}</span>
+                  )}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
-        <!-- Right Column: Interactive Embedded Google Map -->
-        <div class="lg:col-span-7 space-y-4" data-reveal>
-          <GoogleMap />
+        <div class="card glass overflow-hidden rounded-3xl" data-reveal>
+          <div class="relative aspect-video overflow-hidden">
+            <img src="/assets/contact-ahmedabad-office.webp" alt="Architectural exterior of The Capital on Science City Road, Sola, Ahmedabad" width="960" height="540" loading="lazy" decoding="async" class="card-img h-full w-full object-cover" style="filter: saturate(.7) brightness(.75);" />
+          </div>
+          <p class="px-5 py-4 text-center text-xs text-fog">The Capital · Science City Road, Sola, Ahmedabad</p>
         </div>
-
       </div>
 
+      <div class="lg:col-span-7" data-reveal>
+        <GoogleMap />
+      </div>
     </div>
   </section>
 </Layout>

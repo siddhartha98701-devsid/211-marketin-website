@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
 import FreeCheckBand from "../components/FreeCheckBand.astro";
 import { SITE_CONFIG } from "../config/site";
 import { NMC_GUIDE_DATA } from "../config/nmc-guide";
@@ -12,89 +13,70 @@ const articleSchema = getNMCArticleSchema(SITE_CONFIG.placeholders.siteUrl);
 const breadcrumbSchema = getBreadcrumbSchema(SITE_CONFIG.placeholders.siteUrl, [
   { name: "NMC Guidelines 2026", path: "/nmc-guidelines-2026/" }
 ]);
+
+// At-a-glance summary (drawn from the Q&A answers below)
+const allowed = [
+  "Education and factual, verifiable information",
+  "Name, location, contacts, departments, facilities, equipment, services, emergency care, accreditation and charges",
+  "A doctor's name, qualifications, registration status and registration number"
+];
+const notAllowed = [
+  "Patient testimonials, even with consent",
+  "Before/after photos for promotion",
+  "\"Best\" or \"No. 1\" unless objectively verifiable; success rates for individual doctors",
+  "Agency fees linked to patient leads or referrals"
+];
 ---
 
-<Layout
-  title={title}
-  description={description}
-  canonicalPath="/nmc-guidelines-2026/"
-  schemas={[articleSchema, breadcrumbSchema]}
->
-  <!-- Reading Progress Bar (Driven passively by scroll) -->
+<Layout title={title} description={description} canonicalPath="/nmc-guidelines-2026/" schemas={[articleSchema, breadcrumbSchema]}>
   <div id="reading-progress" class="reading-progress-bar" aria-hidden="true"></div>
 
-  <!-- Hero / Header Section -->
-  <article class="bg-canvas" aria-labelledby="nmc-h1">
-    
-    <header class="bg-navy text-canvas-warm pt-16 pb-20 sm:pt-24 sm:pb-28 border-b border-navy-light">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-center">
-        
-        <h1 id="nmc-h1" class="text-3xl sm:text-5xl lg:text-6xl font-serif font-semibold tracking-tight text-canvas-warm leading-[1.15] max-w-3xl mx-auto">
-          {NMC_GUIDE_DATA.h1}
-        </h1>
+  <article aria-labelledby="nmc-h1">
+    <PageHero id="nmc-h1" eyebrow="NMC guidelines · 6 October 2026">
+      NMC advertising guidelines 2026, <em class="accent-grad">explained in plain English</em>
+      <p slot="after" class="anim-rise delay-2 text-sm text-fog">
+        By {SITE_CONFIG.name} · Last reviewed: {SITE_CONFIG.placeholders.nmcLastReviewedDate} · {NMC_GUIDE_DATA.disclaimer}
+      </p>
+    </PageHero>
 
-        <!-- Byline Line -->
-        <p class="text-sm sm:text-base text-taupe-light font-sans">
-          By {SITE_CONFIG.name} · Last reviewed: {SITE_CONFIG.placeholders.nmcLastReviewedDate} · {NMC_GUIDE_DATA.disclaimer}
-        </p>
-
-      </div>
-    </header>
-
-    <!-- Main Content Body -->
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-      
-      <!-- Answer Box (First Paragraph) -->
-      <div class="bg-white border-l-4 border-navy p-8 sm:p-10 rounded-r-lg shadow-sm border border-stone-soft/70 mb-12" data-reveal>
-        <p class="text-xl sm:text-2xl font-serif text-navy leading-relaxed font-normal">
-          {NMC_GUIDE_DATA.answerBox}
-        </p>
+    <div class="wrap max-w-[1000px] pb-[clamp(80px,11vw,150px)]">
+      <!-- Answer box -->
+      <div class="glass mb-6 flex flex-col gap-4 rounded-3xl p-[clamp(24px,4vw,44px)] sm:flex-row sm:gap-6" data-reveal>
+        <span class="h-fit flex-none self-start rounded-full bg-ivory px-3 py-1.5 text-[10px] font-bold tracking-[0.2em] text-ink">IN SHORT</span>
+        <p class="font-serif text-[clamp(21px,2.2vw,28px)] leading-[1.45] text-ivory">{NMC_GUIDE_DATA.answerBox}</p>
       </div>
 
-      <!-- Editorial Guide Image -->
-      <div class="mb-14 overflow-hidden rounded-xl border border-stone-soft bg-white shadow-2xs group" data-reveal>
-        <div class="overflow-hidden aspect-16/9 bg-canvas-muted">
-          <img
-            src="/assets/service-audit.webp"
-            alt="Structured NMC compliance guidelines review documents and stethoscope on doctor desk"
-            width="960"
-            height="540"
-            loading="lazy"
-            decoding="async"
-            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-          />
+      <!-- At a glance -->
+      <div class="mb-20 grid gap-3 md:grid-cols-2" data-reveal-stagger>
+        <div class="glass flex flex-col rounded-3xl p-8">
+          <span class="mb-4 inline-flex items-center gap-2.5 text-xs font-bold tracking-[0.2em] text-mint"><span class="dot dot-mint" aria-hidden="true"></span>ALLOWED</span>
+          {allowed.map((a) => <p class="border-t border-white/10 py-3.5 text-[15px] leading-relaxed text-sand">{a}</p>)}
+        </div>
+        <div class="alert flex flex-col rounded-3xl p-8">
+          <span class="mb-4 inline-flex items-center gap-2.5 text-xs font-bold tracking-[0.2em] text-amber-light"><span class="dot dot-amber anim-blink" aria-hidden="true"></span>NOT ALLOWED</span>
+          {notAllowed.map((a) => <p class="border-t border-amber/20 py-3.5 text-[15px] leading-relaxed text-amber-pale">{a}</p>)}
         </div>
       </div>
 
-      <!-- Question & Answer-First Sections -->
-      <div class="divide-y divide-stone-soft" data-reveal-stagger>
+      <!-- Questions, answer first (each an H2 for answer-first search) -->
+      <div class="flex flex-col" data-reveal-stagger>
         {NMC_GUIDE_DATA.questions.map((item, idx) => (
-          <section class="py-10 sm:py-12 first:pt-0 space-y-3" aria-labelledby={`q-${idx + 1}`}>
-            <h2 id={`q-${idx + 1}`} class="text-2xl sm:text-3xl font-serif font-semibold text-navy">
-              {item.question}
-            </h2>
-            <div class="mt-2 text-lg sm:text-xl font-sans text-navy/90 leading-relaxed bg-canvas-muted/60 p-5 rounded-md border border-stone-soft/50 transition-colors">
-              <p>{item.answer}</p>
+          <section class="grid gap-4 border-t border-white/10 py-10 md:grid-cols-12" aria-labelledby={`q-${idx + 1}`}>
+            <span class="num text-[40px] text-taupe-light md:col-span-1" style="letter-spacing:-0.02em" aria-hidden="true">{String(idx + 1).padStart(2, "0")}</span>
+            <div class="flex flex-col gap-4 md:col-span-11">
+              <h2 id={`q-${idx + 1}`} class="font-serif text-[clamp(26px,2.8vw,36px)] leading-tight">{item.question}</h2>
+              <p class="rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-[17px] leading-relaxed text-mist">{item.answer}</p>
             </div>
           </section>
         ))}
       </div>
 
-      <!-- Official Notice Link -->
-      <div class="mt-16 pt-12 border-t-2 border-stone-soft text-center sm:text-left" data-reveal>
-        <a
-          href={NMC_GUIDE_DATA.officialNoticeUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="link-hover-calm inline-flex items-center space-x-2 text-navy font-semibold text-lg hover:text-navy-light underline underline-offset-4"
-        >
-          <span>{NMC_GUIDE_DATA.officialNoticeLabel} &rarr;</span>
-        </a>
+      <div class="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-10" data-reveal>
+        <a href={NMC_GUIDE_DATA.officialNoticeUrl} target="_blank" rel="noopener noreferrer" class="btn-ghost">{NMC_GUIDE_DATA.officialNoticeLabel} <span class="arrow" aria-hidden="true">→</span></a>
+        <span class="text-xs text-slate">{NMC_GUIDE_DATA.disclaimer}.</span>
       </div>
-
     </div>
   </article>
 
-  <!-- Free Check Band -->
   <FreeCheckBand />
 </Layout>

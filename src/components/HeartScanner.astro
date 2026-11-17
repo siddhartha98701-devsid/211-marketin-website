@@ -1,0 +1,172 @@
+---
+/**
+ * Home hero instrument: glowing wireframe heart with scan band, ECG trace,
+ * an 8-point review score on the left and live readouts on the right.
+ * The tabs switch what is being "scanned" (Instagram / Google profile / Website).
+ * Works without JS (shows Instagram); JS only swaps readouts.
+ */
+const targets = [
+  {
+    id: "instagram",
+    label: "Instagram",
+    rows: [
+      { k: "Credentials", v: "Reg. no. on every post" },
+      { k: "Claims", v: "Verifiable only" },
+      { k: "Testimonials", v: "None" },
+      { k: "AI content", v: "Checked" }
+    ]
+  },
+  {
+    id: "google",
+    label: "Google profile",
+    rows: [
+      { k: "Listing", v: "Accurate" },
+      { k: "Services", v: "Factual" },
+      { k: "Photos", v: "No patient images" },
+      { k: "Q&A", v: "Answered" }
+    ]
+  },
+  {
+    id: "website",
+    label: "Website",
+    rows: [
+      { k: "Doctor pages", v: "Qualifications shown" },
+      { k: "Before/afters", v: "None" },
+      { k: "Charges", v: "Clearly listed" },
+      { k: "FAQs", v: "Answer-first" }
+    ]
+  }
+];
+
+const heart = "M240 384 C 128 310, 72 240, 88 176 C 104 112, 186 98, 240 158 C 294 98, 376 112, 392 176 C 408 240, 352 310, 240 384 Z";
+const ecg = "M10 262 H150 L164 262 L174 246 L184 262 L196 262 L208 196 L222 318 L236 232 L246 262 L262 262 L276 250 L290 262 H470";
+const scanLines = Array.from({ length: 13 }, (_, i) => 120 + i * 20);
+---
+
+<div class="scanner">
+  <div class="flex flex-wrap justify-center gap-1.5" role="tablist" aria-label="What we inspect">
+    {targets.map((t, i) => (
+      <button
+        type="button"
+        class="chip"
+        role="tab"
+        id={`scan-tab-${t.id}`}
+        aria-selected={i === 0 ? "true" : "false"}
+        aria-controls="scan-readouts"
+        data-scan-target={t.id}
+      >
+        {t.label}
+      </button>
+    ))}
+  </div>
+
+  <div class="relative mt-3 flex min-h-[560px] flex-wrap items-center justify-center gap-6">
+    <!-- Left: review score -->
+    <div class="z-[2] flex max-w-[300px] flex-[1_1_240px] flex-col gap-5 border-t border-white/15 pt-3 text-left">
+      <div class="flex items-center justify-between gap-3">
+        <span class="meta">Review score</span>
+        <span class="pill-status"><span class="dot dot-mint anim-blink" style="width:6px;height:6px" aria-hidden="true"></span>LIVE</span>
+      </div>
+      <div class="flex items-end gap-2.5">
+        <span class="num text-[clamp(96px,10vw,140px)] leading-[0.78] tracking-[-0.06em]">8</span>
+        <span class="flex flex-col gap-1 pb-1.5">
+          <span class="num text-[28px] text-taupe-light" style="letter-spacing:0">/8</span>
+          <span class="text-[11px] font-bold tracking-[0.14em] text-slate">POINTS</span>
+        </span>
+      </div>
+      <div class="grid grid-cols-8 gap-1" role="img" aria-label="8 of 8 review points cleared">
+        {Array.from({ length: 8 }, (_, i) => (
+          <span class="anim-seg h-1.5 rounded-sm bg-amber-light" style={`animation-delay:${0.2 + i * 0.15}s`}></span>
+        ))}
+      </div>
+      <p class="text-sm leading-relaxed text-fog">Every post, page and profile passes our 8-point review before it goes live.</p>
+      <div class="grid grid-cols-2 gap-4 border-t border-white/10 pt-3.5">
+        <div class="flex flex-col gap-1.5"><span class="meta">Scanning</span><span class="text-[15px]" data-scan-label>Instagram</span></div>
+        <div class="flex flex-col gap-1.5"><span class="meta">Built on</span><span class="text-[15px]">NMC, 6 Oct 2026</span></div>
+      </div>
+      <a href="/free-nmc-check/" class="btn-ghost btn-sm self-start">Get your score <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+
+    <!-- Centre: heart -->
+    <div class="relative aspect-square w-[min(480px,88vw)] flex-none max-lg:order-first">
+      <div class="anim-pulse absolute inset-[18%] rounded-full" style="background: radial-gradient(circle at 45% 45%, #FFE9BF 0%, #E9B872 22%, rgba(217,147,47,.55) 42%, rgba(127,167,191,.18) 64%, transparent 72%); filter: blur(22px);" aria-hidden="true"></div>
+      <svg viewBox="0 0 480 480" class="absolute inset-0 h-full w-full" role="img" aria-label="A wireframe heart being scanned, with a heartbeat line across it">
+        <defs>
+          <clipPath id="heartClip"><path d={heart}></path></clipPath>
+          <linearGradient id="scanGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#F1CF95" stop-opacity="0"></stop>
+            <stop offset=".85" stop-color="#F1CF95" stop-opacity=".35"></stop>
+            <stop offset="1" stop-color="#FFF3DA" stop-opacity=".95"></stop>
+          </linearGradient>
+        </defs>
+        <g class="anim-spin">
+          <circle cx="240" cy="240" r="228" fill="none" stroke="rgba(246,242,234,.14)" stroke-dasharray="1 7"></circle>
+          <circle cx="240" cy="12" r="3.5" fill="#F1CF95"></circle>
+        </g>
+        <g class="anim-beat">
+          <g fill="none" stroke-linejoin="round">
+            <path d={heart} stroke="rgba(246,242,234,.85)" stroke-width="1.4"></path>
+            <path transform="translate(240 250) scale(.82) translate(-240 -250)" d={heart} stroke="rgba(246,242,234,.5)"></path>
+            <path transform="translate(240 250) scale(.64) translate(-240 -250)" d={heart} stroke="rgba(246,242,234,.36)"></path>
+            <path transform="translate(240 250) scale(.46) translate(-240 -250)" d={heart} stroke="rgba(246,242,234,.26)"></path>
+            <path d="M240 158 C 226 220, 228 300, 240 384" stroke="rgba(246,242,234,.22)"></path>
+            <path d="M240 158 C 190 200, 150 250, 160 300" stroke="rgba(246,242,234,.16)"></path>
+            <path d="M240 158 C 290 200, 330 250, 320 300" stroke="rgba(246,242,234,.16)"></path>
+          </g>
+          <g clip-path="url(#heartClip)">
+            <g stroke="rgba(246,242,234,.08)">
+              {scanLines.map((y) => <line x1="60" y1={y} x2="420" y2={y}></line>)}
+            </g>
+            <rect x="60" y="40" width="360" height="70" fill="url(#scanGrad)">
+              <animate attributeName="y" values="40;330;40" dur="5s" repeatCount="indefinite" calcMode="spline" keySplines=".6 0 .4 1;.6 0 .4 1"></animate>
+            </rect>
+          </g>
+        </g>
+        <path class="anim-ecg" d={ecg} fill="none" stroke="#F1CF95" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 6px rgba(233,184,114,.9))"></path>
+        <circle r="4" fill="#FFF3DA" style="filter: drop-shadow(0 0 8px #E9B872)">
+          <animateMotion dur="3s" repeatCount="indefinite" path={ecg}></animateMotion>
+        </circle>
+      </svg>
+      <span class="glass absolute left-[-4%] top-[14%] inline-flex items-center gap-2 rounded-full px-3 py-2 text-[11px] font-bold tracking-[0.12em]">
+        <span class="dot dot-amber" style="width:6px;height:6px" aria-hidden="true"></span>SCANNING <span data-scan-label-caps>INSTAGRAM</span>
+      </span>
+      <span class="glass absolute bottom-[12%] right-[-2%] rounded-full px-3 py-2 text-[11px] font-bold tracking-[0.12em]">PATIENT-FIRST · NMC-AWARE</span>
+    </div>
+
+    <!-- Right: readouts -->
+    <div id="scan-readouts" class="z-[2] hidden flex-[1_1_240px] grid-cols-2 gap-x-6 gap-y-8 text-left sm:grid" role="tabpanel" aria-live="polite">
+      {targets.map((t, i) => (
+        <div class={`col-span-2 grid grid-cols-2 gap-x-6 gap-y-8 ${i === 0 ? "" : "hidden"}`} data-scan-panel={t.id}>
+          {t.rows.map((r) => (
+            <div class="readout">
+              <span class="meta">{r.k}</span>
+              <span class="text-base">{r.v}</span>
+            </div>
+          ))}
+        </div>
+      ))}
+      <div class="col-span-2 flex items-center gap-2.5 rounded-2xl border border-amber-light/25 bg-amber-light/[0.08] px-4 py-3.5">
+        <span class="dot dot-mint" aria-hidden="true"></span>
+        <span class="text-[13px] font-bold tracking-[0.06em]">Cleared to publish</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>("[data-scan-target]");
+  const panels = document.querySelectorAll<HTMLElement>("[data-scan-panel]");
+  const label = document.querySelector<HTMLElement>("[data-scan-label]");
+  const labelCaps = document.querySelector<HTMLElement>("[data-scan-label-caps]");
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const id = tab.dataset.scanTarget;
+      tabs.forEach((t) => t.setAttribute("aria-selected", t === tab ? "true" : "false"));
+      panels.forEach((p) => p.classList.toggle("hidden", p.dataset.scanPanel !== id));
+      const text = tab.textContent?.trim() || "";
+      if (label) label.textContent = text;
+      if (labelCaps) labelCaps.textContent = text.toUpperCase();
+    });
+  });
+</script>

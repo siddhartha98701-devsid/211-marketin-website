@@ -1,141 +1,76 @@
 ---
+import Logo from "./Logo.astro";
+import GoogleMap from "./GoogleMap.astro";
 import { SITE_CONFIG } from "../config/site";
+
+const nav = [
+  { href: "/", label: "Home" },
+  { href: "/healthcare-marketing/", label: "Healthcare marketing" },
+  { href: "/services/", label: "Services" },
+  { href: "/nmc-guidelines-2026/", label: "NMC guidelines 2026, explained" },
+  { href: "/free-nmc-check/", label: "Free NMC-aware check" },
+  { href: "/about/", label: "About" },
+  { href: "/contact/", label: "Contact" }
+];
 ---
 
-<footer class="bg-navy text-canvas-warm border-t border-navy-light pt-16 pb-24 md:pb-16" aria-labelledby="footer-heading">
+<footer class="relative z-[1] border-t border-white/10 bg-[#070C10] pb-28 md:pb-10" aria-labelledby="footer-heading">
   <h2 id="footer-heading" class="sr-only">Footer</h2>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    <!-- Top Row: Brand Statement & Closing Line -->
-    <div class="pb-12 border-b border-navy-light flex flex-col md:flex-row md:items-end justify-between gap-6" data-reveal>
-      <div class="space-y-3 max-w-xl">
-        <div class="flex items-center space-x-2">
-          <span class="font-serif text-3xl font-semibold tracking-tight text-canvas-warm">2</span>
-          <span class="inline-flex space-x-1">
-            <span class="w-1.5 h-5 bg-stone-soft rounded-sm inline-block"></span>
-            <span class="w-1.5 h-5 bg-stone-soft rounded-sm inline-block"></span>
-          </span>
-          <span class="font-sans text-sm font-bold tracking-widest text-canvas-warm ml-2">MARKETING</span>
-        </div>
-        <p class="text-taupe-light text-sm italic">
-          {SITE_CONFIG.slogan}
-        </p>
-        <p class="text-canvas-warm/75 text-sm leading-relaxed">
-          {SITE_CONFIG.description}
-        </p>
+  <div class="wrap flex flex-col gap-14 pt-20">
+    <div class="flex flex-wrap items-end justify-between gap-10" data-reveal>
+      <div class="flex max-w-xl flex-col gap-4">
+        <p class="h-section">Let's talk healthcare.</p>
+        <p class="lead">Tea is on us. So is your first check.</p>
       </div>
-
-      <div class="text-left md:text-right">
-        <p class="text-2xl sm:text-3xl font-serif text-canvas-warm italic tracking-wide">
-          Less noise. More trust.
-        </p>
+      <div class="flex flex-wrap gap-3">
+        <a href="/free-nmc-check/" class="btn-primary">Get my free check <span class="arrow" aria-hidden="true">→</span></a>
+        <a href={SITE_CONFIG.contact.whatsappHref} target="_blank" rel="noopener noreferrer" class="btn-ghost">WhatsApp us</a>
       </div>
     </div>
 
-    <!-- Middle Row: 3 Columns (Address/Contact, Navigation, Legal/Regulatory) -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 py-12 border-b border-navy-light text-sm" data-reveal-stagger>
-      
-      <!-- Col 1: Identity & Exact Verified Contact -->
-      <div class="space-y-4">
-        <h3 class="font-sans font-semibold tracking-wider text-xs text-taupe-light uppercase">
-          Location &amp; Contact
-        </h3>
-        <p class="text-canvas-warm/90 leading-relaxed">
-          <strong class="font-medium block text-canvas-warm">{SITE_CONFIG.name}</strong>
-          {SITE_CONFIG.address.streetAddress},<br />
-          {SITE_CONFIG.address.addressLocality}, {SITE_CONFIG.address.addressRegion} {SITE_CONFIG.address.postalCode}
-        </p>
-        <div class="space-y-1.5 pt-1 text-canvas-warm/85">
-          <p>
-            <span class="text-taupe-light">Phone:</span>{" "}
-            <a href={SITE_CONFIG.contact.phoneHref} class="hover:text-canvas-warm hover-draw-underline">
-              {SITE_CONFIG.contact.telephone}
-            </a>
-          </p>
-          <p>
-            <span class="text-taupe-light">WhatsApp:</span>{" "}
-            <a href={SITE_CONFIG.contact.whatsappHref} target="_blank" rel="noopener noreferrer" class="hover:text-canvas-warm hover-draw-underline">
-              {SITE_CONFIG.contact.whatsapp}
-            </a>
-          </p>
-          <p>
-            <span class="text-taupe-light">Instagram:</span>{" "}
-            <a href={SITE_CONFIG.contact.instagramHref} target="_blank" rel="noopener noreferrer" class="hover:text-canvas-warm hover-draw-underline">
-              {SITE_CONFIG.contact.instagram}
-            </a>
-          </p>
-          <p>
-            <span class="text-taupe-light">Hours:</span> {SITE_CONFIG.placeholders.hours}
-          </p>
-        </div>
+    <div class="grid gap-10 border-t border-white/10 pt-12 md:grid-cols-12" data-reveal-stagger>
+      <address class="flex flex-col gap-2 not-italic md:col-span-3">
+        <span class="lbl">Visit</span>
+        <span class="text-[15px] leading-relaxed text-mist">
+          {SITE_CONFIG.name}, {SITE_CONFIG.address.formatted}
+        </span>
+        <span class="text-[15px] text-slate">{SITE_CONFIG.placeholders.hours}</span>
+      </address>
+
+      <div class="flex flex-col gap-2 text-[15px] md:col-span-3">
+        <span class="lbl">Reach us</span>
+        <a href={SITE_CONFIG.contact.phoneHref} class="link-u text-ivory no-underline">Call {SITE_CONFIG.contact.whatsapp}</a>
+        <a href={SITE_CONFIG.contact.whatsappHref} target="_blank" rel="noopener noreferrer" class="link-u text-amber-light">WhatsApp</a>
+        <a href={SITE_CONFIG.contact.instagramHref} target="_blank" rel="noopener noreferrer" class="link-u text-amber-light">Instagram {SITE_CONFIG.contact.instagram}</a>
+        <a href={`mailto:${SITE_CONFIG.placeholders.businessEmail}`} class="link-u text-amber-light">{SITE_CONFIG.placeholders.businessEmail}</a>
       </div>
 
-      <!-- Col 2: Navigation Links -->
-      <div class="space-y-4">
-        <h3 class="font-sans font-semibold tracking-wider text-xs text-taupe-light uppercase">
-          Agency Navigation
-        </h3>
-        <ul class="space-y-2.5 text-canvas-warm/85">
-          <li>
-            <a href="/" class="hover:text-canvas-warm hover-draw-underline">Home</a>
-          </li>
-          <li>
-            <a href="/healthcare-marketing/" class="hover:text-canvas-warm hover-draw-underline">Healthcare Marketing</a>
-          </li>
-          <li>
-            <a href="/services/" class="hover:text-canvas-warm hover-draw-underline">Marketing Services</a>
-          </li>
-          <li>
-            <a href="/nmc-guidelines-2026/" class="hover:text-canvas-warm hover-draw-underline">NMC Guidelines 2026 Explained</a>
-          </li>
-          <li>
-            <a href="/free-nmc-check/" class="hover:text-canvas-warm hover-draw-underline">Free NMC-Aware Check</a>
-          </li>
-          <li>
-            <a href="/about/" class="hover:text-canvas-warm hover-draw-underline">About Dr Mrugesh &amp; 211</a>
-          </li>
-          <li>
-            <a href="/contact/" class="hover:text-canvas-warm hover-draw-underline">Contact Science City Office</a>
-          </li>
-        </ul>
-      </div>
+      <nav class="flex flex-col gap-2 text-[15px] md:col-span-3" aria-label="Footer navigation">
+        <span class="lbl">Pages</span>
+        {nav.map((l) => <a href={l.href} class="link-u text-mist no-underline">{l.label}</a>)}
+      </nav>
 
-      <!-- Col 3: Regulatory & Privacy Notice -->
-      <div class="space-y-4">
-        <h3 class="font-sans font-semibold tracking-wider text-xs text-taupe-light uppercase">
-          Ethical Standard
-        </h3>
-        <p class="text-canvas-warm/75 text-xs leading-relaxed">
-          All client strategies, digital communication, and website architecture are developed to strictly respect the National Medical Commission (NMC) guidelines of 6 October 2026.
-        </p>
-        <p class="text-canvas-warm/75 text-xs leading-relaxed">
-          We strictly do not publish patient testimonials, clinical before/after photographs, superlatives, or promises of patient numbers.
-        </p>
-        <div class="pt-2">
-          <a
-            href="/privacy/"
-            class="text-xs text-taupe-light hover:text-canvas-warm hover-draw-underline"
-          >
-            Privacy Policy &amp; Data Notice (DPDP Act 2023)
-          </a>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Bottom Row: Attribution -->
-    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-taupe-light gap-4" data-reveal>
-      <p>
-        &copy; {new Date().getFullYear()} {SITE_CONFIG.legalName}. All rights reserved. Registered in Ahmedabad, Gujarat.
-      </p>
-      <div class="flex items-center space-x-4">
-        <a href="/privacy/" class="hover:text-canvas-warm hover-draw-underline">Privacy Policy</a>
-        <span>·</span>
-        <a href="/.well-known/security.txt" class="hover:text-canvas-warm hover-draw-underline">Security</a>
-        <span>·</span>
-        <a href="/sitemap-index.xml" class="hover:text-canvas-warm hover-draw-underline">Sitemap</a>
+      <div class="md:col-span-3">
+        <GoogleMap compact />
       </div>
     </div>
 
+    <p class="max-w-3xl text-xs leading-relaxed text-slate">
+      All client strategies, digital communication and websites are developed to respect the National Medical Commission (NMC) guidelines of 6 October 2026. We do not publish patient testimonials, before/after photographs, unverifiable superlatives or promises of patient numbers.
+    </p>
+
+    <div aria-hidden="true" class="num select-none text-center text-[clamp(140px,28vw,400px)] leading-[0.78] tracking-[-0.07em]" style="background: linear-gradient(180deg, rgba(246,242,234,.16), rgba(246,242,234,0)); -webkit-background-clip: text; background-clip: text; color: transparent;">211</div>
+
+    <div class="flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-slate">
+      <div class="flex items-center gap-3">
+        <Logo size="sm" />
+        <span>&copy; {new Date().getFullYear()} {SITE_CONFIG.legalName} · {SITE_CONFIG.slogan}</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="/privacy/" class="link-u text-slate no-underline">Privacy (DPDP Act 2023)</a>
+        <a href="/.well-known/security.txt" class="link-u text-slate no-underline">Security</a>
+        <a href="/sitemap-index.xml" class="link-u text-slate no-underline">Sitemap</a>
+      </div>
+    </div>
   </div>
 </footer>

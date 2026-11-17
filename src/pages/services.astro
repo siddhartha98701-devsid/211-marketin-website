@@ -1,5 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import FreeCheckBand from "../components/FreeCheckBand.astro";
 import { SITE_CONFIG } from "../config/site";
 import { SERVICES_DATA, SERVICES_CLOSING_LINE } from "../config/services";
 import { getServicesSchema, getBreadcrumbSchema } from "../schemas/jsonld";
@@ -12,97 +14,62 @@ const breadcrumbSchema = getBreadcrumbSchema(SITE_CONFIG.placeholders.siteUrl, [
   { name: "Services", path: "/services/" }
 ]);
 
-const serviceImages: Record<string, { src: string; alt: string }> = {
-  "healthcare-social-media": {
-    src: "/assets/service-social-media.webp",
-    alt: "Medical educational social media carousel displayed on a physician tablet"
-  },
-  "google-business-profile-local-seo": {
-    src: "/assets/service-local-seo.webp",
-    alt: "Modern clinic entrance with accurate signage and ambient lighting in Ahmedabad"
-  },
-  "healthcare-websites": {
-    src: "/assets/service-websites.webp",
-    alt: "Fast, responsive healthcare website interface on a modern doctor workspace"
-  },
-  "brand-content": {
-    src: "/assets/service-brand-content.webp",
-    alt: "Restrained medical brand identity, typography, and stationery collateral"
-  },
-  "nmc-aware-communication-audit": {
-    src: "/assets/service-audit.webp",
-    alt: "Structured NMC compliance audit checklist on physician consultation desk"
-  },
-  "institutional-media": {
-    src: "/assets/service-institutional-media.webp",
-    alt: "Modern multi-speciality hospital campus building with glass and limestone architecture"
-  }
+const serviceMeta: Record<string, { src: string; alt: string; tags: string[] }> = {
+  "healthcare-social-media": { src: "/assets/service-social-media.webp", alt: "Medical educational social media carousel displayed on a physician tablet", tags: ["Monthly plans", "Reels", "Carousels", "NMC review"] },
+  "google-business-profile-local-seo": { src: "/assets/service-local-seo.webp", alt: "Modern clinic entrance with accurate signage and ambient lighting in Ahmedabad", tags: ["Listings", "Services", "Photos", "Q&A"] },
+  "healthcare-websites": { src: "/assets/service-websites.webp", alt: "Fast, responsive healthcare website interface on a modern doctor workspace", tags: ["Mobile-first", "Doctor directory", "Answer-first FAQs"] },
+  "brand-content": { src: "/assets/service-brand-content.webp", alt: "Restrained medical brand identity, typography, and stationery collateral", tags: ["Positioning", "Visual identity", "Medical copywriting"] },
+  "nmc-aware-communication-audit": { src: "/assets/service-audit.webp", alt: "Structured NMC compliance audit checklist on physician consultation desk", tags: ["Website", "Social media", "Campaigns", "Fix list"] },
+  "institutional-media": { src: "/assets/service-institutional-media.webp", alt: "Modern multi-speciality hospital campus building with glass and limestone architecture", tags: ["Eligible institutions", "Paid campaigns", "Within NMC guidance"] }
 };
+const total = String(SERVICES_DATA.length).padStart(2, "0");
 ---
 
-<Layout
-  title={title}
-  description={description}
-  canonicalPath="/services/"
-  schemas={[servicesSchema, breadcrumbSchema]}
->
-  <!-- Hero Section -->
-  <section class="bg-navy text-canvas-warm pt-16 pb-20 sm:pt-24 sm:pb-28 border-b border-navy-light" aria-labelledby="services-h1">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-      
-      <h1 id="services-h1" class="text-4xl sm:text-5xl lg:text-6xl font-serif font-semibold tracking-tight text-canvas-warm leading-[1.15] max-w-4xl mx-auto">
-        Healthcare marketing services.
-      </h1>
+<Layout title={title} description={description} canonicalPath="/services/" schemas={[servicesSchema, breadcrumbSchema]}>
+  <PageHero id="services-h1" eyebrow="What we do · Six services">
+    Healthcare marketing <em class="accent-grad">services.</em>
+    <nav slot="after" class="anim-rise delay-3 flex max-w-[860px] flex-wrap justify-center gap-1.5 pt-2" aria-label="Jump to a service">
+      {SERVICES_DATA.map((s) => <a href={`#${s.id}`} class="chip no-underline">{s.title}</a>)}
+    </nav>
+  </PageHero>
 
-    </div>
-  </section>
-
-  <!-- Service List Section (Each service gets an H2 and one short paragraph verbatim) -->
-  <section class="py-16 sm:py-24 bg-canvas" aria-labelledby="services-list-heading">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 id="services-list-heading" class="sr-only">List of Services</h2>
-      
-      <div class="divide-y divide-stone-soft" data-reveal-stagger>
-        {SERVICES_DATA.map((service, index) => {
-          const img = serviceImages[service.id];
-          const isEven = index % 2 === 1;
-          return (
-            <article id={service.id} class="py-12 sm:py-16 first:pt-0 last:pb-8 group transition-colors">
-              <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                <div class={`space-y-4 md:col-span-7 ${isEven ? 'md:order-2' : ''}`}>
-                  <h2 class="text-3xl sm:text-4xl font-serif font-semibold text-navy">
-                    {service.title}
-                  </h2>
-                  <p class="text-lg sm:text-xl text-navy/85 font-sans leading-relaxed pt-1">
-                    {service.copy}
-                  </p>
-                </div>
-                {img && (
-                  <div class={`md:col-span-5 overflow-hidden rounded-xl border border-stone-soft bg-canvas-muted shadow-2xs aspect-16/10 ${isEven ? 'md:order-1' : ''}`}>
-                    <img
-                      src={img.src}
-                      alt={img.alt}
-                      width="960"
-                      height="540"
-                      loading="lazy"
-                      decoding="async"
-                      class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                    />
+  <section class="pb-[clamp(80px,11vw,150px)]" aria-label="Service list">
+    <div class="wrap flex flex-col gap-4">
+      {SERVICES_DATA.map((service, index) => {
+        const m = serviceMeta[service.id];
+        const n = String(index + 1).padStart(2, "0");
+        const flip = index % 2 === 1;
+        return (
+          <article id={service.id} class="card glass grid overflow-hidden rounded-[32px] lg:grid-cols-12" data-reveal>
+            <div class={`relative flex flex-col justify-between gap-10 p-[clamp(28px,4vw,56px)] lg:col-span-7 ${flip ? "lg:order-2" : ""}`}>
+              <div class="card-glow -right-24 -top-24" aria-hidden="true"></div>
+              <div class="relative flex items-start justify-between gap-6">
+                <span class="lbl">Service {n} / {total}</span>
+                <span class="num text-[clamp(72px,9vw,128px)] text-white/10" aria-hidden="true">{n}</span>
+              </div>
+              <div class="relative flex flex-col gap-5">
+                <h2 class="font-serif text-[clamp(32px,3.6vw,48px)] leading-[1.02]">{service.title}</h2>
+                <p class="lead max-w-[560px]">{service.copy}</p>
+                {m && (
+                  <div class="flex flex-wrap gap-2 pt-1">
+                    {m.tags.map((t) => <span class="tag">{t}</span>)}
                   </div>
                 )}
               </div>
-            </article>
-          );
-        })}
-      </div>
+            </div>
+            {m && (
+              <div class={`relative min-h-[260px] overflow-hidden lg:col-span-5 ${flip ? "lg:order-1" : ""}`}>
+                <img src={m.src} alt={m.alt} width="960" height="540" loading="lazy" decoding="async" class="card-img absolute inset-0 h-full w-full object-cover" style="filter: saturate(.7) brightness(.72);" />
+                <div class="absolute inset-0" style={`background: linear-gradient(${flip ? "270deg" : "90deg"}, rgba(14,23,30,.9), transparent 60%);`} aria-hidden="true"></div>
+              </div>
+            )}
+          </article>
+        );
+      })}
 
-      <!-- Closing line -->
-      <div class="mt-16 pt-10 border-t-2 border-stone-soft text-center sm:text-left" data-reveal>
-        <p class="text-2xl sm:text-3xl font-serif italic text-navy">
-          {SERVICES_CLOSING_LINE}
-        </p>
-      </div>
-
+      <p class="pt-10 text-center font-serif text-[clamp(24px,2.6vw,34px)] italic text-fog" data-reveal>{SERVICES_CLOSING_LINE}</p>
     </div>
   </section>
+
+  <FreeCheckBand />
 </Layout>

@@ -1,0 +1,12 @@
+---
+export interface Props {
+  size?: "sm" | "md";
+}
+const { size = "md" } = Astro.props;
+const badge = size === "sm" ? "w-8 h-8 text-[14px]" : "w-9 h-9 text-[15px]";
+---
+
+<span class="inline-flex items-center gap-2.5">
+  <span class={`${badge} rounded-full bg-ivory text-ink inline-flex items-center justify-center font-serif tracking-tight`}>211</span>
+  <span class="text-[11px] font-bold tracking-[0.26em] text-ivory">MARKETING</span>
+</span>

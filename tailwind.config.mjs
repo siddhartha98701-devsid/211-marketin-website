@@ -4,6 +4,26 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Dark clinical scanner palette (built from Ink Navy, Warm Ivory and Quiet Taupe)
+        ink: {
+          DEFAULT: '#0A1116', // page canvas
+          900: '#070C10',
+          800: '#0E171E',
+          700: '#111C24',
+          600: '#16232D'
+        },
+        ivory: '#F6F2EA',
+        mist: '#C3CBD0',   // body text on ink (11:1)
+        fog: '#A9B4BB',    // secondary text on ink (8.5:1)
+        slate: '#8E9BA4',  // meta text on ink (6.4:1)
+        sand: '#DCD4C6',
+        amber: {
+          DEFAULT: '#E9B872',
+          light: '#F1CF95',
+          pale: '#F3E3C4',
+          deep: '#D9932F'
+        },
+        mint: '#9BD3A8',
         canvas: {
           DEFAULT: '#F6F2EA', // Warm Ivory
           warm: '#F6F2EA',

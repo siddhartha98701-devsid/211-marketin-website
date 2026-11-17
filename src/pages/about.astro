@@ -1,5 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import FreeCheckBand from "../components/FreeCheckBand.astro";
 import { SITE_CONFIG } from "../config/site";
 import { getBreadcrumbSchema } from "../schemas/jsonld";
 
@@ -18,104 +20,88 @@ const whatWeWontDoItems = [
 ];
 ---
 
-<Layout
-  title={title}
-  description={description}
-  canonicalPath="/about/"
-  schemas={[breadcrumbSchema]}
->
-  <!-- Hero Section -->
-  <section class="bg-navy text-canvas-warm pt-16 pb-20 sm:pt-24 sm:pb-28 border-b border-navy-light" aria-labelledby="about-h1">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-      
-      <h1 id="about-h1" class="text-4xl sm:text-5xl lg:text-6xl font-serif font-semibold tracking-tight text-canvas-warm leading-[1.15] max-w-3xl mx-auto">
-        A marketing firm with a doctor's eye.
-      </h1>
+<Layout title={title} description={description} canonicalPath="/about/" schemas={[breadcrumbSchema]}>
+  <PageHero id="about-h1" eyebrow="About 211 · Doctor-founded">
+    A marketing firm with a <em class="accent-grad">doctor's eye.</em>
+  </PageHero>
 
+  <!-- Founder story -->
+  <section class="section rule-top" aria-label="Founder story">
+    <div class="wrap flex flex-wrap items-center gap-[clamp(40px,6vw,96px)]">
+      <figure class="relative max-w-[420px] flex-[1_1_300px]" data-reveal>
+        <div class="anim-pulse absolute inset-x-0 bottom-[30%] top-[10%] rounded-full" style="background: radial-gradient(circle, rgba(233,184,114,.4), transparent 65%); filter: blur(30px);" aria-hidden="true"></div>
+        <div class="relative aspect-[4/5] overflow-hidden border border-white/25" style="border-radius: 220px 220px 28px 28px;">
+          <img src="/assets/about-clinical-founder.webp" alt="Physician founder reviewing clinical literature in a calm medical consultation office in Ahmedabad" width="800" height="1000" loading="lazy" decoding="async" class="h-full w-full object-cover" style="filter: saturate(.7) brightness(.8);" />
+          <div class="absolute inset-0" style="background: linear-gradient(180deg, transparent 50%, rgba(10,17,22,.85));" aria-hidden="true"></div>
+        </div>
+        <figcaption class="relative mt-5 flex items-baseline justify-between gap-3">
+          <span class="font-serif text-[26px]">{SITE_CONFIG.founder.name}</span>
+          <span class="text-xs text-fog">{SITE_CONFIG.founder.qualifications}</span>
+        </figcaption>
+      </figure>
+
+      <div class="flex min-w-0 flex-[999_1_480px] flex-col gap-8" data-reveal>
+        <p class="lbl">The story</p>
+        <p class="font-serif text-[clamp(24px,2.6vw,34px)] leading-[1.4] text-ivory">
+          211 Marketing was founded by Dr Mrugesh, MD Anaesthesiology, FPCI, who has been active professionally in Ahmedabad for nine years. Having worked inside healthcare, he saw the same problem again and again: good clinics marketed like shops, or not at all. 211 exists to fix that, with communication that is accurate, useful and quietly premium.
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- Narrative & Sections -->
-  <section class="py-16 sm:py-24 bg-canvas">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-      
-      <!-- Body Section (Verbatim from brief) -->
-      <article class="card-hover-calm bg-white rounded-xl border border-stone-soft shadow-sm overflow-hidden group" data-reveal>
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-0 items-center">
-          <div class="md:col-span-5 overflow-hidden bg-canvas-muted h-full min-h-[300px]">
-            <img
-              src="/assets/about-clinical-founder.webp"
-              alt="Physician founder reviewing clinical literature in a calm medical consultation office in Ahmedabad"
-              width="800"
-              height="600"
-              loading="lazy"
-              decoding="async"
-              class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-            />
-          </div>
-          <div class="md:col-span-7 p-8 sm:p-12 space-y-6">
-            <p class="text-xl sm:text-2xl font-serif text-navy leading-relaxed">
-              211 Marketing was founded by Dr Mrugesh, MD Anaesthesiology, FPCI, who has been active professionally in Ahmedabad for nine years. Having worked inside healthcare, he saw the same problem again and again: good clinics marketed like shops, or not at all. 211 exists to fix that, with communication that is accurate, useful and quietly premium.
-            </p>
-          </div>
+  <!-- The name -->
+  <section class="pb-[clamp(80px,11vw,150px)]" aria-labelledby="name-heading">
+    <div class="wrap">
+      <div class="mb-10 flex flex-wrap items-end justify-between gap-6" data-reveal>
+        <div>
+          <p class="lbl mb-4">The name</p>
+          <h2 id="name-heading" class="h-section">Creativity + Structure = <em class="accent">Growth.</em></h2>
         </div>
-      </article>
-
-      <!-- The Name Section (Verbatim from brief) -->
-      <div class="card-hover-calm bg-canvas-muted rounded-xl border border-stone-soft overflow-hidden group" data-reveal>
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-0 items-center">
-          <div class="md:col-span-7 p-8 sm:p-10 space-y-4">
-            <h2 class="text-2xl sm:text-3xl font-serif font-semibold text-navy">
-              The name
-            </h2>
-            <p class="text-lg sm:text-xl text-navy/85 font-sans leading-relaxed">
-              2 is the sweep of creative thinking; 11 is the structure of disciplined execution. Together: Creativity + Structure = Growth.
-            </p>
-          </div>
-          <div class="md:col-span-5 overflow-hidden h-full min-h-[220px]">
-            <img
-              src="/assets/about-creativity-structure.webp"
-              alt="Modern architectural geometry and organic wood detail representing creative thinking and disciplined execution"
-              width="960"
-              height="540"
-              loading="lazy"
-              decoding="async"
-              class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-            />
-          </div>
+        <p class="body max-w-[420px]">2 is the sweep of creative thinking; 11 is the structure of disciplined execution. Together: Creativity + Structure = Growth.</p>
+      </div>
+      <div class="grid gap-3 sm:grid-cols-3" data-reveal-stagger>
+        <div class="card glass flex min-h-[260px] flex-col justify-between rounded-3xl p-8">
+          <svg width="80" height="90" viewBox="0 0 40 46" aria-hidden="true"><path d="M4 14 C 5 4, 22 4, 22 14 C 22 24, 9 30, 4 42 L 20 42" fill="none" stroke="#F1CF95" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <div><p class="num text-[64px]">2</p><p class="body mt-3">The sweep of creative thinking</p></div>
+        </div>
+        <div class="card glass flex min-h-[260px] flex-col justify-between rounded-3xl p-8">
+          <svg width="80" height="90" viewBox="0 0 40 46" aria-hidden="true"><line x1="12" y1="4" x2="12" y2="42" stroke="#F1CF95" stroke-width="1.4" stroke-linecap="round"></line><line x1="28" y1="4" x2="28" y2="42" stroke="#F1CF95" stroke-width="1.4" stroke-linecap="round"></line></svg>
+          <div><p class="num text-[64px]">11</p><p class="body mt-3">The structure of disciplined execution</p></div>
+        </div>
+        <div class="flex min-h-[260px] flex-col justify-between rounded-3xl bg-ivory p-8 text-ink">
+          <span class="text-[11px] font-bold tracking-[0.22em]">TOGETHER</span>
+          <div><p class="num text-[64px]">=</p><p class="mt-3 text-[15px] font-bold">Creativity + Structure = Growth</p></div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- What We Believe (Verbatim from brief) -->
-      <div class="card-hover-calm bg-white p-8 sm:p-10 rounded-xl border border-stone-soft space-y-4" data-reveal>
-        <h2 class="text-2xl sm:text-3xl font-serif font-semibold text-navy">
-          What we believe
-        </h2>
-        <p class="text-lg sm:text-xl text-navy/85 font-sans leading-relaxed">
-          Healthcare is not ordinary advertising. Visibility should never cost credibility. Less noise, more intent.
-        </p>
+  <!-- Believe / Won't do -->
+  <section class="section rule-top" aria-label="What we believe and what we won't do">
+    <div class="wrap grid gap-3 lg:grid-cols-2">
+      <div class="glass flex flex-col gap-6 rounded-3xl p-[clamp(28px,4vw,48px)]" data-reveal>
+        <p class="lbl">What we believe</p>
+        <h2 class="sr-only">What we believe</h2>
+        <ul class="flex flex-col gap-1">
+          {["Healthcare is not ordinary advertising.", "Visibility should never cost credibility.", "Less noise, more intent."].map((b) => (
+            <li class="border-t border-white/10 py-4 font-serif text-[clamp(22px,2.2vw,30px)] italic leading-snug">{b}</li>
+          ))}
+        </ul>
       </div>
-
-      <!-- What We Won't Do (Verbatim from brief) -->
-      <div class="card-hover-calm bg-white border border-stone-soft rounded-xl p-8 sm:p-10 space-y-6 shadow-2xs" data-reveal>
-        <h2 class="text-2xl sm:text-3xl font-serif font-semibold text-navy">
-          What we won't do
-        </h2>
-
-        <ul class="space-y-4 pt-2">
+      <div class="alert flex flex-col gap-6 rounded-3xl p-[clamp(28px,4vw,48px)]" data-reveal>
+        <p class="inline-flex items-center gap-2.5 text-xs font-bold tracking-[0.2em] text-amber-light"><span class="dot dot-amber anim-blink" aria-hidden="true"></span>WHAT WE WON'T DO</p>
+        <h2 class="sr-only">What we won't do</h2>
+        <ul class="flex flex-col">
           {whatWeWontDoItems.map((item) => (
-            <li class="flex items-start space-x-3">
-              <span class="w-6 h-6 rounded-full bg-stone-soft text-navy flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-bold" aria-hidden="true">
-                &times;
-              </span>
-              <span class="text-lg sm:text-xl font-serif text-navy">
-                {item}
-              </span>
+            <li class="flex items-center gap-4 border-t border-amber/20 py-4 text-[17px] text-amber-pale">
+              <span class="inline-flex h-7 w-7 flex-none items-center justify-center rounded-full border border-amber/50 text-amber-light" aria-hidden="true">×</span>
+              <span class="first-letter:uppercase">{item}</span>
             </li>
           ))}
         </ul>
       </div>
-
     </div>
   </section>
+
+  <FreeCheckBand />
 </Layout>

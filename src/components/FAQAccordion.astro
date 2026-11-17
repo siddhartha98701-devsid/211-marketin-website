@@ -15,37 +15,26 @@ const {
 const faqs = getActiveFaqs(SITE_CONFIG.flags.showPricingFaq);
 ---
 
-<section class="py-16 sm:py-24 border-t border-stone-soft" aria-labelledby="faq-section-heading">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    <div class="text-center mb-12" data-reveal>
-      <h2 id="faq-section-heading" class="text-3xl sm:text-4xl font-serif font-semibold text-navy">
-        {heading}
-      </h2>
-      {lead && (
-        <p class="mt-3 text-base text-navy/70 max-w-2xl mx-auto">
-          {lead}
-        </p>
-      )}
+<section class="section rule-top" aria-labelledby="faq-section-heading">
+  <div class="wrap flex flex-wrap gap-[clamp(32px,6vw,96px)]">
+    <div class="flex flex-[1_1_280px] flex-col gap-4" data-reveal>
+      <p class="lbl">FAQ</p>
+      <h2 id="faq-section-heading" class="h-section">{heading}</h2>
+      {lead && <p class="body max-w-[320px]">{lead}</p>}
+      <p class="body max-w-[320px]">
+        Anything else? Call or WhatsApp <a href={SITE_CONFIG.contact.whatsappHref} target="_blank" rel="noopener noreferrer" class="link-u font-bold text-amber-light">{SITE_CONFIG.contact.whatsapp}</a>.
+      </p>
     </div>
-
-    <div class="divide-y divide-stone-soft border-y border-stone-soft" data-reveal-stagger>
+    <div class="flex min-w-0 flex-[999_1_560px] flex-col gap-2" data-reveal-stagger>
       {faqs.map((faq, index) => (
-        <details class="group py-6 transition-colors" id={`faq-${index + 1}`}>
-          <summary class="flex justify-between items-center cursor-pointer list-none text-left font-serif text-xl sm:text-2xl font-medium text-navy group-hover:text-navy-light focus:outline-none focus-visible:ring-2 focus-visible:ring-navy rounded transition-colors duration-200">
-            <span class="pr-6">{faq.question}</span>
-            <span class="ml-4 flex-shrink-0 text-taupe-quiet group-open:rotate-90 transition-transform duration-200">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </span>
+        <details class="acc" id={`faq-${index + 1}`} open={index === 0}>
+          <summary>
+            <span class="acc-q font-serif text-[22px] leading-snug">{faq.question}</span>
+            <span class="acc-icon" aria-hidden="true">+</span>
           </summary>
-          <div class="mt-4 pt-2 pr-6 text-navy/85 leading-relaxed text-base sm:text-lg font-sans">
-            <p>{faq.answer}</p>
-          </div>
+          <p class="acc-body">{faq.answer}</p>
         </details>
       ))}
     </div>
-
   </div>
 </section>

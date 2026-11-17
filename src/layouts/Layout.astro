@@ -28,31 +28,23 @@ const { title, description, canonicalPath, ogImage, schemas } = Astro.props;
       schemas={schemas}
     />
   </head>
-  <body class="bg-canvas text-navy min-h-screen flex flex-col font-sans selection:bg-navy selection:text-canvas-warm">
-    
-    <!-- Keyboard Accessibility: Skip to Content -->
-    <a href="#main-content" class="skip-link">
-      Skip to main content
-    </a>
+  <body class="min-h-screen flex flex-col bg-ink font-sans text-ivory">
+    <div class="grid-bg" aria-hidden="true"></div>
 
-    <!-- Header Navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <Header />
 
-    <!-- Main Landmark -->
-    <main id="main-content" class="flex-grow focus:outline-none">
+    <main id="main-content" class="relative z-[1] flex-grow focus:outline-none">
       <slot />
     </main>
 
-    <!-- Footer Landmark -->
     <Footer />
 
-    <!-- Mobile Sticky Call/WhatsApp Bar -->
     <MobileFloatingBar />
 
-    <!-- Cookie & DPDP Consent Banner -->
     <ConsentBanner />
 
-    <!-- Subtle Motion & Scroll Enhancement Engine (Progressive Enhancement) -->
     <script src="../scripts/motion.ts"></script>
   </body>
 </html>
