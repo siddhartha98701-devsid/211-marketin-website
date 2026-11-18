@@ -235,11 +235,17 @@ h1, h2, h3, h4, h5, h6 {
 /* ==========================================================================
    MOBILE SWIPE ROWS
    Card groups that would stack into a long vertical column on phones become
-   a horizontal, snap-scrolling row below 768px. The next card peeks in from
-   the right edge so the row reads as swipeable. From 768px up the original
-   grid layout applies unchanged.
+   a horizontal, snap-scrolling row. Applies to:
+     - any screen narrower than 768px (all phones in portrait, small tablets)
+     - touch phones held in landscape (short screens up to 520px tall)
+   Card width is fluid: a share of the screen, clamped between a minimum and
+   a maximum, so every device shows one full card plus part of the next.
+   From 768px up (tablets, laptops, desktops) the original grids apply.
    ========================================================================== */
-@media (max-width: 767.98px) {
+.swipe-row { --gutter: 20px; }
+@media (min-width: 640px) { .swipe-row { --gutter: 24px; } }
+
+@media (max-width: 767.98px), (pointer: coarse) and (orientation: landscape) and (max-height: 520px) {
   .swipe-row {
     display: flex !important;
     flex-direction: row !important;
@@ -247,42 +253,50 @@ h1, h2, h3, h4, h5, h6 {
     align-items: stretch;
     gap: 12px;
     overflow-x: auto;
+    overflow-y: hidden;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    /* bleed to the screen edges, keep first card aligned with the page gutter */
-    margin-inline: -20px;
-    padding-inline: 20px;
-    scroll-padding-inline: 20px;
+    /* bleed to the screen edges; first card stays aligned with the page gutter */
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
     padding-bottom: 4px;
+    /* default card: ~78% of the screen, never smaller than 220px or wider than 340px */
+    --swipe-min: 220px; --swipe-pct: 78%; --swipe-max: 340px;
   }
   .swipe-row::-webkit-scrollbar { display: none; }
   .swipe-row > * {
-    flex: 0 0 var(--swipe-w, 80%);
+    flex: 0 0 clamp(var(--swipe-min), var(--swipe-pct), var(--swipe-max));
+    max-width: calc(100vw - var(--gutter) * 2);
     min-width: 0;
     scroll-snap-align: start;
   }
-  .swipe-row.swipe-sm > * { --swipe-w: 64%; }
-  .swipe-row.swipe-lg > * { --swipe-w: 86%; }
+  /* small tiles (numbers / stats) */
+  .swipe-row.swipe-sm { --swipe-min: 150px; --swipe-pct: 58%; --swipe-max: 240px; }
+  /* large panels (services, paired text panels) */
+  .swipe-row.swipe-lg { --swipe-min: 250px; --swipe-pct: 86%; --swipe-max: 560px; }
   /* chip rows: size to content */
   .swipe-row.swipe-chips {
     justify-content: flex-start; gap: 6px;
     align-self: stretch; max-width: none; width: auto;
   }
-  .swipe-row.swipe-chips > * { flex: 0 0 auto; white-space: nowrap; }
-  /* equal-height cards inside a row */
-  .swipe-row > .card, .swipe-row > .glass { height: auto; }
+  .swipe-row.swipe-chips > * { flex: 0 0 auto; white-space: nowrap; max-width: none; }
 }
-@media (max-width: 767.98px) and (min-width: 640px) {
-  .swipe-row { margin-inline: -24px; padding-inline: 24px; scroll-padding-inline: 24px; }
-  .swipe-row > * { --swipe-w: 46%; }
-  .swipe-row.swipe-sm > * { --swipe-w: 38%; }
-  .swipe-row.swipe-lg > * { --swipe-w: 60%; }
-}
+
+/* Long unbroken strings (emails, URLs, phone numbers) wrap on very narrow
+   screens such as folded phones instead of pushing the page sideways. */
+address, dd, .link-u, .field-label, .acc-q { overflow-wrap: anywhere; }
 
 /* Header */
 header.site-header { transition: background 0.4s ease; }
+/* Very narrow phones (folded foldables, older small Androids): scale the logo
+   so the logo pill and the menu button always fit on one line. */
+@media (max-width: 359.98px) {
+  header.site-header .logo-mark { height: 24px !important; }
+  header.site-header .logo-word { height: 8px !important; }
+}
 /* Soft ink fade behind the floating nav so page text never shows through
    between the pills while scrolling */
 header.site-header::before {

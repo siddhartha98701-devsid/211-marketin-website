@@ -12,7 +12,7 @@ const mapEmbedUrl = "https://www.google.com/maps?q=The+Capital+Science+City+Road
 const directionsUrl = "https://www.google.com/maps/search/?api=1&query=211+Marketing+B-1405+The+Capital+Science+City+Road+Sola+Ahmedabad+380060";
 ---
 
-<div class={`glass overflow-hidden rounded-3xl ${className}`}>
+<div class={`glass min-w-0 max-w-full overflow-hidden rounded-3xl ${className}`}>
   <div class={`relative w-full ${compact ? "h-48" : "h-80 sm:h-[460px]"}`}>
     <iframe
       src={mapEmbedUrl}
@@ -28,8 +28,8 @@ const directionsUrl = "https://www.google.com/maps/search/?api=1&query=211+Marke
     ></iframe>
     <span class="pointer-events-none absolute left-1/2 top-1/2 -ml-2 -mt-2 h-4 w-4 rounded-full bg-amber anim-pulse" style="box-shadow: 0 0 0 6px rgba(241,207,149,.2), 0 0 24px #E9B872;" aria-hidden="true"></span>
   </div>
-  <div class="flex items-center justify-between gap-3 border-t border-white/10 px-4 py-3 text-xs">
-    <span class="truncate text-fog">{SITE_CONFIG.address.streetAddress}</span>
+  <div class="flex min-w-0 items-center justify-between gap-3 border-t border-white/10 px-4 py-3 text-xs">
+    <span class="min-w-0 truncate text-fog">{SITE_CONFIG.address.streetAddress}</span>
     <a href={directionsUrl} target="_blank" rel="noopener noreferrer" class="flex-none font-bold uppercase tracking-[0.14em] text-amber-light no-underline">
       Open in Maps →
     </a>

@@ -15,17 +15,17 @@ const navLinks = [
 
 <header class="site-header sticky top-0 z-40 px-3 pt-3 sm:px-5 sm:pt-4">
   <div class="mx-auto flex max-w-[1240px] items-center justify-between gap-3">
-    <a href="/" class="nav-shell flex items-center rounded-full py-2 pl-2 pr-4 no-underline" aria-label="211 Marketing home">
+    <a href="/" class="nav-shell flex flex-none items-center rounded-full py-2 pl-2 pr-4 no-underline" aria-label="211 Marketing home">
       <Logo />
     </a>
 
-    <nav class="nav-shell hidden items-center gap-1 rounded-full p-1.5 md:flex" aria-label="Main navigation">
+    <nav class="nav-shell hidden items-center gap-1 rounded-full p-1.5 lg:flex" aria-label="Main navigation">
       {navLinks.map((link) => {
         const isActive = currentPath === link.href;
         return (
           <a
             href={link.href}
-            class={`rounded-full px-4 py-3 text-[11px] font-bold uppercase tracking-[0.16em] no-underline transition-colors duration-300 ${
+            class={`whitespace-nowrap rounded-full px-4 py-3 text-[11px] font-bold uppercase tracking-[0.16em] no-underline transition-colors duration-300 ${
               isActive ? "bg-ivory text-ink" : "text-sand hover:bg-white/5 hover:text-ivory"
             }`}
             aria-current={isActive ? "page" : undefined}
@@ -37,14 +37,14 @@ const navLinks = [
     </nav>
 
     <div class="flex items-center gap-2">
-      <a href="/free-nmc-check/" class="btn-primary btn-sm hidden gap-2.5 sm:inline-flex">
+      <a href="/free-nmc-check/" class="btn-primary btn-sm hidden gap-2.5 whitespace-nowrap sm:inline-flex">
         <span class="dot dot-amber anim-blink" aria-hidden="true"></span>
         Free NMC check
       </a>
       <button
         type="button"
         id="mobile-menu-toggle"
-        class="nav-shell inline-flex h-12 w-12 items-center justify-center rounded-full text-ivory md:hidden"
+        class="nav-shell inline-flex h-12 w-12 flex-none items-center justify-center rounded-full text-ivory lg:hidden"
         aria-controls="mobile-menu"
         aria-expanded="false"
         aria-label="Open menu"
@@ -60,7 +60,7 @@ const navLinks = [
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="nav-shell mx-auto mt-2 hidden max-w-[1240px] rounded-3xl p-3 md:hidden">
+  <div id="mobile-menu" class="nav-shell mx-auto mt-2 hidden max-h-[calc(100dvh-96px)] max-w-[1240px] overflow-y-auto rounded-3xl p-3 lg:hidden">
     <nav class="flex flex-col gap-1" aria-label="Mobile navigation">
       {navLinks.map((link) => {
         const isActive = currentPath === link.href;
