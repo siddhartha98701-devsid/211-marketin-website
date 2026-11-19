@@ -22,27 +22,25 @@ const whatWeWontDoItems = [
 
 <Layout title={title} description={description} canonicalPath="/about/" schemas={[breadcrumbSchema]}>
   <PageHero id="about-h1" eyebrow="About 211 · Doctor-founded">
-    A marketing firm with a <em class="accent-grad">doctor's eye.</em>
+    A marketing firm with a <em class="accent">doctor's eye.</em>
   </PageHero>
 
   <!-- Founder story -->
   <section class="section rule-top" aria-label="Founder story">
     <div class="wrap flex flex-wrap items-center gap-[clamp(40px,6vw,96px)]">
       <figure class="relative max-w-[420px] flex-[1_1_300px]" data-reveal>
-        <div class="anim-pulse absolute inset-x-0 bottom-[30%] top-[10%] rounded-full" style="background: radial-gradient(circle, rgba(233,184,114,.4), transparent 65%); filter: blur(30px);" aria-hidden="true"></div>
-        <div class="relative aspect-[4/5] overflow-hidden border border-white/25" style="border-radius: 220px 220px 28px 28px;">
-          <img src="/assets/about-clinical-founder.webp" alt="Physician founder reviewing clinical literature in a calm medical consultation office in Ahmedabad" width="800" height="1000" loading="lazy" decoding="async" class="h-full w-full object-cover" style="filter: saturate(.7) brightness(.8);" />
-          <div class="absolute inset-0" style="background: linear-gradient(180deg, transparent 50%, rgba(10,17,22,.85));" aria-hidden="true"></div>
+        <div class="relative aspect-[4/5] overflow-hidden border border-ink/25" style="border-radius: 220px 220px 28px 28px;">
+          <img src="/assets/about-clinical-founder.webp" alt="Physician founder reviewing clinical literature in a calm medical consultation office in Ahmedabad" width="800" height="1000" loading="lazy" decoding="async" class="h-full w-full object-cover" />
         </div>
         <figcaption class="relative mt-5 flex items-baseline justify-between gap-3">
           <span class="font-serif text-[26px]">{SITE_CONFIG.founder.name}</span>
-          <span class="text-xs text-fog">{SITE_CONFIG.founder.qualifications}</span>
+          <span class="text-xs text-body">{SITE_CONFIG.founder.qualifications}</span>
         </figcaption>
       </figure>
 
       <div class="flex min-w-0 flex-[999_1_480px] flex-col gap-8" data-reveal>
         <p class="lbl">The story</p>
-        <p class="font-serif text-[clamp(24px,2.6vw,34px)] leading-[1.4] text-ivory">
+        <p class="font-serif text-[clamp(24px,2.6vw,34px)] leading-[1.4] text-ink">
           211 Marketing was founded by Dr Mrugesh, MD Anaesthesiology, FPCI, who has been active professionally in Ahmedabad for nine years. Having worked inside healthcare, he saw the same problem again and again: good clinics marketed like shops, or not at all. 211 exists to fix that, with communication that is accurate, useful and quietly premium.
         </p>
       </div>
@@ -60,16 +58,14 @@ const whatWeWontDoItems = [
         <p class="body max-w-[420px]">2 is the sweep of creative thinking; 11 is the structure of disciplined execution. Together: Creativity + Structure = Growth.</p>
       </div>
       <div class="swipe-row grid gap-3 sm:grid-cols-3" data-reveal-stagger>
-        <div class="card glass flex min-h-[260px] flex-col justify-between rounded-3xl p-8">
-          <svg width="80" height="90" viewBox="0 0 40 46" aria-hidden="true"><path d="M4 14 C 5 4, 22 4, 22 14 C 22 24, 9 30, 4 42 L 20 42" fill="none" stroke="#F1CF95" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <div class="card glass flex min-h-[220px] flex-col justify-end rounded-2xl p-8">
           <div><p class="num text-[64px]">2</p><p class="body mt-3">The sweep of creative thinking</p></div>
         </div>
-        <div class="card glass flex min-h-[260px] flex-col justify-between rounded-3xl p-8">
-          <svg width="80" height="90" viewBox="0 0 40 46" aria-hidden="true"><line x1="12" y1="4" x2="12" y2="42" stroke="#F1CF95" stroke-width="1.4" stroke-linecap="round"></line><line x1="28" y1="4" x2="28" y2="42" stroke="#F1CF95" stroke-width="1.4" stroke-linecap="round"></line></svg>
+        <div class="card glass flex min-h-[220px] flex-col justify-end rounded-2xl p-8">
           <div><p class="num text-[64px]">11</p><p class="body mt-3">The structure of disciplined execution</p></div>
         </div>
-        <div class="flex min-h-[260px] flex-col justify-between rounded-3xl bg-ivory p-8 text-ink">
-          <span class="text-[11px] font-bold tracking-[0.22em]">TOGETHER</span>
+        <div class="theme-navy flex min-h-[220px] flex-col justify-between rounded-2xl p-8">
+          <span class="text-[12px] font-bold tracking-[0.08em]">TOGETHER</span>
           <div><p class="num text-[64px]">=</p><p class="mt-3 text-[15px] font-bold">Creativity + Structure = Growth</p></div>
         </div>
       </div>
@@ -84,17 +80,17 @@ const whatWeWontDoItems = [
         <h2 class="sr-only">What we believe</h2>
         <ul class="flex flex-col gap-1">
           {["Healthcare is not ordinary advertising.", "Visibility should never cost credibility.", "Less noise, more intent."].map((b) => (
-            <li class="border-t border-white/10 py-4 font-serif text-[clamp(22px,2.2vw,30px)] italic leading-snug">{b}</li>
+            <li class="border-t border-ink/10 py-4 font-serif text-[clamp(22px,2.2vw,30px)] italic leading-snug">{b}</li>
           ))}
         </ul>
       </div>
       <div class="alert flex flex-col gap-6 rounded-3xl p-[clamp(28px,4vw,48px)]" data-reveal>
-        <p class="inline-flex items-center gap-2.5 text-xs font-bold tracking-[0.2em] text-amber-light"><span class="dot dot-amber anim-blink" aria-hidden="true"></span>WHAT WE WON'T DO</p>
+        <p class="inline-flex items-center gap-2.5 text-xs font-bold tracking-[0.08em] text-accent-ink">WHAT WE WON'T DO</p>
         <h2 class="sr-only">What we won't do</h2>
         <ul class="flex flex-col">
           {whatWeWontDoItems.map((item) => (
-            <li class="flex items-center gap-4 border-t border-amber/20 py-4 text-[17px] text-amber-pale">
-              <span class="inline-flex h-7 w-7 flex-none items-center justify-center rounded-full border border-amber/50 text-amber-light" aria-hidden="true">×</span>
+            <li class="flex items-center gap-4 border-t border-accent/20 py-4 text-[17px] text-body">
+              <span class="inline-flex h-7 w-7 flex-none items-center justify-center rounded-full border border-accent/50 text-accent-ink" aria-hidden="true">×</span>
               <span class="first-letter:uppercase">{item}</span>
             </li>
           ))}

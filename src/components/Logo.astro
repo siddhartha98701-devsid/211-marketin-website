@@ -1,35 +1,39 @@
 ---
 /**
- * 211 Marketing logo: the rising "2 / 11" mark + "211 MARKETING" wordmark,
- * traced from the official logo and served as ivory SVGs for the dark site.
+ * 211 Marketing logo. Only the three approved lockups (Brand Guidelines p. 04)
+ * are used, never rearranged or recoloured beyond the approved colourways:
+ *   - "lockup"   primary lockup (symbol above wordmark)  min 180 px wide
+ *   - "symbol"   symbol only                              min 32 px wide
+ *   - "wordmark" wordmark only, for low-height horizontal spaces
+ * Colourways: Ink Navy on Warm Ivory/white ("navy"), Warm Ivory on Ink Navy ("ivory").
+ *
+ * NOTE: the SVGs in /public/assets are traced from the supplied logo artwork.
+ * Replace them with the approved master files from the brand team when available.
  */
 export interface Props {
-  size?: "sm" | "md";
+  variant?: "lockup" | "symbol" | "wordmark";
+  tone?: "navy" | "ivory";
+  width?: number;
+  class?: string;
 }
-const { size = "md" } = Astro.props;
-const markH = size === "sm" ? 24 : 32;   // mark viewBox 536 × 430
-const wordH = size === "sm" ? 9 : 11;    // wordmark viewBox 887 × 69
-const markW = Math.round((536 / 430) * markH);
-const wordW = Math.round((887 / 69) * wordH);
+const { variant = "wordmark", tone = "navy", width, class: cls = "" } = Astro.props;
+
+const files = {
+  lockup:   { navy: "/assets/211-marketing-logo.svg", ivory: "/assets/211-marketing-logo-ivory.svg", ratio: 931 / 594, min: 180, def: 200 },
+  symbol:   { navy: "/assets/211-logo-mark.svg",      ivory: "/assets/211-logo-mark-ivory.svg",      ratio: 536 / 430, min: 32,  def: 40 },
+  wordmark: { navy: "/assets/211-wordmark.svg",       ivory: "/assets/211-wordmark-ivory.svg",       ratio: 887 / 69,  min: 150, def: 184 }
+}[variant];
+
+const w = Math.max(width ?? files.def, files.min);
+const h = Math.round(w / files.ratio);
 ---
 
-<span class="inline-flex items-center gap-2.5">
-  <img
-    src="/assets/211-logo-mark-ivory.svg"
-    alt=""
-    width={markW}
-    height={markH}
-    class="logo-mark block flex-none"
-    style={`height:${markH}px;width:auto`}
-    decoding="async"
-  />
-  <img
-    src="/assets/211-wordmark-ivory.svg"
-    alt="211 Marketing"
-    width={wordW}
-    height={wordH}
-    class="logo-word block flex-none"
-    style={`height:${wordH}px;width:auto`}
-    decoding="async"
-  />
-</span>
+<img
+  src={files[tone]}
+  alt="211 Marketing"
+  width={w}
+  height={h}
+  class={`block h-auto max-w-none flex-none ${cls}`}
+  style={`width:${w}px`}
+  decoding="async"
+/>

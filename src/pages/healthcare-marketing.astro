@@ -37,8 +37,8 @@ const whatChangesForYou = [
     eyebrow="Hospitals · Clinics · Diagnostics · Specialists"
     lead="Patients choose healthcare on trust. We build that trust with clear information, calm design and content that respects the NMC guidelines."
   >
-    Hospital and clinic marketing in Ahmedabad, <em class="accent-grad">done properly.</em>
-    <div slot="after" class="anim-rise delay-3 pt-2">
+    Hospital and clinic marketing in Ahmedabad, <em class="accent">done properly.</em>
+    <div slot="after" class="pt-2">
       <a href="/free-nmc-check/" class="btn-primary">Start with a free check <span class="arrow" aria-hidden="true">→</span></a>
     </div>
   </PageHero>
@@ -56,9 +56,7 @@ const whatChangesForYou = [
         {whoWeWorkWith.map((item, i) => (
           <article class="card glass flex flex-col rounded-3xl">
             <div class="relative aspect-[4/5] overflow-hidden rounded-t-3xl">
-              <img src={item.image} alt={item.alt} width="800" height="1000" loading="lazy" decoding="async" class="card-img h-full w-full object-cover" style="filter: saturate(.7) brightness(.75);" />
-              <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(10,17,22,.1) 30%, rgba(10,17,22,.92) 100%);" aria-hidden="true"></div>
-              <span class="absolute left-5 top-5 num text-[40px] text-ivory/80" style="letter-spacing:-0.03em">0{i + 1}</span>
+              <img src={item.image} alt={item.alt} width="800" height="1000" loading="lazy" decoding="async" class="card-img h-full w-full object-cover" />
             </div>
             <h3 class="p-6 font-serif text-[24px] leading-tight">{item.title}</h3>
           </article>
@@ -76,8 +74,8 @@ const whatChangesForYou = [
           <h2 id="changes-heading" class="h-section">Clearer. Calmer. <em class="accent">Safer.</em></h2>
           <ul class="flex flex-col">
             {whatChangesForYou.map((item) => (
-              <li class="flex items-start gap-4 border-t border-white/10 py-5 text-[17px] leading-snug text-sand">
-                <span class="mt-0.5 inline-flex h-6 w-6 flex-none items-center justify-center rounded-full border border-mint/50 text-xs text-mint" aria-hidden="true">✓</span>
+              <li class="flex items-start gap-4 border-t border-ink/10 py-5 text-[17px] leading-snug text-body">
+                <span class="mt-0.5 inline-flex h-6 w-6 flex-none items-center justify-center rounded-full border border-ink/50 text-xs text-ink" aria-hidden="true">✓</span>
                 <span class="first-letter:uppercase">{item}</span>
               </li>
             ))}
@@ -85,8 +83,7 @@ const whatChangesForYou = [
           <a href="/free-nmc-check/" class="btn-primary self-start">Start with a free check <span class="arrow" aria-hidden="true">→</span></a>
         </div>
         <div class="relative min-h-[320px] lg:col-span-5">
-          <img src="/assets/service-websites.webp" alt="Clear, responsive digital healthcare presence complying with clinical standards" width="960" height="540" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" style="filter: saturate(.7) brightness(.7);" />
-          <div class="absolute inset-0" style="background: linear-gradient(90deg, rgba(14,23,30,.95), rgba(14,23,30,.2) 50%, transparent);" aria-hidden="true"></div>
+          <img src="/assets/service-websites.webp" alt="Clear, responsive digital healthcare presence complying with clinical standards" width="960" height="540" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" />
         </div>
       </div>
     </div>

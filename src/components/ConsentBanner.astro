@@ -8,19 +8,19 @@ const showBanner = SITE_CONFIG.flags.analyticsEnabled;
   <div
     id="cookie-consent-banner"
     class="glass fixed bottom-24 left-4 right-4 z-50 hidden max-w-md rounded-3xl p-5 text-xs md:bottom-4 md:left-auto md:right-4"
-    style="background: rgba(10,17,22,.92);"
+   
     role="region"
     aria-label="Privacy and analytics preferences"
   >
     <div class="flex flex-col gap-2">
       <p class="lbl">Privacy &amp; analytics</p>
-      <p class="leading-relaxed text-mist">
+      <p class="leading-relaxed text-body">
         We respect your privacy under the Indian DPDP Act 2023. We only use minimal, anonymised analytics to understand site performance. No advertising pixels or session recording.
       </p>
       <div class="flex items-center gap-2 pt-2">
         <button type="button" id="accept-analytics" class="btn-primary btn-sm">Accept</button>
         <button type="button" id="decline-analytics" class="btn-ghost btn-sm">Decline</button>
-        <a href="/privacy/" class="link-u ml-auto text-amber-light">Policy</a>
+        <a href="/privacy/" class="link-u ml-auto text-ink">Policy</a>
       </div>
     </div>
   </div>

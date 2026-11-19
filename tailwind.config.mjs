@@ -4,26 +4,35 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Dark clinical scanner palette (built from Ink Navy, Warm Ivory and Quiet Taupe)
-        ink: {
-          DEFAULT: '#0A1116', // page canvas
-          900: '#070C10',
-          800: '#0E171E',
-          700: '#111C24',
-          600: '#16232D'
+        // Semantic brand tokens (211 Marketing Brand Guidelines v3.0).
+        // Values come from CSS variables in global.css so that any Ink Navy
+        // block (.theme-navy) automatically inverts text and surface colours.
+        //   paper  = surface / canvas   (Warm Ivory on light, Ink Navy in navy blocks)
+        //   ink    = headlines, logo, key UI (Ink Navy on light, Warm Ivory in navy blocks)
+        //   body   = body copy          (Graphite on light, Soft Stone in navy blocks)
+        //   meta   = small labels        (Deep Taupe on light, Soft Stone in navy blocks)
+        //   accent = Quiet Taupe fills, dividers and large-type accents
+        //   accent-ink = small accent text (Deep Taupe on light, Soft Stone in navy blocks)
+        paper: {
+          DEFAULT: 'rgb(var(--c-paper) / <alpha-value>)',
+          2: 'rgb(var(--c-paper-2) / <alpha-value>)'
         },
-        ivory: '#F6F2EA',
-        mist: '#C3CBD0',   // body text on ink (11:1)
-        fog: '#A9B4BB',    // secondary text on ink (8.5:1)
-        slate: '#8E9BA4',  // meta text on ink (6.4:1)
-        sand: '#DCD4C6',
-        amber: {
-          DEFAULT: '#E9B872',
-          light: '#F1CF95',
-          pale: '#F3E3C4',
-          deep: '#D9932F'
+        ink: 'rgb(var(--c-ink) / <alpha-value>)',
+        body: 'rgb(var(--c-body) / <alpha-value>)',
+        meta: 'rgb(var(--c-meta) / <alpha-value>)',
+        accent: {
+          DEFAULT: 'rgb(var(--c-accent) / <alpha-value>)',
+          ink: 'rgb(var(--c-accent-ink) / <alpha-value>)'
         },
-        mint: '#9BD3A8',
+        // Fixed brand colours (approved palette only)
+        brand: {
+          navy: '#263947',     // Ink Navy
+          ivory: '#F6F2EA',    // Warm Ivory
+          stone: '#D8D1C6',    // Soft Stone
+          taupe: '#9A8A72',    // Quiet Taupe
+          graphite: '#3F454B', // text tint
+          deeptaupe: '#746753' // text tint
+        },
         canvas: {
           DEFAULT: '#F6F2EA', // Warm Ivory
           warm: '#F6F2EA',

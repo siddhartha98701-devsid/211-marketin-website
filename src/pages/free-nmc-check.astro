@@ -35,7 +35,7 @@ const whatWeCheckItems = [
     eyebrow="Free · 15 points · 48 hours"
     lead="Send us your Instagram, Google profile and website. Within 48 hours you'll get a one-page review: what's clear, what to review and what to fix."
   >
-    Your free <em class="accent-grad">NMC-aware check.</em>
+    Your free <em class="accent">NMC-aware check.</em>
   </PageHero>
 
   <section class="relative pb-[clamp(80px,11vw,150px)]">
@@ -47,31 +47,29 @@ const whatWeCheckItems = [
           <div class="glass rounded-3xl p-8" data-reveal>
             <div class="mb-5 flex items-center justify-between gap-3">
               <h2 class="font-serif text-[30px]">What we check</h2>
-              <span class="pill-status"><span class="dot dot-mint anim-blink" style="width:6px;height:6px" aria-hidden="true"></span>15 POINTS</span>
             </div>
             <ul class="flex flex-col">
               {whatWeCheckItems.map((item, i) => (
-                <li class="flex items-center gap-4 border-t border-white/10 py-3.5 text-[15px] text-sand">
-                  <span class="num w-7 text-lg text-taupe-light" style="letter-spacing:0">{String(i + 1).padStart(2, "0")}</span>
+                <li class="flex items-center gap-4 border-t border-ink/10 py-3.5 text-[15px] text-body">
+                  <span class="num w-7 text-lg text-accent">{String(i + 1).padStart(2, "0")}</span>
                   <span class="first-letter:uppercase">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
           <div class="glass flex items-center gap-4 rounded-3xl p-6" data-reveal>
-            <span class="num text-[56px]">48<span class="text-lg tracking-normal text-taupe-light">h</span></span>
+            <span class="num text-[56px]">48<span class="text-lg tracking-normal text-accent">h</span></span>
             <p class="body">One page. What's clear, what to review and what to fix. Then a short call, only if you'd like one.</p>
           </div>
         </div>
 
         <!-- Right: form -->
         <div class="lg:col-span-7">
-          <div class="relative overflow-hidden rounded-[28px] border border-white/15 p-[clamp(24px,4vw,44px)]" style="background: linear-gradient(180deg, rgba(20,32,41,.9), rgba(10,17,22,.92));" data-reveal>
-            <div class="anim-pulse pointer-events-none absolute -right-40 -top-40 h-[420px] w-[420px] rounded-full" style="background: radial-gradient(circle, rgba(233,184,114,.25), transparent 65%);" aria-hidden="true"></div>
+          <div class="glass relative overflow-hidden rounded-2xl p-[clamp(24px,4vw,44px)]" data-reveal>
 
             <!-- Success -->
             <div id="form-success-box" class="relative flex hidden min-h-[340px] flex-col justify-center gap-4" role="status">
-              <span class="inline-flex h-14 w-14 items-center justify-center rounded-full bg-ivory text-ink" style="box-shadow: 0 0 40px rgba(233,184,114,.6);">
+              <span class="inline-flex h-14 w-14 items-center justify-center rounded-full bg-ink text-paper">
                 <svg width="22" height="22" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 9.2l3.2 3.2 6.6-6.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
               </span>
               <p class="font-serif text-[38px]">Request received.</p>
@@ -86,7 +84,7 @@ const whatWeCheckItems = [
             <form id="free-check-form" action="/api/free-nmc-check" method="POST" class="relative grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2" novalidate>
               <div class="mb-1 flex items-center justify-between gap-3 sm:col-span-2">
                 <h2 class="font-serif text-[30px]">Request your check</h2>
-                <span class="text-xs text-slate"><span aria-hidden="true">*</span> required</span>
+                <span class="text-xs text-meta"><span aria-hidden="true">*</span> required</span>
               </div>
 
               <!-- Honeypot -->
@@ -130,14 +128,14 @@ const whatWeCheckItems = [
               <label for="instagram" class="field-label">
                 <span>Instagram handle <span aria-hidden="true">*</span></span>
                 <span class="relative block">
-                  <span class="absolute inset-y-0 left-0 flex items-center text-base font-normal tracking-normal text-slate" aria-hidden="true">@</span>
+                  <span class="absolute inset-y-0 left-0 flex items-center text-base font-normal tracking-normal text-meta" aria-hidden="true">@</span>
                   <input type="text" id="instagram" name="instagram" required maxlength="35" class="field pl-5" placeholder="clinic_handle" />
                 </span>
                 <span id="error-instagram" class="field-error hidden"></span>
               </label>
 
               <label for="website" class="field-label">
-                <span>Website <span class="font-normal normal-case tracking-normal text-slate">(optional)</span></span>
+                <span>Website <span class="font-normal normal-case tracking-normal text-meta">(optional)</span></span>
                 <input type="url" id="website" name="website" maxlength="200" autocomplete="url" class="field" placeholder="https://example.com" />
                 <span id="error-website" class="field-error hidden"></span>
               </label>
@@ -150,10 +148,10 @@ const whatWeCheckItems = [
 
               <div class="sm:col-span-2">
                 <div class="flex min-h-[44px] items-start gap-3">
-                  <input type="checkbox" id="consent" name="consent" required class="mt-1 h-[18px] w-[18px] flex-none" style="accent-color: #E9B872;" />
-                  <label for="consent" class="text-sm leading-normal text-mist">
+                  <input type="checkbox" id="consent" name="consent" required class="mt-1 h-[18px] w-[18px] flex-none" style="accent-color: #263947;" />
+                  <label for="consent" class="text-sm leading-normal text-body">
                     I agree to be contacted about my check.{" "}
-                    <a href="/privacy/" class="link-u text-xs text-amber-light">(Privacy notice)</a>
+                    <a href="/privacy/" class="link-u text-xs text-accent-ink">(Privacy notice)</a>
                   </label>
                 </div>
                 <p id="error-consent" class="field-error hidden"></p>
@@ -168,9 +166,9 @@ const whatWeCheckItems = [
               <div class="flex flex-wrap items-center justify-between gap-4 pt-2 sm:col-span-2">
                 <button type="submit" id="submit-btn" class="btn-primary disabled:opacity-70">
                   <span id="btn-text">Send for my free check</span>
-                  <span id="btn-spinner" class="hidden h-4 w-4 animate-spin rounded-full border-2 border-ink border-t-transparent"></span>
+                  <span id="btn-spinner" class="hidden h-4 w-4 animate-spin rounded-full border-2 border-paper border-t-transparent"></span>
                 </button>
-                <p class="text-xs text-slate">A marketing review, not legal advice.</p>
+                <p class="text-xs text-meta">A marketing review, not legal advice.</p>
               </div>
             </form>
           </div>

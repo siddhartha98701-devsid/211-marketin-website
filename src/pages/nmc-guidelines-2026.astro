@@ -33,8 +33,8 @@ const notAllowed = [
 
   <article aria-labelledby="nmc-h1">
     <PageHero id="nmc-h1" eyebrow="NMC guidelines · 6 October 2026">
-      NMC advertising guidelines 2026, <em class="accent-grad">explained in plain English</em>
-      <p slot="after" class="anim-rise delay-2 text-sm text-fog">
+      NMC advertising guidelines 2026, <em class="accent">explained in plain English</em>
+      <p slot="after" class="text-sm text-body">
         By {SITE_CONFIG.name} · Last reviewed: {SITE_CONFIG.placeholders.nmcLastReviewedDate} · {NMC_GUIDE_DATA.disclaimer}
       </p>
     </PageHero>
@@ -42,38 +42,38 @@ const notAllowed = [
     <div class="wrap max-w-[1000px] pb-[clamp(80px,11vw,150px)]">
       <!-- Answer box -->
       <div class="glass mb-6 flex flex-col gap-4 rounded-3xl p-[clamp(24px,4vw,44px)] sm:flex-row sm:gap-6" data-reveal>
-        <span class="h-fit flex-none self-start rounded-full bg-ivory px-3 py-1.5 text-[10px] font-bold tracking-[0.2em] text-ink">IN SHORT</span>
-        <p class="font-serif text-[clamp(21px,2.2vw,28px)] leading-[1.45] text-ivory">{NMC_GUIDE_DATA.answerBox}</p>
+        <span class="h-fit flex-none self-start rounded-full bg-ink px-3 py-1.5 text-[12px] font-bold tracking-[0.08em] text-paper">IN SHORT</span>
+        <p class="font-serif text-[clamp(21px,2.2vw,28px)] leading-[1.45] text-ink">{NMC_GUIDE_DATA.answerBox}</p>
       </div>
 
       <!-- At a glance -->
       <div class="swipe-row swipe-lg mb-20 grid gap-3 md:grid-cols-2" data-reveal-stagger>
         <div class="glass flex flex-col rounded-3xl p-8">
-          <span class="mb-4 inline-flex items-center gap-2.5 text-xs font-bold tracking-[0.2em] text-mint"><span class="dot dot-mint" aria-hidden="true"></span>ALLOWED</span>
-          {allowed.map((a) => <p class="border-t border-white/10 py-3.5 text-[15px] leading-relaxed text-sand">{a}</p>)}
+          <span class="mb-4 inline-flex items-center gap-2.5 text-xs font-bold tracking-[0.08em] text-ink">ALLOWED</span>
+          {allowed.map((a) => <p class="border-t border-ink/10 py-3.5 text-[15px] leading-relaxed text-body">{a}</p>)}
         </div>
         <div class="alert flex flex-col rounded-3xl p-8">
-          <span class="mb-4 inline-flex items-center gap-2.5 text-xs font-bold tracking-[0.2em] text-amber-light"><span class="dot dot-amber anim-blink" aria-hidden="true"></span>NOT ALLOWED</span>
-          {notAllowed.map((a) => <p class="border-t border-amber/20 py-3.5 text-[15px] leading-relaxed text-amber-pale">{a}</p>)}
+          <span class="mb-4 inline-flex items-center gap-2.5 text-xs font-bold tracking-[0.08em] text-accent-ink">NOT ALLOWED</span>
+          {notAllowed.map((a) => <p class="border-t border-accent/20 py-3.5 text-[15px] leading-relaxed text-body">{a}</p>)}
         </div>
       </div>
 
       <!-- Questions, answer first (each an H2 for answer-first search) -->
       <div class="flex flex-col" data-reveal-stagger>
         {NMC_GUIDE_DATA.questions.map((item, idx) => (
-          <section class="grid gap-4 border-t border-white/10 py-10 md:grid-cols-12" aria-labelledby={`q-${idx + 1}`}>
-            <span class="num text-[40px] text-taupe-light md:col-span-1" style="letter-spacing:-0.02em" aria-hidden="true">{String(idx + 1).padStart(2, "0")}</span>
+          <section class="grid gap-4 border-t border-ink/10 py-10 md:grid-cols-12" aria-labelledby={`q-${idx + 1}`}>
+            <span class="num text-[40px] text-accent md:col-span-1" aria-hidden="true">{String(idx + 1).padStart(2, "0")}</span>
             <div class="flex flex-col gap-4 md:col-span-11">
               <h2 id={`q-${idx + 1}`} class="font-serif text-[clamp(26px,2.8vw,36px)] leading-tight">{item.question}</h2>
-              <p class="rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-[17px] leading-relaxed text-mist">{item.answer}</p>
+              <p class="rounded-2xl border border-ink/10 bg-ink/[0.03] p-5 text-[17px] leading-relaxed text-body">{item.answer}</p>
             </div>
           </section>
         ))}
       </div>
 
-      <div class="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-10" data-reveal>
+      <div class="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-ink/10 pt-10" data-reveal>
         <a href={NMC_GUIDE_DATA.officialNoticeUrl} target="_blank" rel="noopener noreferrer" class="btn-ghost">{NMC_GUIDE_DATA.officialNoticeLabel} <span class="arrow" aria-hidden="true">→</span></a>
-        <span class="text-xs text-slate">{NMC_GUIDE_DATA.disclaimer}.</span>
+        <span class="text-xs text-meta">{NMC_GUIDE_DATA.disclaimer}.</span>
       </div>
     </div>
   </article>
