@@ -47,7 +47,7 @@ const rows = [
                 <dt class="meta">{r.k}</dt>
                 <dd>
                   {r.href ? (
-                    <a href={r.href} {...(r.ext ? { target: "_blank", rel: "noopener noreferrer" } : {})} class="link-u text-lg text-ink">{r.v}</a>
+                    <a href={r.href} {...(r.ext ? { target: "_blank", rel: "noopener noreferrer" } : {})} class="link-u tap text-lg text-ink">{r.v}</a>
                   ) : (
                     <span class="text-lg text-ink">{r.v}</span>
                   )}
@@ -59,7 +59,7 @@ const rows = [
 
         <div class="card glass overflow-hidden rounded-3xl" data-reveal>
           <div class="relative aspect-video overflow-hidden">
-            <img src="/assets/contact-ahmedabad-office.webp" alt="Architectural exterior of The Capital on Science City Road, Sola, Ahmedabad" width="960" height="540" loading="lazy" decoding="async" class="card-img h-full w-full object-cover" />
+            <img data-reveal-img src="/assets/contact-ahmedabad-office.webp" alt="Architectural exterior of The Capital on Science City Road, Sola, Ahmedabad" width="960" height="540" loading="lazy" decoding="async" class="card-img h-full w-full object-cover" />
           </div>
           <p class="px-5 py-4 text-center text-xs text-body">The Capital · Science City Road, Sola, Ahmedabad</p>
         </div>

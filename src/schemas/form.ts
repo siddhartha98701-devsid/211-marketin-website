@@ -75,11 +75,14 @@ export const freeCheckFormSchema = z.object({
       }
     }, "Please enter a valid website address (e.g. clinic.com or https://clinic.com)."),
 
+  // Spaces, dashes, dots and brackets are stripped first, so formats shown in the
+  // placeholder and error message ("90990 97585", "+91 90990 97585") validate.
   whatsapp: z
     .string()
     .trim()
-    .regex(INDIAN_PHONE_REGEX, "Please enter a valid 10-digit Indian WhatsApp number (e.g. 9099097585 or +91 90990 97585).")
-    .max(20, "Phone number format too long."),
+    .max(20, "Phone number format too long.")
+    .transform((v) => v.replace(/[\s().-]/g, ""))
+    .pipe(z.string().regex(INDIAN_PHONE_REGEX, "Please enter a valid 10-digit Indian WhatsApp number (e.g. 9099097585 or +91 90990 97585).")),
 
   consent: z
     .union([z.boolean(), z.literal("true"), z.literal("on"), z.literal("1")])

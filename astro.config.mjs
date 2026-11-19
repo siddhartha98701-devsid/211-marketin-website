@@ -13,7 +13,7 @@ export default defineConfig({
   integrations: [
     tailwind(),
     sitemap({
-      filter: (page) => !page.includes('/api/'),
+      filter: (page) => !page.includes('/api/') && !page.includes('/404'),
       changefreq: 'weekly',
       priority: 0.7
     })

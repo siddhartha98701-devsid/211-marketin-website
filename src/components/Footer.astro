@@ -43,15 +43,15 @@ const nav = [
 
       <div class="flex flex-col gap-2 text-[15px] md:col-span-3">
         <span class="lbl">Reach us</span>
-        <a href={SITE_CONFIG.contact.phoneHref} class="link-u text-ink">Call {SITE_CONFIG.contact.whatsapp}</a>
-        <a href={SITE_CONFIG.contact.whatsappHref} target="_blank" rel="noopener noreferrer" class="link-u text-accent-ink">WhatsApp</a>
-        <a href={SITE_CONFIG.contact.instagramHref} target="_blank" rel="noopener noreferrer" class="link-u text-accent-ink">Instagram {SITE_CONFIG.contact.instagram}</a>
-        <a href={`mailto:${SITE_CONFIG.placeholders.businessEmail}`} class="link-u text-accent-ink">{SITE_CONFIG.placeholders.businessEmail}</a>
+        <a href={SITE_CONFIG.contact.phoneHref} class="link-u tap text-ink">Call {SITE_CONFIG.contact.whatsapp}</a>
+        <a href={SITE_CONFIG.contact.whatsappHref} target="_blank" rel="noopener noreferrer" class="link-u tap text-accent-ink">WhatsApp</a>
+        <a href={SITE_CONFIG.contact.instagramHref} target="_blank" rel="noopener noreferrer" class="link-u tap text-accent-ink">Instagram {SITE_CONFIG.contact.instagram}</a>
+        <a href={`mailto:${SITE_CONFIG.placeholders.businessEmail}`} class="link-u tap text-accent-ink">{SITE_CONFIG.placeholders.businessEmail}</a>
       </div>
 
       <nav class="flex flex-col gap-2 text-[15px] md:col-span-3" aria-label="Footer navigation">
         <span class="lbl">Pages</span>
-        {nav.map((l) => <a href={l.href} class="link-u text-body">{l.label}</a>)}
+        {nav.map((l) => <a href={l.href} class="link-u tap text-body">{l.label}</a>)}
       </nav>
 
       <div class="min-w-0 md:col-span-3">
@@ -68,9 +68,9 @@ const nav = [
         <span>&copy; {new Date().getFullYear()} {SITE_CONFIG.legalName} · {SITE_CONFIG.slogan}</span>
       </div>
       <div class="flex items-center gap-4">
-        <a href="/privacy/" class="link-u text-meta">Privacy (DPDP Act 2023)</a>
-        <a href="/.well-known/security.txt" class="link-u text-meta">Security</a>
-        <a href="/sitemap-index.xml" class="link-u text-meta">Sitemap</a>
+        <a href="/privacy/" class="link-u tap text-meta">Privacy (DPDP Act 2023)</a>
+        <a href="/.well-known/security.txt" class="link-u tap text-meta">Security</a>
+        <a href="/sitemap-index.xml" class="link-u tap text-meta">Sitemap</a>
       </div>
     </div>
   </div>

@@ -56,7 +56,7 @@ const whatChangesForYou = [
         {whoWeWorkWith.map((item, i) => (
           <article class="card glass flex flex-col rounded-3xl">
             <div class="relative aspect-[4/5] overflow-hidden rounded-t-3xl">
-              <img src={item.image} alt={item.alt} width="800" height="1000" loading="lazy" decoding="async" class="card-img h-full w-full object-cover" />
+              <img data-reveal-img src={item.image} alt={item.alt} width="800" height="1000" loading="lazy" decoding="async" class="card-img h-full w-full object-cover" />
             </div>
             <h3 class="p-6 font-serif text-[24px] leading-tight">{item.title}</h3>
           </article>
@@ -83,7 +83,7 @@ const whatChangesForYou = [
           <a href="/free-nmc-check/" class="btn-primary self-start">Start with a free check <span class="arrow" aria-hidden="true">→</span></a>
         </div>
         <div class="relative min-h-[320px] lg:col-span-5">
-          <img src="/assets/service-websites.webp" alt="Clear, responsive digital healthcare presence complying with clinical standards" width="960" height="540" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" />
+          <img data-reveal-img src="/assets/service-websites.webp" alt="Clear, responsive digital healthcare presence complying with clinical standards" width="960" height="540" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" />
         </div>
       </div>
     </div>

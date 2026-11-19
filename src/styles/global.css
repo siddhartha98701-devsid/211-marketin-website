@@ -277,3 +277,66 @@ html.js [data-reveal-stagger].is-visible > *:nth-child(n+4) { transition-delay: 
 @media (max-width: 359.98px) {
   header.site-header a[aria-label="211 Marketing home"] img { width: 150px !important; }
 }
+
+/* ==========================================================================
+   UI/UX FIXES
+   ========================================================================== */
+/* Soft Stone panels: small text uses Ink Navy (7.9:1) - Deep Taupe is only 3.6:1 on Stone */
+.alert { --c-meta: 38 57 71; --c-accent-ink: 38 57 71; }
+.theme-navy .alert { --c-meta: 216 209 198; --c-accent-ink: 216 209 198; }
+
+/* Invalid form fields */
+.field[aria-invalid="true"] { border-bottom-color: #8A2E26; border-bottom-width: 2px; }
+.theme-navy .field[aria-invalid="true"] { border-bottom-color: #F3C9C3; }
+input[type="checkbox"][aria-invalid="true"] { outline: 2px solid #8A2E26; outline-offset: 2px; }
+
+/* Comfortable tap targets for stacked text links (footer, contact) */
+.tap { display: inline-flex; align-items: center; min-height: 32px; }
+@media (pointer: coarse) { .tap { min-height: 40px; } }
+
+/* Keyboard focus on swipe rows */
+.swipe-row:focus-visible { outline: 2px solid rgb(var(--c-ink)); outline-offset: 4px; border-radius: 12px; }
+
+/* ==========================================================================
+   SCROLL EFFECTS - slow, deliberate and minimal (Guidelines p. 11).
+   Progressive: everything is fully visible without JS or with reduced motion.
+   ========================================================================== */
+/* 1. Header condenses after scrolling */
+header.site-header > div:first-child { transition: height 0.5s var(--ease-calm); }
+header.site-header.header-scrolled > div:first-child { height: 60px; }
+
+/* 2. Image reveal: a slow wipe upwards as images enter the viewport */
+html.js [data-reveal-img] { clip-path: inset(12% 0 0 0 round 16px); opacity: 0.001; transition: clip-path 1.4s var(--ease-calm), opacity 1s var(--ease-calm); }
+html.js [data-reveal-img].is-visible { clip-path: inset(0 0 0 0 round 16px); opacity: 1; }
+
+/* 3. Hero photo: gentle parallax driven by --parallax (set in motion.ts) */
+[data-parallax] { overflow: hidden; }
+[data-parallax] > img { transform: translate3d(0, var(--parallax, 0px), 0) scale(1.06); will-change: transform; }
+
+/* 4. Rules that draw in from the left */
+html.js [data-rule] { position: relative; border-top-color: transparent !important; }
+html.js [data-rule]::before {
+  content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px;
+  background: rgb(var(--c-ink)); transform: scaleX(0); transform-origin: left;
+  transition: transform 1.2s var(--ease-calm);
+}
+html.js [data-reveal-stagger].is-visible [data-rule]::before,
+html.js [data-rule].is-visible::before { transform: scaleX(1); }
+html.js [data-reveal-stagger].is-visible > [data-rule]:nth-child(2)::before { transition-delay: 150ms; }
+html.js [data-reveal-stagger].is-visible > [data-rule]:nth-child(3)::before { transition-delay: 300ms; }
+html.js [data-reveal-stagger].is-visible > [data-rule]:nth-child(4)::before { transition-delay: 450ms; }
+
+/* 5. Swipe-row position track (phones): shows how far along a row you are */
+.swipe-track { display: none; }
+@media (max-width: 767.98px), (pointer: coarse) and (orientation: landscape) and (max-height: 520px) {
+  .swipe-track { display: block; position: relative; height: 2px; margin-top: 14px; background: rgb(var(--c-ink) / 0.12); border-radius: 2px; overflow: hidden; }
+  .swipe-track > span { position: absolute; top: 0; bottom: 0; left: 0; background: rgb(var(--c-ink)); border-radius: 2px; width: var(--thumb-w, 30%); transform: translateX(var(--thumb-x, 0%)); transition: transform 0.15s linear; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal-img] { clip-path: none !important; opacity: 1 !important; }
+  [data-parallax] > img { transform: none !important; }
+  html.js [data-rule] { border-top-color: rgb(var(--c-ink)) !important; }
+  html.js [data-rule]::before { display: none; }
+  header.site-header.header-scrolled > div:first-child { height: 72px; }
+}

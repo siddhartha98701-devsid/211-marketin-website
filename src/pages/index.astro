@@ -55,11 +55,11 @@ const steps = [
           <a href="/free-nmc-check/" class="btn-primary">Get a free NMC-aware check <span class="arrow" aria-hidden="true">→</span></a>
           <a href={SITE_CONFIG.contact.whatsappHref} target="_blank" rel="noopener noreferrer" class="btn-ghost">WhatsApp us</a>
         </div>
-        <a href="/nmc-guidelines-2026/" class="link-u mt-2 self-start text-[14px] text-body">
+        <a href="/nmc-guidelines-2026/" class="link-u mt-2 self-start py-2 text-[14px] text-body">
           New NMC advertising guidelines took effect on 6 October 2026. See what changed →
         </a>
       </div>
-      <figure class="lg:col-span-6">
+      <figure class="overflow-hidden rounded-2xl lg:col-span-6" data-parallax>
         <img
           src="/assets/hero-clinical-editorial.webp"
           alt="Calm, naturally lit consultation room with a wooden desk, stethoscope and navy chairs beside a garden window"
@@ -67,7 +67,7 @@ const steps = [
           height="768"
           fetchpriority="high"
           decoding="async"
-          class="aspect-[4/3] w-full rounded-2xl object-cover lg:aspect-[5/6]"
+          class="aspect-[4/3] w-full object-cover lg:aspect-[5/6]"
         />
       </figure>
     </div>
@@ -91,7 +91,7 @@ const steps = [
         {facts.map((f) => (
           <div class="glass flex flex-col gap-4 rounded-2xl p-6">
             <span class="lbl">{f.label}</span>
-            <span class="num text-[64px]">{f.n}<span class="text-xl text-meta"> {f.unit}</span></span>
+            <span class="num text-[64px]"><span data-count={f.n}>{f.n}</span><span class="text-xl text-meta"> {f.unit}</span></span>
             <span class="text-[14px] text-body">{f.line}</span>
           </div>
         ))}
@@ -150,7 +150,7 @@ const steps = [
       </div>
       <ol class="swipe-row grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
         {steps.map((s, i) => (
-          <li class="flex flex-col gap-3 border-t border-ink pt-6">
+          <li class="flex flex-col gap-3 border-t border-ink pt-6" data-rule>
             <span class="lbl">Step 0{i + 1}</span>
             <h3 class="font-serif text-[28px]">{s.name}</h3>
             <p class="body">{s.copy}</p>

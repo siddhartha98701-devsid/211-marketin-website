@@ -94,13 +94,33 @@ const navLinks = [
   const closeIcon = document.getElementById("close-icon");
 
   if (toggleBtn && mobileMenu && hamburgerIcon && closeIcon) {
-    toggleBtn.addEventListener("click", () => {
-      const isExpanded = toggleBtn.getAttribute("aria-expanded") === "true";
-      toggleBtn.setAttribute("aria-expanded", (!isExpanded).toString());
-      toggleBtn.setAttribute("aria-label", isExpanded ? "Open menu" : "Close menu");
-      mobileMenu.classList.toggle("hidden");
-      hamburgerIcon.classList.toggle("hidden");
-      closeIcon.classList.toggle("hidden");
+    const setOpen = (open: boolean): void => {
+      toggleBtn.setAttribute("aria-expanded", open.toString());
+      toggleBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      mobileMenu.classList.toggle("hidden", !open);
+      hamburgerIcon.classList.toggle("hidden", open);
+      closeIcon.classList.toggle("hidden", !open);
+    };
+    const isOpen = (): boolean => toggleBtn.getAttribute("aria-expanded") === "true";
+
+    toggleBtn.addEventListener("click", () => setOpen(!isOpen()));
+
+    // Escape closes the menu and returns focus to the button
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isOpen()) {
+        setOpen(false);
+        toggleBtn.focus();
+      }
+    });
+
+    // Tapping outside the header closes the menu
+    document.addEventListener("click", (e) => {
+      if (isOpen() && !(e.target as HTMLElement).closest("header.site-header")) setOpen(false);
+    });
+
+    // Close if the screen grows to desktop width while open
+    window.matchMedia("(min-width: 1024px)").addEventListener("change", (m) => {
+      if (m.matches) setOpen(false);
     });
   }
 </script>

@@ -51,7 +51,7 @@ const whatWeCheckItems = [
             <ul class="flex flex-col">
               {whatWeCheckItems.map((item, i) => (
                 <li class="flex items-center gap-4 border-t border-ink/10 py-3.5 text-[15px] text-body">
-                  <span class="num w-7 text-lg text-accent">{String(i + 1).padStart(2, "0")}</span>
+                  <span class="num w-7 text-lg text-meta">{String(i + 1).padStart(2, "0")}</span>
                   <span class="first-letter:uppercase">{item}</span>
                 </li>
               ))}
@@ -96,19 +96,19 @@ const whatWeCheckItems = [
 
               <label for="name" class="field-label">
                 <span>Name <span aria-hidden="true">*</span></span>
-                <input type="text" id="name" name="name" required maxlength="100" autocomplete="name" class="field" placeholder="Dr. Full Name" />
-                <span id="error-name" class="field-error hidden"></span>
+                <input type="text" id="name" aria-describedby="error-name" name="name" required maxlength="100" autocomplete="name" class="field" placeholder="Dr. Full Name" />
+                <span id="error-name" class="field-error hidden" aria-live="polite"></span>
               </label>
 
               <label for="organisation" class="field-label">
                 <span>Organisation <span aria-hidden="true">*</span></span>
-                <input type="text" id="organisation" name="organisation" required maxlength="120" autocomplete="organization" class="field" placeholder="Clinic, hospital or practice" />
-                <span id="error-organisation" class="field-error hidden"></span>
+                <input type="text" id="organisation" aria-describedby="error-organisation" name="organisation" required maxlength="120" autocomplete="organization" class="field" placeholder="Clinic, hospital or practice" />
+                <span id="error-organisation" class="field-error hidden" aria-live="polite"></span>
               </label>
 
               <label for="entityType" class="field-label">
                 <span>I am a <span aria-hidden="true">*</span></span>
-                <select id="entityType" name="entityType" required class="field">
+                <select id="entityType" aria-describedby="error-entityType" name="entityType" required class="field">
                   <option value="" disabled selected>Select practice type…</option>
                   <option value="Doctor">Doctor</option>
                   <option value="Clinic">Clinic</option>
@@ -116,45 +116,45 @@ const whatWeCheckItems = [
                   <option value="Diagnostics">Diagnostics</option>
                   <option value="Other">Other</option>
                 </select>
-                <span id="error-entityType" class="field-error hidden"></span>
+                <span id="error-entityType" class="field-error hidden" aria-live="polite"></span>
               </label>
 
               <label for="city" class="field-label">
                 <span>City <span aria-hidden="true">*</span></span>
-                <input type="text" id="city" name="city" required maxlength="80" autocomplete="address-level2" class="field" placeholder="e.g. Ahmedabad" />
-                <span id="error-city" class="field-error hidden"></span>
+                <input type="text" id="city" aria-describedby="error-city" name="city" required maxlength="80" autocomplete="address-level2" class="field" placeholder="e.g. Ahmedabad" />
+                <span id="error-city" class="field-error hidden" aria-live="polite"></span>
               </label>
 
               <label for="instagram" class="field-label">
                 <span>Instagram handle <span aria-hidden="true">*</span></span>
                 <span class="relative block">
                   <span class="absolute inset-y-0 left-0 flex items-center text-base font-normal tracking-normal text-meta" aria-hidden="true">@</span>
-                  <input type="text" id="instagram" name="instagram" required maxlength="35" class="field pl-5" placeholder="clinic_handle" />
+                  <input type="text" id="instagram" aria-describedby="error-instagram" name="instagram" required maxlength="35" class="field pl-5" placeholder="clinic_handle" />
                 </span>
-                <span id="error-instagram" class="field-error hidden"></span>
+                <span id="error-instagram" class="field-error hidden" aria-live="polite"></span>
               </label>
 
               <label for="website" class="field-label">
                 <span>Website <span class="font-normal normal-case tracking-normal text-meta">(optional)</span></span>
-                <input type="url" id="website" name="website" maxlength="200" autocomplete="url" class="field" placeholder="https://example.com" />
-                <span id="error-website" class="field-error hidden"></span>
+                <input type="url" id="website" aria-describedby="error-website" name="website" maxlength="200" autocomplete="url" class="field" placeholder="https://example.com" />
+                <span id="error-website" class="field-error hidden" aria-live="polite"></span>
               </label>
 
               <label for="whatsapp" class="field-label sm:col-span-2">
                 <span>WhatsApp number <span aria-hidden="true">*</span></span>
-                <input type="tel" id="whatsapp" name="whatsapp" required maxlength="16" autocomplete="tel" class="field" placeholder="10-digit mobile (e.g. 90990 97585)" />
-                <span id="error-whatsapp" class="field-error hidden"></span>
+                <input type="tel" id="whatsapp" aria-describedby="error-whatsapp" name="whatsapp" required maxlength="16" autocomplete="tel" class="field" placeholder="10-digit mobile (e.g. 90990 97585)" />
+                <span id="error-whatsapp" class="field-error hidden" aria-live="polite"></span>
               </label>
 
               <div class="sm:col-span-2">
                 <div class="flex min-h-[44px] items-start gap-3">
-                  <input type="checkbox" id="consent" name="consent" required class="mt-1 h-[18px] w-[18px] flex-none" style="accent-color: #263947;" />
+                  <input type="checkbox" id="consent" aria-describedby="error-consent" name="consent" required class="mt-0.5 h-[22px] w-[22px] flex-none" style="accent-color: #263947;" />
                   <label for="consent" class="text-sm leading-normal text-body">
                     I agree to be contacted about my check.{" "}
                     <a href="/privacy/" class="link-u text-xs text-accent-ink">(Privacy notice)</a>
                   </label>
                 </div>
-                <p id="error-consent" class="field-error hidden"></p>
+                <p id="error-consent" class="field-error hidden" aria-live="polite"></p>
               </div>
 
               {turnstileSiteKey && (
@@ -185,6 +185,34 @@ const whatWeCheckItems = [
 
 <script>
   // Progressive enhancement & client validation
+  import { freeCheckFormSchema } from "../schemas/form";
+
+  // Client-side check uses the same rules (and messages) as the server.
+  const clientSchema = freeCheckFormSchema.omit({
+    form_rendered_at: true,
+    website_url_hp: true,
+    "cf-turnstile-response": true
+  });
+
+  const showFieldError = (field: string, message: string): void => {
+    const el = document.getElementById(`error-${field}`);
+    const input = document.getElementById(field);
+    if (el) {
+      el.textContent = message;
+      el.classList.remove("hidden");
+    }
+    input?.setAttribute("aria-invalid", "true");
+  };
+
+  const clearFieldError = (field: string): void => {
+    const el = document.getElementById(`error-${field}`);
+    if (el) {
+      el.textContent = "";
+      el.classList.add("hidden");
+    }
+    document.getElementById(field)?.removeAttribute("aria-invalid");
+  };
+
   const form = document.getElementById("free-check-form") as HTMLFormElement | null;
   const timeField = document.getElementById("form_rendered_at") as HTMLInputElement | null;
   const successBox = document.getElementById("form-success-box");
@@ -206,6 +234,17 @@ const whatWeCheckItems = [
     successBox.classList.remove("hidden");
   }
 
+  if (form) {
+    form.addEventListener("input", (e) => {
+      const t = e.target as HTMLElement | null;
+      if (t?.id && t.getAttribute("aria-invalid") === "true") clearFieldError(t.id);
+    });
+    form.addEventListener("change", (e) => {
+      const t = e.target as HTMLElement | null;
+      if (t?.id && t.getAttribute("aria-invalid") === "true") clearFieldError(t.id);
+    });
+  }
+
   if (form && submitBtn && btnText && btnSpinner) {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -215,15 +254,33 @@ const whatWeCheckItems = [
         el.classList.add("hidden");
         el.textContent = "";
       });
+      form.querySelectorAll("[aria-invalid]").forEach((el) => el.removeAttribute("aria-invalid"));
       if (errorBox) errorBox.classList.add("hidden");
 
-      // Check consent
+      // Validate every field before sending (same rules as the server)
       const consentBox = form.elements.namedItem("consent") as HTMLInputElement;
-      if (!consentBox.checked) {
-        const cErr = document.getElementById("error-consent");
-        if (cErr) {
-          cErr.textContent = "Please agree to be contacted to receive your check.";
-          cErr.classList.remove("hidden");
+      const values: Record<string, unknown> = {};
+      new FormData(form).forEach((val, key) => {
+        values[key] = val;
+      });
+      values.consent = consentBox.checked;
+      const check = clientSchema.safeParse(values);
+      if (!check.success) {
+        const seen = new Set<string>();
+        check.error.issues.forEach((issue) => {
+          const field = String(issue.path[0] ?? "");
+          if (!field || seen.has(field)) return;
+          seen.add(field);
+          showFieldError(field, issue.message);
+        });
+        if (errorBox) errorBox.classList.remove("hidden");
+        // Move focus to the first field that needs attention
+        const order = ["name", "organisation", "entityType", "city", "instagram", "website", "whatsapp", "consent"];
+        const first = order.find((f) => seen.has(f));
+        if (first) {
+          const firstEl = document.getElementById(first) as HTMLElement | null;
+          firstEl?.focus();
+          firstEl?.scrollIntoView({ behavior: "smooth", block: "center" });
         }
         return;
       }
@@ -267,10 +324,8 @@ const whatWeCheckItems = [
 
           if (data.fields) {
             Object.entries(data.fields).forEach(([field, messages]) => {
-              const el = document.getElementById(`error-${field}`);
-              if (el && Array.isArray(messages) && messages[0]) {
-                el.textContent = messages[0];
-                el.classList.remove("hidden");
+              if (Array.isArray(messages) && messages[0]) {
+                showFieldError(field, messages[0]);
               }
             });
           }
