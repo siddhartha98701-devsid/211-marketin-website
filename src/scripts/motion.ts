@@ -181,11 +181,127 @@ function initScrollLinked(): void {
   onScroll();
 }
 
+/* ------------------------------------------------------------------------ */
+/* 5. 3D depth: paper-card tilt, hero photo, settling panels, services deck  */
+/* ------------------------------------------------------------------------ */
+const finePointer = (): boolean => window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+function initTilt(): void {
+  if (prefersReduced() || !finePointer()) return;
+  document.querySelectorAll<HTMLElement>("[data-tilt]").forEach((el) => {
+    const max = parseFloat(el.dataset.tilt || "") || 4; // degrees
+    let frame = 0;
+    const onMove = (e: PointerEvent): void => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const r = el.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;  // -0.5 .. 0.5
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        el.style.setProperty("--ry", `${(x * max * 2).toFixed(2)}deg`);
+        el.style.setProperty("--rx", `${(-y * max * 2).toFixed(2)}deg`);
+        el.style.setProperty("--sx", `${(-x * 16).toFixed(1)}`);
+        el.style.setProperty("--sy", `${(-y * 10).toFixed(1)}`);
+      });
+    };
+    el.addEventListener("pointerenter", () => el.classList.add("is-tilting"));
+    el.addEventListener("pointermove", onMove);
+    el.addEventListener("pointerleave", () => {
+      cancelAnimationFrame(frame);
+      el.classList.remove("is-tilting");
+      ["--rx", "--ry", "--sx", "--sy"].forEach((v) => el.style.removeProperty(v));
+    });
+  });
+}
+
+function initHero3D(): void {
+  if (prefersReduced() || !finePointer()) return;
+  document.querySelectorAll<HTMLElement>("[data-hero-3d]").forEach((hero) => {
+    const target = hero.querySelector<HTMLElement>("[data-parallax]");
+    if (!target) return;
+    let frame = 0;
+    hero.addEventListener("pointermove", (e) => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const r = hero.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        target.style.setProperty("--hy", `${(x * 5).toFixed(2)}deg`);
+        target.style.setProperty("--hx", `${(-y * 4).toFixed(2)}deg`);
+      });
+    });
+    hero.addEventListener("pointerleave", () => {
+      target.style.setProperty("--hy", "0deg");
+      target.style.setProperty("--hx", "0deg");
+    });
+  });
+}
+
+function initDepthAndStack(): void {
+  const depth = Array.from(document.querySelectorAll<HTMLElement>("[data-depth]"));
+  const decks = Array.from(document.querySelectorAll<HTMLElement>("[data-stack]"));
+  if (prefersReduced()) {
+    depth.forEach((el) => el.style.setProperty("--settle", "0"));
+    return;
+  }
+  if (!depth.length && !decks.length) return;
+
+  const deckCards = decks.map((deck) => {
+    const cards = Array.from(deck.querySelectorAll<HTMLElement>(":scope > article"));
+    cards.forEach((c, i) => c.style.setProperty("--i", String(i)));
+    return cards;
+  });
+  const stackQuery = window.matchMedia("(min-width: 1024px) and (min-height: 680px)");
+
+  let ticking = false;
+  const update = (): void => {
+    ticking = false;
+    const vh = window.innerHeight;
+
+    // Panels settle flat between entering the viewport and reaching ~65% height
+    depth.forEach((el) => {
+      const top = el.getBoundingClientRect().top;
+      const p = Math.min(1, Math.max(0, (top - vh * 0.65) / (vh * 0.35)));
+      el.style.setProperty("--settle", p.toFixed(3));
+    });
+
+    // Services deck: a card recedes as the next one slides over it
+    deckCards.forEach((cards) => {
+      cards.forEach((card, i) => {
+        if (!stackQuery.matches) {
+          card.style.removeProperty("--stack");
+          return;
+        }
+        const next = cards[i + 1];
+        if (!next) {
+          card.style.setProperty("--stack", "0");
+          return;
+        }
+        const a = card.getBoundingClientRect();
+        const b = next.getBoundingClientRect();
+        const covered = Math.min(1, Math.max(0, (a.bottom - b.top) / a.height));
+        card.style.setProperty("--stack", covered.toFixed(3));
+      });
+    });
+  };
+  const onScroll = (): void => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
+  update();
+}
+
 function init(): void {
   initReveal();
   initCountUp();
   initSwipeRows();
   initScrollLinked();
+  initTilt();
+  initHero3D();
+  initDepthAndStack();
 }
 
 if (document.readyState === "loading") {

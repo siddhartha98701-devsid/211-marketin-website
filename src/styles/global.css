@@ -248,13 +248,15 @@ header.site-header.header-scrolled { box-shadow: 0 1px 0 rgb(246 242 234 / 0.08)
    MOTION: slow, deliberate and minimal (Guidelines p. 11)
    Only gentle scroll reveals and hover state changes. No loops.
    ========================================================================== */
-html.js [data-reveal] { opacity: 0; transform: translateY(var(--reveal-distance)); transition: opacity 1s var(--ease-calm), transform 1s var(--ease-calm); }
-html.js [data-reveal].is-visible { opacity: 1; transform: none; }
-html.js [data-reveal-stagger] > * { opacity: 0; transform: translateY(var(--reveal-distance)); transition: opacity 1s var(--ease-calm), transform 1s var(--ease-calm); }
-html.js [data-reveal-stagger].is-visible > * { opacity: 1; transform: none; }
-html.js [data-reveal-stagger].is-visible > *:nth-child(2) { transition-delay: 100ms; }
-html.js [data-reveal-stagger].is-visible > *:nth-child(3) { transition-delay: 200ms; }
-html.js [data-reveal-stagger].is-visible > *:nth-child(n+4) { transition-delay: 300ms; }
+/* Reveal uses the standalone `translate` property so it can combine with
+   3D `transform` effects (tilt, depth, stack) on the same element. */
+html.js [data-reveal] { opacity: 0; translate: 0 var(--reveal-distance); transition: opacity 1s var(--ease-calm), translate 1s var(--ease-calm), transform 0.6s var(--ease-calm), box-shadow 0.6s var(--ease-calm); }
+html.js [data-reveal].is-visible { opacity: 1; translate: none; }
+html.js [data-reveal-stagger] > * { opacity: 0; translate: 0 var(--reveal-distance); transition: opacity 1s var(--ease-calm), translate 1s var(--ease-calm), transform 0.6s var(--ease-calm), box-shadow 0.6s var(--ease-calm); }
+html.js [data-reveal-stagger].is-visible > * { opacity: 1; translate: none; }
+html.js [data-reveal-stagger].is-visible > *:nth-child(2) { transition-delay: 100ms, 100ms, 0ms, 0ms; }
+html.js [data-reveal-stagger].is-visible > *:nth-child(3) { transition-delay: 200ms, 200ms, 0ms, 0ms; }
+html.js [data-reveal-stagger].is-visible > *:nth-child(n+4) { transition-delay: 300ms, 300ms, 0ms, 0ms; }
 
 @media (hover: hover) and (pointer: fine) {
   .btn-primary:hover { opacity: 0.88; }
@@ -269,7 +271,7 @@ html.js [data-reveal-stagger].is-visible > *:nth-child(n+4) { transition-delay: 
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto !important; }
-  html.js [data-reveal], html.js [data-reveal-stagger] > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+  html.js [data-reveal], html.js [data-reveal-stagger] > * { opacity: 1 !important; translate: none !important; transform: none !important; transition: none !important; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 
@@ -339,4 +341,60 @@ html.js [data-reveal-stagger].is-visible > [data-rule]:nth-child(4)::before { tr
   html.js [data-rule] { border-top-color: rgb(var(--c-ink)) !important; }
   html.js [data-rule]::before { display: none; }
   header.site-header.header-scrolled > div:first-child { height: 72px; }
+}
+
+/* ==========================================================================
+   3D DEPTH - tactile, paper-like, restrained.
+   No glare, glow, glass or floating objects; the logo is never affected.
+   Pointer effects only on precise pointers (mouse/trackpad); scroll effects
+   are subtle; everything is off for prefers-reduced-motion.
+   ========================================================================== */
+
+/* 1. Paper-card tilt: cards tip toward the cursor; the shadow moves with them */
+@media (hover: hover) and (pointer: fine) {
+  [data-tilt] {
+    transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  [data-tilt].is-tilting {
+    transition: transform 0.15s linear, box-shadow 0.4s var(--ease-calm), opacity 1s var(--ease-calm), translate 1s var(--ease-calm) !important;
+    box-shadow: calc(var(--sx, 0) * 1px) calc(18px + var(--sy, 0) * 1px) 44px -26px rgb(38 57 71 / 0.38);
+  }
+}
+
+/* 2. Hero photo: slight rotation with the pointer, layered over the scroll parallax */
+[data-hero-3d] { perspective: 1200px; }
+@media (hover: hover) and (pointer: fine) {
+  [data-hero-3d] > [data-parallax] {
+    transform: rotateX(var(--hx, 0deg)) rotateY(var(--hy, 0deg));
+    transition: transform 0.9s var(--ease-calm);
+    box-shadow: calc(var(--hy, 0) * -2px) 30px 60px -36px rgb(0 0 0 / 0.45);
+  }
+}
+
+/* 3. Panels settle flat as they scroll into view (rotateX from ~7deg to 0) */
+html.js [data-depth] {
+  transform: perspective(1400px) rotateX(calc(var(--settle, 1) * 7deg)) scale(calc(1 - var(--settle, 1) * 0.02));
+  transform-origin: 50% 100%;
+}
+
+/* 4. Services deck: panels stack like cards on large screens */
+@media (min-width: 1024px) and (min-height: 680px) {
+  [data-stack] > article {
+    position: sticky;
+    top: calc(84px + var(--i, 0) * 14px);
+    transform-origin: 50% 0%;
+    transform: perspective(1400px) translateZ(calc(var(--stack, 0) * -60px)) rotateX(calc(var(--stack, 0) * 2deg));
+  }
+  [data-stack] > article::after {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background: rgb(38 57 71 / calc(var(--stack, 0) * 0.08));
+  }
+  [data-stack] { gap: 28px !important; padding-bottom: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-tilt], [data-hero-3d] > [data-parallax], html.js [data-depth], [data-stack] > article { transform: none !important; box-shadow: none !important; }
+  [data-stack] > article::after { display: none; }
 }
