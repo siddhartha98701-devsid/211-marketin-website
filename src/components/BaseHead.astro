@@ -8,6 +8,7 @@ export interface Props {
   canonicalPath?: string;
   ogImage?: string;
   schemas?: Record<string, any>[];
+  noindex?: boolean;
 }
 
 const {
@@ -15,7 +16,8 @@ const {
   description,
   canonicalPath = Astro.url.pathname,
   ogImage = "/assets/211-og-image.png",
-  schemas = []
+  schemas = [],
+  noindex = false
 } = Astro.props;
 
 const baseUrl = SITE_CONFIG.placeholders.siteUrl.replace(/\/+$/, "");
@@ -28,16 +30,17 @@ const allSchemas = [professionalServiceSchema, ...schemas];
 ---
 
 <!-- Global Metadata -->
+{noindex && <meta name="robots" content="noindex, follow" />}
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<meta name="theme-color" content="#0A1116" />
-<meta name="color-scheme" content="dark" />
+<meta name="theme-color" content="#263947" />
+<meta name="color-scheme" content="light" />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Favicons -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
-<link rel="apple-touch-icon" href="/favicon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalUrl} />

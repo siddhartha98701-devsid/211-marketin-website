@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import HeartScanner from "../components/HeartScanner.astro";
 import FreeCheckBand from "../components/FreeCheckBand.astro";
 import FAQAccordion from "../components/FAQAccordion.astro";
 import { SITE_CONFIG } from "../config/site";
@@ -41,55 +40,58 @@ const steps = [
 ---
 
 <Layout title={title} description={description} canonicalPath="/" schemas={[faqSchema]}>
-  <!-- HERO -->
-  <section class="relative pb-10 pt-[clamp(32px,5vw,64px)] text-center" aria-labelledby="home-h1">
-    <div class="wrap">
-      <p class="lbl anim-rise mb-5">Doctor-founded · NMC-aware · Ahmedabad</p>
-      <h1 id="home-h1" class="display anim-rise delay-1 mx-auto max-w-[980px]">
-        Healthcare marketing, held to a <em class="accent-grad">clinical standard.</em>
-      </h1>
-      <div class="anim-rise delay-2 mt-9">
-        <HeartScanner />
+  <!-- HERO: Ink Navy hero block, one message, one visual focus -->
+  <section class="theme-navy" aria-labelledby="home-h1">
+    <div class="wrap grid items-center gap-[clamp(32px,5vw,72px)] pb-[clamp(56px,8vw,112px)] pt-[clamp(40px,6vw,88px)] lg:grid-cols-12" data-hero-3d>
+      <div class="flex flex-col gap-7 lg:col-span-6" data-intro>
+        <p class="eyebrow">Doctor-founded · NMC-aware · Ahmedabad</p>
+        <h1 id="home-h1" class="display" data-split>
+          Healthcare marketing, held to a clinical standard.
+        </h1>
+        <p class="lead max-w-[520px]">
+          We help hospitals, clinics and diagnostic centres in Ahmedabad become clearer, more credible and easier to find, without putting a registration at risk.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/free-nmc-check/" class="btn-primary">Get a free NMC-aware check <span class="arrow" aria-hidden="true">→</span></a>
+          <a href={SITE_CONFIG.contact.whatsappHref} target="_blank" rel="noopener noreferrer" class="btn-ghost">WhatsApp us</a>
+        </div>
+        <a href="/nmc-guidelines-2026/" class="link-u mt-2 self-start py-2 text-[14px] text-body">
+          New NMC advertising guidelines took effect on 6 October 2026. See what changed →
+        </a>
       </div>
-      <p class="lead mx-auto mt-10 max-w-[600px]">
-        We help hospitals, clinics and diagnostic centres in Ahmedabad become clearer, more credible and easier to find, without putting a registration at risk.
-      </p>
-      <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <a href="/free-nmc-check/" class="btn-primary">Get a free NMC-aware check <span class="arrow" aria-hidden="true">→</span></a>
-        <a href={SITE_CONFIG.contact.whatsappHref} target="_blank" rel="noopener noreferrer" class="btn-ghost">WhatsApp us</a>
-      </div>
-      <a href="/nmc-guidelines-2026/" class="alert mx-auto mt-11 inline-flex max-w-full items-center gap-3 rounded-full px-[18px] py-3 text-left text-[13px] text-amber-light no-underline">
-        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" class="flex-none"><circle cx="8" cy="8" r="7.3" fill="none" stroke="currentColor"></circle><path d="M8 4.5v4.2M8 11v.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
-        New NMC advertising guidelines took effect on 6 October 2026. See what changed →
-      </a>
+      <figure class="overflow-hidden rounded-2xl lg:col-span-6" data-parallax data-intro-img>
+        <img
+          src="/assets/hero-clinical-editorial.webp"
+          alt="Calm, naturally lit consultation room with a wooden desk, stethoscope and navy chairs beside a garden window"
+          width="1376"
+          height="768"
+          fetchpriority="high"
+          decoding="async"
+          class="aspect-[4/3] w-full object-cover lg:aspect-[5/6]"
+        />
+      </figure>
     </div>
   </section>
 
-  <!-- MARQUEE -->
-  <section aria-label="Who we work with" class="mt-16 overflow-hidden border-y border-white/10 py-6">
-    <div class="anim-marquee flex w-max items-center gap-14 whitespace-nowrap font-serif text-[30px] italic text-sand">
-      {[...whoWeServe, ...whoWeServe].map((item, i) => (
-        <>
-          <span aria-hidden={i >= whoWeServe.length ? "true" : undefined}>{item}</span>
-          <span class="dot dot-amber" aria-hidden="true"></span>
-        </>
-      ))}
-    </div>
+  <!-- Who we work with -->
+  <section aria-label="Who we work with" class="border-b border-ink/10">
+    <ul class="wrap flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-7 font-serif tracking-[-0.015em] text-[clamp(18px,1.6vw,22px)] text-body">
+      {whoWeServe.map((item) => <li>{item}</li>)}
+    </ul>
   </section>
 
   <!-- INTRO (answer-first, quotable) + FACTS -->
   <section class="section" aria-label="Who we are">
     <div class="wrap">
-      <p class="lbl mb-7" data-reveal>In one paragraph</p>
-      <p class="max-w-[1080px] font-serif text-[clamp(28px,3.4vw,46px)] leading-[1.22] tracking-[-0.015em] text-slate" data-reveal>
-        211 Marketing is a <span class="text-ivory">doctor-founded healthcare marketing agency in Ahmedabad.</span> We plan and run <span class="text-ivory">social media, Google Business Profile, local SEO and websites</span> for hospitals, clinics, diagnostic centres and specialists, and every piece passes an <em class="accent">8-point review</em> built around the NMC guidelines dated 6 October 2026.
+      <p class="max-w-[980px] font-serif text-[clamp(24px,2.6vw,34px)] leading-[1.3] text-body" data-reveal>
+        211 Marketing is a <span class="text-ink">doctor-founded healthcare marketing agency in Ahmedabad.</span> We plan and run <span class="text-ink">social media, Google Business Profile, local SEO and websites</span> for hospitals, clinics, diagnostic centres and specialists, and every piece passes an 8-point review built around the NMC guidelines dated 6 October 2026.
       </p>
-      <div class="mt-[clamp(56px,7vw,96px)] grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
+      <div class="swipe-row swipe-sm mt-[clamp(48px,6vw,80px)] grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
         {facts.map((f) => (
-          <div class="glass flex flex-col gap-4 rounded-[20px] p-6">
+          <div class="glass flex flex-col gap-4 rounded-2xl p-6" data-tilt="3">
             <span class="lbl">{f.label}</span>
-            <span class="num text-[72px] leading-[0.9]">{f.n}<span class="text-xl tracking-normal text-taupe-light"> {f.unit}</span></span>
-            <span class="text-[13px] text-fog">{f.line}</span>
+            <span class="num text-[64px]"><span data-count={f.n}>{f.n}</span><span class="text-xl text-meta"> {f.unit}</span></span>
+            <span class="text-[14px] text-body">{f.line}</span>
           </div>
         ))}
       </div>
@@ -97,64 +99,38 @@ const steps = [
   </section>
 
   <!-- THREE REASONS -->
-  <section class="pb-[clamp(80px,11vw,150px)]" aria-labelledby="reasons-heading">
+  <section class="pb-[clamp(72px,9vw,128px)]" aria-labelledby="reasons-heading">
     <div class="wrap">
       <h2 id="reasons-heading" class="sr-only">Why 211 Marketing</h2>
-      <div class="grid gap-3 md:grid-cols-3" data-reveal-stagger>
-        <article class="card glass flex min-h-[380px] flex-col justify-between rounded-3xl p-8">
-          <div class="card-glow -right-28 -top-28" aria-hidden="true"></div>
-          <svg width="96" height="96" viewBox="0 0 96 96" aria-hidden="true" class="relative"><g fill="none" stroke="rgba(246,242,234,.7)"><circle cx="48" cy="48" r="44"></circle><ellipse cx="48" cy="48" rx="44" ry="16"></ellipse></g><path d="M14 48h16l6-12 8 24 6-12h32" fill="none" stroke="#F1CF95" stroke-width="1.6" stroke-linejoin="round"></path></svg>
-          <div class="relative flex flex-col gap-3.5">
-            <span class="lbl">01 · Medicine</span>
-            <h3 class="h-card">We speak fluent medicine.</h3>
-            <p class="body">Our founder is a doctor, so we know the difference between a procedure and a promise.</p>
-          </div>
-        </article>
-        <article class="card glass flex min-h-[380px] flex-col justify-between rounded-3xl p-8">
-          <div class="card-glow cool -bottom-40 -left-28" aria-hidden="true"></div>
-          <div class="relative flex items-end gap-2" aria-hidden="true">
-            <span class="h-[82px] w-[46px] rounded-[10px] border border-white/50" style="background: linear-gradient(180deg, rgba(233,184,114,.5), transparent)"></span>
-            <span class="h-[100px] w-[46px] rounded-[10px] border border-white/50"></span>
-            <span class="h-[64px] w-[46px] rounded-[10px] border border-white/50" style="background: linear-gradient(180deg, rgba(127,167,191,.45), transparent)"></span>
-          </div>
-          <div class="relative flex flex-col gap-3.5">
-            <span class="lbl">02 · Instagram</span>
-            <h3 class="h-card">And fluent Instagram.</h3>
-            <p class="body">Reels, carousels and Google profiles that people actually stop for, and save.</p>
-          </div>
-        </article>
-        <article class="card glass flex min-h-[380px] flex-col justify-between rounded-3xl p-8">
-          <div class="card-glow -bottom-36 -right-36" aria-hidden="true"></div>
-          <ul class="relative flex max-w-[220px] flex-col text-xs text-fog" aria-hidden="true">
-            {["Credentials", "Claims", "Patient privacy", "AI use"].map((c) => (
-              <li class="flex justify-between border-b border-white/10 py-2 last:border-0">{c}<span class="text-mint">✓</span></li>
-            ))}
-          </ul>
-          <div class="relative flex flex-col gap-3.5">
-            <span class="lbl">03 · Rules</span>
-            <h3 class="h-card">Rules first, reach second.</h3>
-            <p class="body">Every post is checked for credentials, claims, patient privacy and AI use before it goes live.</p>
-          </div>
-        </article>
+      <div class="swipe-row swipe-lg grid gap-3 md:grid-cols-3" data-reveal-stagger>
+        {[
+          { lbl: "01 · Medicine", h: "We speak fluent medicine.", p: "Our founder is a doctor, so we know the difference between a procedure and a promise." },
+          { lbl: "02 · Instagram", h: "And fluent Instagram.", p: "Reels, carousels and Google profiles that people actually stop for, and save." },
+          { lbl: "03 · Rules", h: "Rules first, reach second.", p: "Every post is checked for credentials, claims, patient privacy and AI use before it goes live." }
+        ].map((r) => (
+          <article class="card glass flex min-h-[260px] flex-col justify-end gap-3.5 rounded-2xl p-8" data-tilt="3">
+            <h3 class="h-card">{r.h}</h3>
+            <p class="body">{r.p}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
   <!-- WHAT WE DO -->
   <section class="section rule-top" aria-labelledby="what-we-do-heading">
-    <div class="wrap flex flex-wrap gap-14">
+    <div class="wrap flex flex-wrap gap-12">
       <div class="flex flex-[1_1_300px] flex-col gap-5" data-reveal>
-        <p class="lbl">What we do</p>
-        <h2 id="what-we-do-heading" class="h-section">Inspect every <em class="accent">touchpoint.</em></h2>
+        <h2 id="what-we-do-heading" class="h-section">What we do</h2>
         <a href="/services/" class="btn-ghost btn-sm mt-2 self-start">All services <span class="arrow" aria-hidden="true">→</span></a>
       </div>
       <ol class="flex min-w-0 flex-[999_1_560px] flex-col" data-reveal-stagger>
         {whatWeDo.map((s, i) => (
-          <li class="border-t border-white/10 last:border-b">
+          <li class="border-t border-ink/10 last:border-b">
             <a href={`/services/#${s.id}`} class="group flex items-center gap-6 py-6 no-underline">
-              <span class="num w-12 text-[28px] text-taupe-light" style="letter-spacing:-0.02em">0{i + 1}</span>
-              <span class="flex-1 font-serif text-[clamp(22px,2.2vw,30px)] leading-tight text-ivory transition-colors duration-500 group-hover:text-amber-light">{s.title}</span>
-              <span class="arrow text-amber-light transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true">→</span>
+              <span class="num w-10 text-[24px] text-accent">0{i + 1}</span>
+              <span class="flex-1 font-serif text-[clamp(22px,2vw,28px)] leading-tight text-ink group-hover:underline group-hover:decoration-1 group-hover:underline-offset-4">{s.title}</span>
+              <span class="arrow text-ink transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true">→</span>
             </a>
           </li>
         ))}
@@ -163,26 +139,16 @@ const steps = [
   </section>
 
   <!-- HOW WE WORK -->
-  <section class="pb-[clamp(80px,11vw,150px)]" aria-labelledby="how-heading">
+  <section class="pb-[clamp(72px,9vw,128px)]" aria-labelledby="how-heading">
     <div class="wrap">
-      <div class="mb-14 flex flex-wrap items-end justify-between gap-6" data-reveal>
-        <div>
-          <p class="lbl mb-4">How we work</p>
-          <h2 id="how-heading" class="h-section">Four calm steps.</h2>
-        </div>
-        <span class="inline-flex items-center gap-2 text-[13px] text-slate"><span class="dot dot-mint anim-blink" style="width:7px;height:7px" aria-hidden="true"></span>Running monthly</span>
+      <div class="mb-12" data-reveal>
+        <h2 id="how-heading" class="h-section">How we work</h2>
       </div>
-      <div class="relative mb-9 h-px overflow-hidden bg-white/20" aria-hidden="true">
-        <span class="anim-travel absolute -top-px left-0 h-[3px] w-[12%]" style="background: linear-gradient(90deg, transparent, #F1CF95, transparent); box-shadow: 0 0 18px #E9B872;"></span>
-      </div>
-      <ol class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
+      <ol class="swipe-row grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
         {steps.map((s, i) => (
-          <li class="glass flex flex-col gap-3.5 rounded-[22px] p-7">
-            <span class="flex items-center justify-between">
-              <span class="lbl">Step 0{i + 1}</span>
-              <span class={`dot ${i === 0 ? "dot-amber" : ""}`} style={i === 0 ? "" : "border:1px solid #F1CF95"} aria-hidden="true"></span>
-            </span>
-            <h3 class="mt-3 font-serif text-[32px]">{s.name}</h3>
+          <li class="flex flex-col gap-3 border-t border-ink pt-6" data-rule>
+            <span class="idx">0{i + 1}</span>
+            <h3 class="font-serif text-[28px]">{s.name}</h3>
             <p class="body">{s.copy}</p>
           </li>
         ))}
@@ -192,17 +158,12 @@ const steps = [
 
   <FreeCheckBand />
 
-  <FAQAccordion heading="Straight answers." lead="Short, direct answers in the format AI assistants quote." />
+  <FAQAccordion />
 
   <!-- CLOSING LINE -->
-  <section aria-label="Closing" class="relative overflow-hidden border-t border-white/10">
-    <div class="anim-pulse pointer-events-none absolute left-1/2 top-1/2 -ml-[280px] -mt-[280px] h-[560px] w-[560px] rounded-full opacity-80" style="background: radial-gradient(circle, #FFE9BF 0%, #E9B872 18%, rgba(217,147,47,.4) 38%, transparent 66%); filter: blur(40px);" aria-hidden="true"></div>
-    <svg class="anim-spin-slow pointer-events-none absolute left-1/2 top-1/2 -ml-[450px] -mt-[450px] h-[900px] w-[900px] max-w-none" viewBox="0 0 900 900" aria-hidden="true">
-      <g fill="none" stroke="rgba(246,242,234,.12)"><circle cx="450" cy="450" r="440" stroke-dasharray="1 8"></circle><circle cx="450" cy="450" r="340"></circle><circle cx="450" cy="450" r="240" stroke-dasharray="2 10"></circle></g>
-      <circle cx="450" cy="10" r="5" fill="#F1CF95"></circle>
-    </svg>
-    <div class="wrap relative flex flex-col items-center gap-11 py-[clamp(120px,16vw,220px)] text-center" data-reveal>
-      <p class="font-serif text-[clamp(56px,10vw,150px)] leading-[0.92] tracking-[-0.04em]" style="text-shadow: 0 0 60px rgba(10,17,22,.6)">Less noise.<br /><em>More trust.</em></p>
+  <section aria-label="Closing" class="rule-top">
+    <div class="wrap flex flex-col items-center gap-10 py-[clamp(96px,12vw,168px)] text-center" data-reveal>
+      <p class="font-serif text-[clamp(44px,6vw,80px)] leading-[1.1]">Less noise.<br />More trust.</p>
       <a href="/free-nmc-check/" class="btn-primary">Get my free check <span class="arrow" aria-hidden="true">→</span></a>
     </div>
   </section>

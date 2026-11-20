@@ -23,16 +23,16 @@ const breadcrumbSchema = getBreadcrumbSchema(SITE_CONFIG.placeholders.siteUrl, [
     eyebrow="Data notice & digital privacy"
     lead="Governed under the principles of the Digital Personal Data Protection (DPDP) Act 2023 of India."
   >
-    Privacy Policy &amp; <em class="accent-grad">Data Notice</em>
+    Privacy Policy &amp; Data Notice
   </PageHero>
 
   <!-- Legal Notice & Content -->
   <section class="pb-[clamp(80px,11vw,150px)]">
-    <div class="glass mx-4 max-w-3xl space-y-10 rounded-[32px] p-[clamp(24px,5vw,56px)] font-sans text-mist sm:mx-auto" data-reveal-stagger>
+    <div class="glass mx-4 max-w-3xl space-y-10 rounded-[32px] p-[clamp(24px,5vw,56px)] font-sans text-body sm:mx-auto" data-reveal-stagger>
       
       <!-- Prominent Legal Disclaimer -->
-      <div class="alert space-y-1 rounded-2xl p-5 text-xs text-amber-pale">
-        <p class="font-bold uppercase tracking-wider text-amber-light">Notice: General Information, Not Legal Advice</p>
+      <div class="alert space-y-1 rounded-2xl p-5 text-xs text-body">
+        <p class="font-bold text-accent-ink">Notice: General Information, Not Legal Advice</p>
         <p>
           This data protection notice describes our operational practices. It has been prepared for operational transparency and is pending formal legal review by Dr Mrugesh and appointed legal counsel.
         </p>
@@ -40,13 +40,13 @@ const breadcrumbSchema = getBreadcrumbSchema(SITE_CONFIG.placeholders.siteUrl, [
 
       <!-- Section 1: Who We Are -->
       <div class="space-y-3">
-        <h2 class="font-serif text-[clamp(26px,2.6vw,32px)] text-ivory">
+        <h2 class="font-serif text-[clamp(26px,2.6vw,32px)] text-ink">
           1. Data Fiduciary Identity
         </h2>
-        <p class="text-base leading-relaxed text-mist">
+        <p class="text-base leading-relaxed text-body">
           {SITE_CONFIG.name} ("we", "us", "our") acts as the Data Fiduciary for personal data submitted through this website. Our registered physical address is:
         </p>
-        <p class="rounded-2xl border border-white/10 bg-white/[0.03] p-4 font-mono text-xs text-sand">
+        <p class="rounded-2xl border border-ink/10 bg-ink/[0.03] p-4 font-mono text-xs text-body">
           {SITE_CONFIG.name}<br />
           {SITE_CONFIG.address.streetAddress},<br />
           {SITE_CONFIG.address.addressLocality}, {SITE_CONFIG.address.addressRegion} {SITE_CONFIG.address.postalCode}
@@ -55,72 +55,72 @@ const breadcrumbSchema = getBreadcrumbSchema(SITE_CONFIG.placeholders.siteUrl, [
 
       <!-- Section 2: What We Collect -->
       <div class="space-y-3">
-        <h2 class="font-serif text-[clamp(26px,2.6vw,32px)] text-ivory">
+        <h2 class="font-serif text-[clamp(26px,2.6vw,32px)] text-ink">
           2. Personal Data We Collect
         </h2>
-        <p class="text-base leading-relaxed text-mist">
+        <p class="text-base leading-relaxed text-body">
           When you request a complimentary NMC review via our free check form, we collect only the necessary information required to inspect your public profiles:
         </p>
-        <ul class="list-disc space-y-2 pl-5 text-base text-mist marker:text-amber">
-          <li><strong class="text-ivory">Contact Information:</strong> Your full name, city, and 10-digit WhatsApp phone number.</li>
-          <li><strong class="text-ivory">Practice Details:</strong> Organisation or clinic name, entity type (Doctor, Clinic, Hospital, Diagnostics, Other).</li>
-          <li><strong class="text-ivory">Digital Presences:</strong> Public Instagram handle and optional website URL.</li>
-          <li><strong class="text-ivory">Technical Metadata:</strong> Timestamp of form submission and IP address (used solely for rate limiting and spam protection).</li>
+        <ul class="list-disc space-y-2 pl-5 text-base text-body marker:text-accent">
+          <li><strong class="text-ink">Contact Information:</strong> Your full name, city, and 10-digit WhatsApp phone number.</li>
+          <li><strong class="text-ink">Practice Details:</strong> Organisation or clinic name, entity type (Doctor, Clinic, Hospital, Diagnostics, Other).</li>
+          <li><strong class="text-ink">Digital Presences:</strong> Public Instagram handle and optional website URL.</li>
+          <li><strong class="text-ink">Technical Metadata:</strong> Timestamp of form submission and IP address (used solely for rate limiting and spam protection).</li>
         </ul>
       </div>
 
       <!-- Section 3: Purpose of Processing -->
       <div class="space-y-3">
-        <h2 class="font-serif text-[clamp(26px,2.6vw,32px)] text-ivory">
+        <h2 class="font-serif text-[clamp(26px,2.6vw,32px)] text-ink">
           3. Specified Purpose of Processing
         </h2>
-        <p class="text-base leading-relaxed text-mist">
+        <p class="text-base leading-relaxed text-body">
           Your personal data is collected and processed exclusively for the purpose of conducting a 15-point review of your public clinic communication against the National Medical Commission (NMC) guidelines of 6 October 2026, and delivering that one-page review to you on WhatsApp or email within 48 hours.
         </p>
-        <p class="text-base leading-relaxed text-mist">
+        <p class="text-base leading-relaxed text-body">
           We strictly do not sell, rent, or lease your contact information, nor do we enroll you in unsolicited sales campaigns.
         </p>
       </div>
 
       <!-- Section 4: Processors & Delivery -->
       <div class="space-y-3">
-        <h2 class="font-serif text-[clamp(26px,2.6vw,32px)] text-ivory">
+        <h2 class="font-serif text-[clamp(26px,2.6vw,32px)] text-ink">
           4. Sub-Processors &amp; Infrastructure
         </h2>
-        <p class="text-base leading-relaxed text-mist">
+        <p class="text-base leading-relaxed text-body">
           We do not store your form submission in a public database. Submissions are transmitted directly to our internal operational inbox using transactional email infrastructure:
         </p>
-        <ul class="list-disc space-y-2 pl-5 text-base text-mist marker:text-amber">
-          <li><strong class="text-ivory">Email Processor:</strong> Resend / Transactional dispatch infrastructure with TLS encryption in transit.</li>
-          <li><strong class="text-ivory">Edge Security:</strong> Cloudflare (for DDoS protection, SSL termination, and Turnstile bot detection).</li>
+        <ul class="list-disc space-y-2 pl-5 text-base text-body marker:text-accent">
+          <li><strong class="text-ink">Email Processor:</strong> Resend / Transactional dispatch infrastructure with TLS encryption in transit.</li>
+          <li><strong class="text-ink">Edge Security:</strong> Cloudflare (for DDoS protection, SSL termination, and Turnstile bot detection).</li>
         </ul>
       </div>
 
       <!-- Section 5: Data Retention -->
       <div class="space-y-3">
-        <h2 class="font-serif text-[clamp(26px,2.6vw,32px)] text-ivory">
+        <h2 class="font-serif text-[clamp(26px,2.6vw,32px)] text-ink">
           5. Data Retention Period
         </h2>
-        <p class="text-base leading-relaxed text-mist">
-          We retain inquiry communications for a proposed duration of <strong class="text-ivory">12 months</strong> following delivery of your check, solely for operational reference and follow-up consultation, after which records are deleted.
+        <p class="text-base leading-relaxed text-body">
+          We retain inquiry communications for a proposed duration of <strong class="text-ink">12 months</strong> following delivery of your check, solely for operational reference and follow-up consultation, after which records are deleted.
         </p>
       </div>
 
       <!-- Section 6: Data Principal Rights -->
       <div class="space-y-3">
-        <h2 class="font-serif text-[clamp(26px,2.6vw,32px)] text-ivory">
+        <h2 class="font-serif text-[clamp(26px,2.6vw,32px)] text-ink">
           6. Your Rights Under DPDP Act 2023
         </h2>
-        <p class="text-base leading-relaxed text-mist">
+        <p class="text-base leading-relaxed text-body">
           As a Data Principal in India, you hold statutory rights regarding your personal data:
         </p>
-        <ul class="list-disc space-y-2 pl-5 text-base text-mist marker:text-amber">
-          <li><strong class="text-ivory">Right to Access:</strong> Request a summary of the personal data we hold about you.</li>
-          <li><strong class="text-ivory">Right to Correction &amp; Erasure:</strong> Request the correction of inaccurate data or complete deletion of your records.</li>
-          <li><strong class="text-ivory">Right to Withdraw Consent:</strong> Withdraw your consent to communications at any time.</li>
+        <ul class="list-disc space-y-2 pl-5 text-base text-body marker:text-accent">
+          <li><strong class="text-ink">Right to Access:</strong> Request a summary of the personal data we hold about you.</li>
+          <li><strong class="text-ink">Right to Correction &amp; Erasure:</strong> Request the correction of inaccurate data or complete deletion of your records.</li>
+          <li><strong class="text-ink">Right to Withdraw Consent:</strong> Withdraw your consent to communications at any time.</li>
         </ul>
-        <p class="pt-2 text-base leading-relaxed text-mist">
-          To exercise any of these rights, email us directly at <a href={`mailto:${SITE_CONFIG.placeholders.businessEmail}`} class="link-u font-bold text-amber-light">{SITE_CONFIG.placeholders.businessEmail}</a> with the subject line <em>"Data Erasure Request"</em>. We will process your request within 7 business days.
+        <p class="pt-2 text-base leading-relaxed text-body">
+          To exercise any of these rights, email us directly at <a href={`mailto:${SITE_CONFIG.placeholders.businessEmail}`} class="link-u font-bold text-accent-ink">{SITE_CONFIG.placeholders.businessEmail}</a> with the subject line <em>"Data Erasure Request"</em>. We will process your request within 7 business days.
         </p>
       </div>
 

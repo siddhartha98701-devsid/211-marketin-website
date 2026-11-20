@@ -1,12 +1,39 @@
 ---
+/**
+ * 211 Marketing logo. Only the three approved lockups (Brand Guidelines p. 04)
+ * are used, never rearranged or recoloured beyond the approved colourways:
+ *   - "lockup"   primary lockup (symbol above wordmark)  min 180 px wide
+ *   - "symbol"   symbol only                              min 32 px wide
+ *   - "wordmark" wordmark only, for low-height horizontal spaces
+ * Colourways: Ink Navy on Warm Ivory/white ("navy"), Warm Ivory on Ink Navy ("ivory").
+ *
+ * NOTE: the SVGs in /public/assets are traced from the supplied logo artwork.
+ * Replace them with the approved master files from the brand team when available.
+ */
 export interface Props {
-  size?: "sm" | "md";
+  variant?: "lockup" | "symbol" | "wordmark";
+  tone?: "navy" | "ivory";
+  width?: number;
+  class?: string;
 }
-const { size = "md" } = Astro.props;
-const badge = size === "sm" ? "w-8 h-8 text-[14px]" : "w-9 h-9 text-[15px]";
+const { variant = "wordmark", tone = "navy", width, class: cls = "" } = Astro.props;
+
+const files = {
+  lockup:   { navy: "/assets/211-marketing-logo.svg", ivory: "/assets/211-marketing-logo-ivory.svg", ratio: 931 / 594, min: 180, def: 200 },
+  symbol:   { navy: "/assets/211-logo-mark.svg",      ivory: "/assets/211-logo-mark-ivory.svg",      ratio: 536 / 430, min: 32,  def: 40 },
+  wordmark: { navy: "/assets/211-wordmark.svg",       ivory: "/assets/211-wordmark-ivory.svg",       ratio: 887 / 69,  min: 150, def: 184 }
+}[variant];
+
+const w = Math.max(width ?? files.def, files.min);
+const h = Math.round(w / files.ratio);
 ---
 
-<span class="inline-flex items-center gap-2.5">
-  <span class={`${badge} rounded-full bg-ivory text-ink inline-flex items-center justify-center font-serif tracking-tight`}>211</span>
-  <span class="text-[11px] font-bold tracking-[0.26em] text-ivory">MARKETING</span>
-</span>
+<img
+  src={files[tone]}
+  alt="211 Marketing"
+  width={w}
+  height={h}
+  class={`block h-auto max-w-none flex-none ${cls}`}
+  style={`width:${w}px`}
+  decoding="async"
+/>

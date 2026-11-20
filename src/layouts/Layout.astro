@@ -12,9 +12,10 @@ export interface Props {
   canonicalPath?: string;
   ogImage?: string;
   schemas?: Record<string, any>[];
+  noindex?: boolean;
 }
 
-const { title, description, canonicalPath, ogImage, schemas } = Astro.props;
+const { title, description, canonicalPath, ogImage, schemas, noindex } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -26,9 +27,10 @@ const { title, description, canonicalPath, ogImage, schemas } = Astro.props;
       canonicalPath={canonicalPath}
       ogImage={ogImage}
       schemas={schemas}
+      noindex={noindex}
     />
   </head>
-  <body class="min-h-screen flex flex-col bg-ink font-sans text-ivory">
+  <body class="min-h-screen flex flex-col bg-paper font-sans text-ink">
     <div class="grid-bg" aria-hidden="true"></div>
 
     <a href="#main-content" class="skip-link">Skip to main content</a>

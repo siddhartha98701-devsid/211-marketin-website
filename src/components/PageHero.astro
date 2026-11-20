@@ -1,7 +1,7 @@
 ---
 /**
- * Inner-page hero: eyebrow, H1 (slot), optional lead, with a small glowing
- * instrument (heart + ECG trace) and concentric rings behind.
+ * Inner-page hero: an Ink Navy hero block (Brand Guidelines p. 11) with one
+ * clear message. No decorative motifs or looping motion.
  */
 export interface Props {
   eyebrow: string;
@@ -9,34 +9,17 @@ export interface Props {
   id: string;
   align?: "center" | "left";
 }
-const { eyebrow, lead, id, align = "center" } = Astro.props;
+const { eyebrow, lead, id, align = "left" } = Astro.props;
 const isCenter = align === "center";
-const ecg = "M0 60 H120 L134 60 L144 44 L154 60 L166 60 L178 8 L192 112 L206 30 L216 60 L232 60 L246 48 L260 60 H400";
 ---
 
-<section class="relative overflow-hidden pb-16 pt-16 sm:pb-24 sm:pt-24" aria-labelledby={id}>
-  <svg class="anim-spin-slow pointer-events-none absolute left-1/2 top-1/2 -ml-[450px] -mt-[450px] h-[900px] w-[900px] max-w-none opacity-80" viewBox="0 0 900 900" aria-hidden="true">
-    <g fill="none" stroke="rgba(246,242,234,.08)">
-      <circle cx="450" cy="450" r="440" stroke-dasharray="1 8"></circle>
-      <circle cx="450" cy="450" r="330"></circle>
-      <circle cx="450" cy="450" r="230" stroke-dasharray="2 10"></circle>
-    </g>
-    <circle cx="450" cy="10" r="4" fill="#F1CF95"></circle>
-  </svg>
-  <div class="anim-pulse pointer-events-none absolute left-1/2 top-1/2 -ml-[260px] -mt-[260px] h-[520px] w-[520px] rounded-full" style="background: radial-gradient(circle, rgba(233,184,114,.22), rgba(127,167,191,.08) 45%, transparent 65%); filter: blur(30px);" aria-hidden="true"></div>
-
-  <div class={`wrap relative flex flex-col gap-6 ${isCenter ? "items-center text-center" : "items-start"}`}>
-    <p class="lbl anim-rise">{eyebrow}</p>
-    <h1 id={id} class={`display anim-rise delay-1 max-w-[980px]`}>
+<section class="theme-navy" aria-labelledby={id}>
+  <div data-intro class={`wrap flex flex-col gap-6 pb-[clamp(56px,8vw,104px)] pt-[clamp(48px,7vw,96px)] ${isCenter ? "items-center text-center" : "items-start"}`}>
+    <p class="eyebrow">{eyebrow}</p>
+    <h1 id={id} class="display max-w-[860px]" data-split>
       <slot />
     </h1>
-    {lead && <p class={`lead anim-rise delay-2 max-w-[640px]`}>{lead}</p>}
+    {lead && <p class="lead max-w-[640px]">{lead}</p>}
     <slot name="after" />
-    <svg class="mt-4 w-[min(400px,80vw)]" viewBox="0 0 400 120" aria-hidden="true">
-      <path class="anim-ecg" d={ecg} fill="none" stroke="#F1CF95" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 6px rgba(233,184,114,.9))"></path>
-      <circle r="3.5" fill="#FFF3DA" style="filter: drop-shadow(0 0 8px #E9B872)">
-        <animateMotion dur="3s" repeatCount="indefinite" path={ecg}></animateMotion>
-      </circle>
-    </svg>
   </div>
 </section>
