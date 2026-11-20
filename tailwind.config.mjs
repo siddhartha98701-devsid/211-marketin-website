@@ -56,7 +56,7 @@ export default {
         }
       },
       fontFamily: {
-        serif: ['"EB Garamond"', 'Garamond', 'Georgia', 'serif'],
+        serif: ['"Instrument Sans Variable"', '"Instrument Sans"', '-apple-system', '"Segoe UI"', 'Roboto', 'sans-serif'],
         sans: ['Lato', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif']
       },
       screens: {

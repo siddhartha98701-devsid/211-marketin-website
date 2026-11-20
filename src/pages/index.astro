@@ -43,9 +43,9 @@ const steps = [
   <!-- HERO: Ink Navy hero block, one message, one visual focus -->
   <section class="theme-navy" aria-labelledby="home-h1">
     <div class="wrap grid items-center gap-[clamp(32px,5vw,72px)] pb-[clamp(56px,8vw,112px)] pt-[clamp(40px,6vw,88px)] lg:grid-cols-12" data-hero-3d>
-      <div class="flex flex-col gap-7 lg:col-span-6">
+      <div class="flex flex-col gap-7 lg:col-span-6" data-intro>
         <p class="eyebrow">Doctor-founded · NMC-aware · Ahmedabad</p>
-        <h1 id="home-h1" class="display">
+        <h1 id="home-h1" class="display" data-split>
           Healthcare marketing, held to a clinical standard.
         </h1>
         <p class="lead max-w-[520px]">
@@ -59,7 +59,7 @@ const steps = [
           New NMC advertising guidelines took effect on 6 October 2026. See what changed →
         </a>
       </div>
-      <figure class="overflow-hidden rounded-2xl lg:col-span-6" data-parallax>
+      <figure class="overflow-hidden rounded-2xl lg:col-span-6" data-parallax data-intro-img>
         <img
           src="/assets/hero-clinical-editorial.webp"
           alt="Calm, naturally lit consultation room with a wooden desk, stethoscope and navy chairs beside a garden window"
@@ -75,7 +75,7 @@ const steps = [
 
   <!-- Who we work with -->
   <section aria-label="Who we work with" class="border-b border-ink/10">
-    <ul class="wrap flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-7 font-serif text-[clamp(18px,1.6vw,22px)] italic text-body">
+    <ul class="wrap flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-7 font-serif tracking-[-0.015em] text-[clamp(18px,1.6vw,22px)] text-body">
       {whoWeServe.map((item) => <li>{item}</li>)}
     </ul>
   </section>

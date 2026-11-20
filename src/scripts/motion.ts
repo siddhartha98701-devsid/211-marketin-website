@@ -294,7 +294,81 @@ function initDepthAndStack(): void {
   update();
 }
 
+/* ---------- Loading animations ---------- */
+function initSplitHeadlines(): void {
+  if (prefersReduced()) return;
+  document.querySelectorAll<HTMLElement>("[data-split]").forEach((h) => {
+    if (h.classList.contains("is-split")) return;
+    // only split plain-text headlines; keep any inline markup untouched
+    if (h.children.length > 0) return;
+    const words = (h.textContent ?? "").trim().split(/\s+/);
+    if (!words.length) return;
+    h.setAttribute("aria-label", words.join(" "));
+    h.textContent = "";
+    words.forEach((word, i) => {
+      const outer = document.createElement("span");
+      outer.className = "w";
+      outer.setAttribute("aria-hidden", "true");
+      const inner = document.createElement("span");
+      inner.style.setProperty("--i", String(i));
+      inner.textContent = word;
+      outer.appendChild(inner);
+      h.appendChild(outer);
+      if (i < words.length - 1) h.appendChild(document.createTextNode(" "));
+    });
+    h.classList.add("is-split");
+  });
+}
+
+function initLoadBar(): void {
+  if (prefersReduced()) return;
+  const bar = document.createElement("div");
+  bar.id = "load-bar";
+  bar.setAttribute("aria-hidden", "true");
+  document.body.appendChild(bar);
+  const start = () => { bar.classList.remove("is-done"); void bar.offsetWidth; bar.classList.add("is-going"); };
+  const done = () => { bar.classList.remove("is-going"); bar.classList.add("is-done"); };
+  // initial page load
+  start();
+  if (document.readyState === "complete") requestAnimationFrame(done);
+  else window.addEventListener("load", done, { once: true });
+  // leaving for another page on this site
+  document.addEventListener("click", (e) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = (e.target as HTMLElement).closest("a");
+    if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
+    const url = new URL(a.href, location.href);
+    if (url.origin !== location.origin) return;
+    if (url.pathname === location.pathname && url.search === location.search) return; // same-page / hash
+    start();
+  });
+  // back/forward cache restores
+  window.addEventListener("pageshow", (e) => { if ((e as PageTransitionEvent).persisted) done(); });
+}
+
+function initMediaLoading(): void {
+  if (prefersReduced()) return;
+  const media = document.querySelectorAll<HTMLImageElement | HTMLIFrameElement>("main img, main iframe, footer iframe");
+  media.forEach((el) => {
+    if (el instanceof HTMLImageElement && el.complete && el.naturalWidth > 0) return;
+    if (el.closest("[data-intro-img]")) return; // hero image has its own unveil
+    const holder = el.parentElement;
+    el.classList.add("img-pending", "img-fade");
+    holder?.classList.add("is-loading-media");
+    const finish = () => {
+      el.classList.remove("img-pending");
+      holder?.classList.remove("is-loading-media");
+    };
+    el.addEventListener("load", finish, { once: true });
+    el.addEventListener("error", finish, { once: true });
+    window.setTimeout(finish, 8000); // never leave anything hidden
+  });
+}
+
 function init(): void {
+  initSplitHeadlines();
+  initLoadBar();
+  initMediaLoading();
   initReveal();
   initCountUp();
   initSwipeRows();

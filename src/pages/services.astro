@@ -28,7 +28,7 @@ const total = String(SERVICES_DATA.length).padStart(2, "0");
 <Layout title={title} description={description} canonicalPath="/services/" schemas={[servicesSchema, breadcrumbSchema]}>
   <PageHero id="services-h1" eyebrow="What we do · Six services">
     Healthcare marketing services.
-    <nav slot="after" class="swipe-row swipe-chips flex max-w-[860px] flex-wrap justify-center gap-1.5 pt-2" aria-label="Jump to a service">
+    <nav slot="after" class="swipe-row swipe-chips flex max-w-[860px] flex-wrap justify-start gap-1.5 pt-2" aria-label="Jump to a service">
       {SERVICES_DATA.map((s) => <a href={`#${s.id}`} class="chip no-underline">{s.title}</a>)}
     </nav>
   </PageHero>
@@ -68,7 +68,7 @@ const total = String(SERVICES_DATA.length).padStart(2, "0");
       })}
       </div>
 
-      <p class="pt-10 text-center font-serif text-[clamp(24px,2.6vw,34px)] italic text-body" data-reveal>{SERVICES_CLOSING_LINE}</p>
+      <p class="pt-10 text-center font-serif tracking-[-0.015em] text-[clamp(24px,2.6vw,34px)] text-body" data-reveal>{SERVICES_CLOSING_LINE}</p>
     </div>
   </section>
 

@@ -1,6 +1,4 @@
-@import "@fontsource/eb-garamond/400.css";
-@import "@fontsource/eb-garamond/400-italic.css";
-@import "@fontsource/eb-garamond/500.css";
+@import "@fontsource-variable/instrument-sans/wght.css";
 @import "@fontsource/lato/400.css";
 @import "@fontsource/lato/700.css";
 
@@ -17,7 +15,8 @@
    - Approved colours only: Ink Navy #263947, Warm Ivory #F6F2EA,
      Soft Stone #D8D1C6, Quiet Taupe #9A8A72; text tints Graphite #3F454B
      and Deep Taupe #746753.
-   - EB Garamond Regular for headings, Lato for everything else.
+   - Instrument Sans (modern grotesk) for headings and figures, Lato for
+     body text. Headings switched from EB Garamond at the client's request.
    - Thin rules, quiet contrast and subtle blocks. Motion slow and minimal.
    ========================================================================== */
 :root {
@@ -72,9 +71,9 @@ body { background-color: rgb(var(--c-paper)); overflow-x: hidden; }
 .skip-link:focus { top: 1rem; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'EB Garamond', Georgia, serif;
-  font-weight: 400;
-  letter-spacing: 0;
+  font-family: 'Instrument Sans Variable', 'Instrument Sans', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   color: rgb(var(--c-ink));
   /* proper typesetting: kerning, standard + contextual ligatures, balanced lines */
   font-kerning: normal;
@@ -104,14 +103,14 @@ body { font-feature-settings: "kern" 1, "liga" 1; font-size: 16px; line-height: 
   /* Small index numbers (01, 02...) */
   .idx { font-size: 14px; font-weight: 700; color: rgb(var(--c-meta)); font-variant-numeric: lining-nums tabular-nums; }
   .meta { font-size: 12px; color: rgb(var(--c-meta)); }
-  .display { font-family: 'EB Garamond', Georgia, serif; font-weight: 400; font-size: clamp(40px, 5.4vw, 70px); line-height: 1.06; letter-spacing: 0; }
-  .h-section { font-family: 'EB Garamond', Georgia, serif; font-weight: 400; font-size: clamp(32px, 3.4vw, 46px); line-height: 1.12; letter-spacing: 0; }
-  .h-card { font-family: 'EB Garamond', Georgia, serif; font-weight: 400; font-size: clamp(24px, 2.1vw, 28px); line-height: 1.22; }
+  .display { font-family: 'Instrument Sans Variable', 'Instrument Sans', -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 500; font-size: clamp(38px, 5vw, 66px); line-height: 1.04; letter-spacing: -0.03em; }
+  .h-section { font-family: 'Instrument Sans Variable', 'Instrument Sans', -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 500; font-size: clamp(30px, 3.2vw, 44px); line-height: 1.1; letter-spacing: -0.022em; }
+  .h-card { font-family: 'Instrument Sans Variable', 'Instrument Sans', -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 500; font-size: clamp(20px, 1.8vw, 24px); line-height: 1.25; letter-spacing: -0.012em; }
   .lead { font-size: clamp(18px, 1.35vw, 20px); line-height: 1.6; color: rgb(var(--c-body)); max-width: 62ch; }
   .body { font-size: 16px; line-height: 1.65; color: rgb(var(--c-body)); }
   .accent { color: rgb(var(--c-ink)); }
   .accent-grad { font-style: normal; }
-  .num { font-family: 'EB Garamond', Georgia, serif; font-weight: 400; letter-spacing: 0; line-height: 1; font-variant-numeric: lining-nums proportional-nums; }
+  .num { font-family: 'Instrument Sans Variable', 'Instrument Sans', -apple-system, 'Segoe UI', Roboto, sans-serif; font-weight: 500; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: lining-nums tabular-nums; }
 
   /* Surfaces: subtle blocks with thin rules */
   .glass { background: rgb(var(--c-paper-2)); border: 1px solid rgb(var(--c-line) / 0.12); }
@@ -409,4 +408,66 @@ html.js [data-depth] {
 @media (prefers-reduced-motion: reduce) {
   [data-tilt], [data-hero-3d] > [data-parallax], html.js [data-depth], [data-stack] > article { transform: none !important; box-shadow: none !important; }
   [data-stack] > article::after { display: none; }
+}
+
+/* ==========================================================================
+   LOADING ANIMATIONS
+   Page-load intro for heroes (word-by-word headline, staged text, image
+   unveil), a thin top loading bar on load and between pages, and soft
+   fade-ins for images and the map while they load. CSS keyframes with
+   fill-mode "both", so nothing stays hidden if a script fails. All off
+   for prefers-reduced-motion.
+   ========================================================================== */
+@keyframes intro-rise { from { opacity: 0; translate: 0 18px; } to { opacity: 1; translate: 0 0; } }
+@keyframes intro-word { from { translate: 0 105%; } to { translate: 0 0; } }
+@keyframes intro-unveil { from { clip-path: inset(100% 0 0 0 round 16px); } to { clip-path: inset(0 0 0 0 round 16px); } }
+@keyframes intro-settle { from { scale: 1.12; } to { scale: 1; } }
+@keyframes header-in { from { opacity: 0; translate: 0 -12px; } to { opacity: 1; translate: 0 0; } }
+@keyframes shimmer { from { background-position: 150% 0; } to { background-position: -50% 0; } }
+
+html.js .site-header > * { animation: header-in 700ms cubic-bezier(.2,.7,.2,1) both; }
+
+html.js [data-intro] > * {
+  animation: intro-rise 900ms cubic-bezier(.2,.7,.2,1) both;
+  animation-delay: calc(120ms + var(--n, 0) * 110ms);
+}
+html.js [data-intro] > :nth-child(1) { --n: 0; }
+html.js [data-intro] > :nth-child(2) { --n: 1; }
+html.js [data-intro] > :nth-child(3) { --n: 4; }
+html.js [data-intro] > :nth-child(4) { --n: 5; }
+html.js [data-intro] > :nth-child(5) { --n: 6; }
+html.js [data-intro] > :nth-child(n+6) { --n: 7; }
+/* split headline: the h1 itself stays put, its words rise out of a mask */
+html.js [data-intro] > [data-split].is-split { animation: none; }
+[data-split] .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+[data-split] .w > span { display: inline-block; animation: intro-word 950ms cubic-bezier(.2,.75,.15,1) both; animation-delay: calc(220ms + var(--i) * 55ms); }
+
+html.js [data-intro-img] { animation: intro-unveil 1300ms cubic-bezier(.7,0,.2,1) 250ms both; }
+html.js [data-intro-img] img { animation: intro-settle 1900ms cubic-bezier(.2,.7,.2,1) 250ms both; }
+
+/* top loading bar */
+#load-bar {
+  position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 100; pointer-events: none;
+  background: rgb(var(--c-stone, 216 209 198)); transform-origin: 0 50%;
+  transform: scaleX(0); opacity: 1;
+  transition: transform 900ms cubic-bezier(.2,.7,.2,1), opacity 400ms ease 200ms;
+}
+#load-bar.is-going { transform: scaleX(0.72); transition: transform 6s cubic-bezier(.1,.6,.1,1); }
+#load-bar.is-done { transform: scaleX(1); opacity: 0; }
+
+/* images and map: quiet stone shimmer, then fade in */
+.is-loading-media {
+  background: linear-gradient(100deg, rgb(216 209 198 / .35) 30%, rgb(246 242 234 / .65) 50%, rgb(216 209 198 / .35) 70%) 0 0 / 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+img.img-pending { opacity: 0; }
+img.img-fade { transition: opacity 700ms ease, filter 700ms ease; }
+iframe.img-pending { opacity: 0; }
+iframe.img-fade { transition: opacity 700ms ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .site-header > *, html.js [data-intro] > *, html.js [data-intro-img], html.js [data-intro-img] img,
+  [data-split] .w > span, .is-loading-media { animation: none !important; }
+  #load-bar { display: none; }
+  img.img-pending, iframe.img-pending { opacity: 1; }
 }

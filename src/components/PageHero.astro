@@ -14,9 +14,9 @@ const isCenter = align === "center";
 ---
 
 <section class="theme-navy" aria-labelledby={id}>
-  <div class={`wrap flex flex-col gap-6 pb-[clamp(56px,8vw,104px)] pt-[clamp(48px,7vw,96px)] ${isCenter ? "items-center text-center" : "items-start"}`}>
+  <div data-intro class={`wrap flex flex-col gap-6 pb-[clamp(56px,8vw,104px)] pt-[clamp(48px,7vw,96px)] ${isCenter ? "items-center text-center" : "items-start"}`}>
     <p class="eyebrow">{eyebrow}</p>
-    <h1 id={id} class="display max-w-[860px]">
+    <h1 id={id} class="display max-w-[860px]" data-split>
       <slot />
     </h1>
     {lead && <p class="lead max-w-[640px]">{lead}</p>}
