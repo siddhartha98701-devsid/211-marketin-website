@@ -22,7 +22,7 @@ const whatWeWontDoItems = [
 
 <Layout title={title} description={description} canonicalPath="/about/" schemas={[breadcrumbSchema]}>
   <PageHero id="about-h1" eyebrow="About 211 · Doctor-founded">
-    A marketing firm with a <em class="accent">doctor's eye.</em>
+    A marketing firm with a doctor's eye.
   </PageHero>
 
   <!-- Founder story -->
@@ -39,7 +39,7 @@ const whatWeWontDoItems = [
       </figure>
 
       <div class="flex min-w-0 flex-[999_1_480px] flex-col gap-8" data-reveal>
-        <p class="lbl">The story</p>
+        <h2 class="h-card">The story</h2>
         <p class="font-serif text-[clamp(24px,2.6vw,34px)] leading-[1.4] text-ink">
           211 Marketing was founded by Dr Mrugesh, MD Anaesthesiology, FPCI, who has been active professionally in Ahmedabad for nine years. Having worked inside healthcare, he saw the same problem again and again: good clinics marketed like shops, or not at all. 211 exists to fix that, with communication that is accurate, useful and quietly premium.
         </p>
@@ -52,8 +52,7 @@ const whatWeWontDoItems = [
     <div class="wrap">
       <div class="mb-10 flex flex-wrap items-end justify-between gap-6" data-reveal>
         <div>
-          <p class="lbl mb-4">The name</p>
-          <h2 id="name-heading" class="h-section">Creativity + Structure = <em class="accent">Growth.</em></h2>
+          <h2 id="name-heading" class="h-section">The name</h2>
         </div>
         <p class="body max-w-[420px]">2 is the sweep of creative thinking; 11 is the structure of disciplined execution. Together: Creativity + Structure = Growth.</p>
       </div>
@@ -65,7 +64,7 @@ const whatWeWontDoItems = [
           <div><p class="num text-[64px]">11</p><p class="body mt-3">The structure of disciplined execution</p></div>
         </div>
         <div class="theme-navy flex min-h-[220px] flex-col justify-between rounded-2xl p-8" data-tilt="3">
-          <span class="text-[12px] font-bold tracking-[0.08em]">TOGETHER</span>
+          <span class="idx">Together</span>
           <div><p class="num text-[64px]">=</p><p class="mt-3 text-[15px] font-bold">Creativity + Structure = Growth</p></div>
         </div>
       </div>
@@ -76,8 +75,7 @@ const whatWeWontDoItems = [
   <section class="section rule-top" aria-label="What we believe and what we won't do">
     <div class="wrap"><div class="swipe-row swipe-lg grid gap-3 lg:grid-cols-2">
       <div class="glass flex flex-col gap-6 rounded-3xl p-[clamp(28px,4vw,48px)]" data-reveal data-tilt="2">
-        <p class="lbl">What we believe</p>
-        <h2 class="sr-only">What we believe</h2>
+        <h2 class="h-card">What we believe</h2>
         <ul class="flex flex-col gap-1">
           {["Healthcare is not ordinary advertising.", "Visibility should never cost credibility.", "Less noise, more intent."].map((b) => (
             <li class="border-t border-ink/10 py-4 font-serif text-[clamp(22px,2.2vw,30px)] italic leading-snug">{b}</li>
@@ -85,8 +83,7 @@ const whatWeWontDoItems = [
         </ul>
       </div>
       <div class="alert flex flex-col gap-6 rounded-3xl p-[clamp(28px,4vw,48px)]" data-reveal data-tilt="2">
-        <p class="inline-flex items-center gap-2.5 text-xs font-bold tracking-[0.08em] text-accent-ink">WHAT WE WON'T DO</p>
-        <h2 class="sr-only">What we won't do</h2>
+        <h2 class="h-card">What we won't do</h2>
         <ul class="flex flex-col">
           {whatWeWontDoItems.map((item) => (
             <li class="flex items-center gap-4 border-t border-accent/20 py-4 text-[17px] text-body">

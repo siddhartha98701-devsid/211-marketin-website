@@ -33,7 +33,7 @@ const notAllowed = [
 
   <article aria-labelledby="nmc-h1">
     <PageHero id="nmc-h1" eyebrow="NMC guidelines · 6 October 2026">
-      NMC advertising guidelines 2026, <em class="accent">explained in plain English</em>
+      NMC advertising guidelines 2026, explained in plain English
       <p slot="after" class="text-sm text-body">
         By {SITE_CONFIG.name} · Last reviewed: {SITE_CONFIG.placeholders.nmcLastReviewedDate} · {NMC_GUIDE_DATA.disclaimer}
       </p>
@@ -42,18 +42,18 @@ const notAllowed = [
     <div class="wrap max-w-[1000px] pb-[clamp(80px,11vw,150px)]">
       <!-- Answer box -->
       <div class="glass mb-6 flex flex-col gap-4 rounded-3xl p-[clamp(24px,4vw,44px)] sm:flex-row sm:gap-6" data-reveal data-depth>
-        <span class="h-fit flex-none self-start rounded-full bg-ink px-3 py-1.5 text-[12px] font-bold tracking-[0.08em] text-paper">IN SHORT</span>
+        <span class="h-fit flex-none self-start rounded-full bg-ink px-3.5 py-1.5 text-[14px] font-bold text-paper">In short</span>
         <p class="font-serif text-[clamp(21px,2.2vw,28px)] leading-[1.45] text-ink">{NMC_GUIDE_DATA.answerBox}</p>
       </div>
 
       <!-- At a glance -->
       <div class="swipe-row swipe-lg mb-20 grid gap-3 md:grid-cols-2" data-reveal-stagger>
         <div class="glass flex flex-col rounded-3xl p-8" data-tilt="2">
-          <span class="mb-4 inline-flex items-center gap-2.5 text-xs font-bold tracking-[0.08em] text-ink">ALLOWED</span>
+          <h2 class="h-card mb-3">Allowed</h2>
           {allowed.map((a) => <p class="border-t border-ink/10 py-3.5 text-[15px] leading-relaxed text-body">{a}</p>)}
         </div>
         <div class="alert flex flex-col rounded-3xl p-8" data-tilt="2">
-          <span class="mb-4 inline-flex items-center gap-2.5 text-xs font-bold tracking-[0.08em] text-accent-ink">NOT ALLOWED</span>
+          <h2 class="h-card mb-3">Not allowed</h2>
           {notAllowed.map((a) => <p class="border-t border-accent/20 py-3.5 text-[15px] leading-relaxed text-body">{a}</p>)}
         </div>
       </div>
